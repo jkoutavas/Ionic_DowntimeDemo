@@ -16,7 +16,7 @@ import { PopoverPage } from '../pages/about-popover/about-popover';
 import { AccountPage } from '../pages/account/account';
 import { LoginPage } from '../pages/login/login';
 import { MapPage } from '../pages/map/map';
-import { SchedulePage } from '../pages/schedule/schedule';
+import { LinesPage } from '../pages/lines/lines';
 import { ScheduleFilterPage } from '../pages/schedule-filter/schedule-filter';
 import { SessionDetailPage } from '../pages/session-detail/session-detail';
 import { SignupPage } from '../pages/signup/signup';
@@ -38,7 +38,7 @@ import { UserData } from '../providers/user-data';
     LoginPage,
     MapPage,
     PopoverPage,
-    SchedulePage,
+    LinesPage,
     ScheduleFilterPage,
     SessionDetailPage,
     SignupPage,
@@ -54,7 +54,7 @@ import { UserData } from '../providers/user-data';
     IonicModule.forRoot(ConferenceApp, {}, {
       links: [
         { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },
-        { component: SchedulePage, name: 'Schedule', segment: 'schedule' },
+        { component: LinesPage, name: 'Schedule', segment: 'schedule' },
         { component: SessionDetailPage, name: 'SessionDetail', segment: 'sessionDetail/:sessionId' },
         { component: ScheduleFilterPage, name: 'ScheduleFilter', segment: 'scheduleFilter' },
         { component: SpeakerListPage, name: 'SpeakerList', segment: 'speakerList' },
@@ -78,7 +78,7 @@ import { UserData } from '../providers/user-data';
     LoginPage,
     MapPage,
     PopoverPage,
-    SchedulePage,
+    LinesPage,
     ScheduleFilterPage,
     SessionDetailPage,
     SignupPage,

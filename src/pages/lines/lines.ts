@@ -17,9 +17,9 @@ import { ScheduleFilterPage } from '../schedule-filter/schedule-filter';
 
 @Component({
   selector: 'page-schedule',
-  templateUrl: 'schedule.html'
+  templateUrl: 'lines.html'
 })
-export class SchedulePage {
+export class LinesPage {
   // the list is a child of the schedule page
   // @ViewChild('scheduleList') gets a reference to the list
   // with the variable #scheduleList, `read: List` tells it to return
@@ -46,11 +46,11 @@ export class SchedulePage {
   ) {}
 
   ionViewDidLoad() {
-    this.app.setTitle('Schedule');
-    this.updateSchedule();
+    this.app.setTitle('Lines');
+    this.updateLines();
   }
 
-  updateSchedule() {
+  updateLines() {
     // Close any open sliding items when the schedule updates
     this.scheduleList && this.scheduleList.closeSlidingItems();
 
@@ -67,7 +67,7 @@ export class SchedulePage {
     modal.onWillDismiss((data: any[]) => {
       if (data) {
         this.excludeTracks = data;
-        this.updateSchedule();
+        this.updateLines();
       }
     });
 
@@ -125,7 +125,7 @@ export class SchedulePage {
           handler: () => {
             // they want to remove this session from their favorites
             this.user.removeFavorite(sessionData.name);
-            this.updateSchedule();
+            this.updateLines();
 
             // close the sliding item and hide the option buttons
             slidingItem.close();

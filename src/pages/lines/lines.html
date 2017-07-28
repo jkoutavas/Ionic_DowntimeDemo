@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
 
-    <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
+    <ion-segment [(ngModel)]="segment" (ionChange)="updateLines()">
       <ion-segment-button value="all">
         All
       </ion-segment-button>
@@ -23,7 +23,7 @@
   <ion-toolbar no-border-top>
     <ion-searchbar color="primary"
                    [(ngModel)]="queryText"
-                   (ionInput)="updateSchedule()"
+                   (ionInput)="updateLines()"
                    placeholder="Search">
     </ion-searchbar>
   </ion-toolbar>

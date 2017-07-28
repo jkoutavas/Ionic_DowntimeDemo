@@ -12,7 +12,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { ConferenceData } from '../../providers/conference-data';
 
 import { SessionDetailPage } from '../session-detail/session-detail';
-import { SpeakerDetailPage } from '../speaker-detail/speaker-detail';
+import { SpeakerDetailPage } from '../factory-detail/factory-detail';
 
 // TODO remove
 export interface ActionSheetButton {
@@ -25,9 +25,9 @@ export interface ActionSheetButton {
 
 @Component({
   selector: 'page-speaker-list',
-  templateUrl: 'speaker-list.html'
+  templateUrl: 'factory-list.html'
 })
-export class SpeakerListPage {
+export class FactoryListPage {
   actionSheet: ActionSheet;
   speakers: any[] = [];
 

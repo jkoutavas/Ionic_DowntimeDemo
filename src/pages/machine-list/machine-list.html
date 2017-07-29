@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Machines</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content machine-list">
+  <ion-list [virtualScroll]="machines">
+    <ion-grid fixed>
+      <ion-row align-items-stretch>
+
+        <ion-col col-12 col-md-6 align-self-stretch align-self-center *virtualItem="let machine" approxItemHeight="457px">
+
+          <ion-card class="machine-card">
+            <ion-card-header>
+              <button ion-item detail-none (click)="goToMachineDetail(machine)">
+                <ion-avatar item-start>
+                  <img [src]="machine.profilePic" alt="machine profile pic">
+                </ion-avatar>
+                {{machine.name}}
+              </button>
+            </ion-card-header>
+
+            <ion-card-content class="outer-content">
+              <ion-list>
+                <button ion-item *ngFor="let session of machine.sessions" (click)="goToSessionDetail(session)">
+                  <h3>{{session.name}}</h3>
+                </button>
+
+                <ion-row justify-content-center>
+                  <ion-col col-6>
+                    <img src="assets/img/gauge.png"/>
+                  </ion-col>
+                </ion-row>
+
+                <button ion-item (click)="goToMachineDetail(machine)">
+                  <h3>About {{machine.name}}</h3>
+                </button>
+              </ion-list>
+            </ion-card-content>
+
+            <ion-row no-padding>
+              <ion-col col-12 col-lg-auto text-center text-lg-left>
+                <button ion-button clear small color="primary" icon-start (click)="goToMachineTwitter(machine)">
+                  <ion-icon name="logo-twitter"></ion-icon>
+                  Tweet
+                </button>
+              </ion-col>
+              <ion-col col-12 col-lg-auto text-center>
+                <button ion-button clear small color="primary" icon-start (click)="openMachineShare(machine)">
+                  <ion-icon name='share-alt'></ion-icon>
+                  Share
+                </button>
+              </ion-col>
+              <ion-col col-12 col-lg-auto text-center text-lg-right>
+                <button ion-button clear small color="primary" icon-start (click)="openContact(machine)">
+                  <ion-icon name='chatboxes'></ion-icon>
+                  Contact
+                </button>
+              </ion-col>
+            </ion-row>
+
+          </ion-card>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+</ion-content>

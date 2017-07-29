@@ -1,0 +1,31 @@
+page-machine-list {
+  .scroll-content {
+    background: #EDEDED;
+  }
+
+  .machine-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    ion-card-content {
+      flex: 1 1 auto;
+    }
+  }
+
+  // Todo: remove when this issue https://github.com/ionic-team/ionic/issues/11212 is fixed
+  @media(min-width: 769px) {
+    .machine-card {
+      height: 370px;
+    }
+  }
+
+  .machine-card ion-card-header .item {
+    padding: 4px 16px;
+  }
+
+  .machine-card ion-card-content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

@@ -328,18 +328,18 @@
 
 
   "map": [{
-    "name": "Monona Terrace Convention Center",
-    "lat": 43.071584,
-    "lng": -89.380120,
+    "name": "Marietta Service Center",
+    "lat": 34.063524,
+    "lng": -84.517483,
     "center": true
   }, {
-    "name": "Ionic HQ",
-    "lat": 43.074395,
-    "lng": -89.381056
+    "name": "Chicago Service Center",
+    "lat": 41.490338,
+    "lng": -87.578401
   }, {
-    "name": "Afterparty - Brocach Irish Pub",
-    "lat": 43.07336,
-    "lng": -89.38335
+    "name": "Houston Service Center",
+    "lat": 29.878499,
+    "lng": -95.594125
   }]
 
 }

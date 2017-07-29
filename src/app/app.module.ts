@@ -20,7 +20,7 @@ import { LinesPage } from '../pages/lines/lines';
 import { ScheduleFilterPage } from '../pages/schedule-filter/schedule-filter';
 import { SessionDetailPage } from '../pages/session-detail/session-detail';
 import { SignupPage } from '../pages/signup/signup';
-import { SpeakerDetailPage } from '../pages/factory-detail/factory-detail';
+import { FactoryDetailPage } from '../pages/factory-detail/factory-detail';
 import { FactoryListPage } from '../pages/factory-list/factory-list';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
@@ -42,7 +42,7 @@ import { UserData } from '../providers/user-data';
     ScheduleFilterPage,
     SessionDetailPage,
     SignupPage,
-    SpeakerDetailPage,
+    FactoryDetailPage,
     FactoryListPage,
     TabsPage,
     TutorialPage,
@@ -57,8 +57,8 @@ import { UserData } from '../providers/user-data';
         { component: LinesPage, name: 'Schedule', segment: 'schedule' },
         { component: SessionDetailPage, name: 'SessionDetail', segment: 'sessionDetail/:sessionId' },
         { component: ScheduleFilterPage, name: 'ScheduleFilter', segment: 'scheduleFilter' },
-        { component: FactoryListPage, name: 'SpeakerList', segment: 'speakerList' },
-        { component: SpeakerDetailPage, name: 'SpeakerDetail', segment: 'speakerDetail/:speakerId' },
+        { component: FactoryListPage, name: 'FactoryList', segment: 'factoryList' },
+        { component: FactoryDetailPage, name: 'FactoryDetail', segment: 'factoryDetail/:factoryId' },
         { component: MapPage, name: 'Map', segment: 'map' },
         { component: AboutPage, name: 'About', segment: 'about' },
         { component: TutorialPage, name: 'Tutorial', segment: 'tutorial' },
@@ -82,7 +82,7 @@ import { UserData } from '../providers/user-data';
     ScheduleFilterPage,
     SessionDetailPage,
     SignupPage,
-    SpeakerDetailPage,
+    FactoryDetailPage,
     FactoryListPage,
     TabsPage,
     TutorialPage,

@@ -12,7 +12,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { ConferenceData } from '../../providers/conference-data';
 
 import { SessionDetailPage } from '../session-detail/session-detail';
-import { SpeakerDetailPage } from '../factory-detail/factory-detail';
+import { FactoryDetailPage } from '../factory-detail/factory-detail';
 
 // TODO remove
 export interface ActionSheetButton {
@@ -24,12 +24,12 @@ export interface ActionSheetButton {
 };
 
 @Component({
-  selector: 'page-speaker-list',
+  selector: 'page-factory-list',
   templateUrl: 'factory-list.html'
 })
 export class FactoryListPage {
   actionSheet: ActionSheet;
-  speakers: any[] = [];
+  factories: any[] = [];
 
   constructor(
     public actionSheetCtrl: ActionSheetController,
@@ -40,8 +40,8 @@ export class FactoryListPage {
   ) {}
 
   ionViewDidLoad() {
-    this.confData.getSpeakers().subscribe((speakers: any[]) => {
-      this.speakers = speakers;
+    this.confData.getFactories().subscribe((factories: any[]) => {
+      this.factories = factories;
     });
   }
 
@@ -49,28 +49,28 @@ export class FactoryListPage {
     this.navCtrl.push(SessionDetailPage, { sessionId: session.id });
   }
 
-  goToSpeakerDetail(speaker: any) {
-    this.navCtrl.push(SpeakerDetailPage, { speakerId: speaker.id });
+  goToFactoryDetail(factory: any) {
+    this.navCtrl.push(FactoryDetailPage, { factoryId: factory.id });
   }
 
-  goToSpeakerTwitter(speaker: any) {
+  goToFactoryTwitter(factory: any) {
     this.inAppBrowser.create(
-      `https://twitter.com/${speaker.twitter}`,
+      `https://twitter.com/${factory.twitter}`,
       '_blank'
     );
   }
 
-  openSpeakerShare(speaker: any) {
+  openFactoryShare(factory: any) {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Share ' + speaker.name,
+      title: 'Share ' + factory.name,
       buttons: [
         {
           text: 'Copy Link',
           handler: () => {
-            console.log('Copy link clicked on https://twitter.com/' + speaker.twitter);
+            console.log('Copy link clicked on https://twitter.com/' + factory.twitter);
             if ( (window as any)['cordova'] && (window as any)['cordova'].plugins.clipboard) {
               (window as any)['cordova'].plugins.clipboard.copy(
-                'https://twitter.com/' + speaker.twitter
+                'https://twitter.com/' + factory.twitter
               );
             }
           }
@@ -88,24 +88,24 @@ export class FactoryListPage {
     actionSheet.present();
   }
 
-  openContact(speaker: any) {
+  openContact(factory: any) {
     let mode = this.config.get('mode');
 
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Contact ' + speaker.name,
+      title: 'Contact ' + factory.name,
       buttons: [
         {
-          text: `Email ( ${speaker.email} )`,
+          text: `Email ( ${factory.email} )`,
           icon: mode !== 'ios' ? 'mail' : null,
           handler: () => {
-            window.open('mailto:' + speaker.email);
+            window.open('mailto:' + factory.email);
           }
         } as ActionSheetButton,
         {
-          text: `Call ( ${speaker.phone} )`,
+          text: `Call ( ${factory.phone} )`,
           icon: mode !== 'ios' ? 'call' : null,
           handler: () => {
-            window.open('tel:' + speaker.phone);
+            window.open('tel:' + factory.phone);
           }
         } as ActionSheetButton
       ]

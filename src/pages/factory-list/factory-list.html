@@ -7,50 +7,50 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="outer-content speaker-list">
-  <ion-list [virtualScroll]="speakers">
+<ion-content class="outer-content factory-list">
+  <ion-list [virtualScroll]="factories">
     <ion-grid fixed>
       <ion-row align-items-stretch>
 
-        <ion-col col-12 col-md-6 align-self-stretch align-self-center *virtualItem="let speaker" approxItemHeight="457px">
+        <ion-col col-12 col-md-6 align-self-stretch align-self-center *virtualItem="let factory" approxItemHeight="457px">
 
-          <ion-card class="speaker-card">
+          <ion-card class="factory-card">
             <ion-card-header>
-              <button ion-item detail-none (click)="goToSpeakerDetail(speaker)">
+              <button ion-item detail-none (click)="goToFactoryDetail(factory)">
                 <ion-avatar item-start>
-                  <img [src]="speaker.profilePic" alt="Speaker profile pic">
+                  <img [src]="factory.profilePic" alt="Factory profile pic">
                 </ion-avatar>
-                {{speaker.name}}
+                {{factory.name}}
               </button>
             </ion-card-header>
 
             <ion-card-content class="outer-content">
               <ion-list>
-                <button ion-item *ngFor="let session of speaker.sessions" (click)="goToSessionDetail(session)">
+                <button ion-item *ngFor="let session of factory.sessions" (click)="goToSessionDetail(session)">
                   <h3>{{session.name}}</h3>
                 </button>
 
-                <button ion-item (click)="goToSpeakerDetail(speaker)">
-                  <h3>About {{speaker.name}}</h3>
+                <button ion-item (click)="goToFactoryDetail(factory)">
+                  <h3>About {{factory.name}}</h3>
                 </button>
               </ion-list>
             </ion-card-content>
 
             <ion-row no-padding>
               <ion-col col-12 col-lg-auto text-center text-lg-left>
-                <button ion-button clear small color="primary" icon-start (click)="goToSpeakerTwitter(speaker)">
+                <button ion-button clear small color="primary" icon-start (click)="goToFactoryTwitter(factory)">
                   <ion-icon name="logo-twitter"></ion-icon>
                   Tweet
                 </button>
               </ion-col>
               <ion-col col-12 col-lg-auto text-center>
-                <button ion-button clear small color="primary" icon-start (click)="openSpeakerShare(speaker)">
+                <button ion-button clear small color="primary" icon-start (click)="openFactoryShare(factory)">
                   <ion-icon name='share-alt'></ion-icon>
                   Share
                 </button>
               </ion-col>
               <ion-col col-12 col-lg-auto text-center text-lg-right>
-                <button ion-button clear small color="primary" icon-start (click)="openContact(speaker)">
+                <button ion-button clear small color="primary" icon-start (click)="openContact(factory)">
                   <ion-icon name='chatboxes'></ion-icon>
                   Contact
                 </button>

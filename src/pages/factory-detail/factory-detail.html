@@ -1,12 +1,12 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{speaker?.name}}</ion-title>
+    <ion-title>{{factory?.name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="factory-detail">
-  <div text-center *ngIf="speaker">
-    <img [src]="speaker.profilePic" [alt]="speaker.name"><br>
+  <div text-center *ngIf="factory">
+    <img [src]="factory.profilePic" [alt]="factory.name"><br>
 
     <button ion-button icon-only clear small color="twitter">
       <ion-icon name="logo-twitter"></ion-icon>
@@ -19,5 +19,5 @@
     </button>
   </div>
 
-  <p>{{speaker?.about}}</p>
+  <p>{{factory?.about}}</p>
 </ion-content>

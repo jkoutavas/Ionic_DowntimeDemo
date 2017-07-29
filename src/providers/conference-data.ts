@@ -26,7 +26,7 @@ export class ConferenceData {
 
   processData(data: any) {
     // just some good 'ol JS fun with objects and arrays
-    // build up the data by linking speakers to sessions
+    // build up the data by linking factories to sessions
     this.data = data.json();
 
     this.data.tracks = [];
@@ -37,14 +37,14 @@ export class ConferenceData {
       day.groups.forEach((group: any) => {
         // loop through each session in the timeline group
         group.sessions.forEach((session: any) => {
-          session.speakers = [];
-          if (session.speakerNames) {
-            session.speakerNames.forEach((speakerName: any) => {
-              let speaker = this.data.speakers.find((s: any) => s.name === speakerName);
-              if (speaker) {
-                session.speakers.push(speaker);
-                speaker.sessions = speaker.sessions || [];
-                speaker.sessions.push(session);
+          session.factories = [];
+          if (session.factoryNames) {
+            session.factoryNames.forEach((factoryName: any) => {
+              let factory = this.data.factories.find((s: any) => s.name === factoryName);
+              if (factory) {
+                session.factories.push(factory);
+                factory.sessions = factory.sessions || [];
+                factory.sessions.push(session);
               }
             });
           }
@@ -130,9 +130,9 @@ export class ConferenceData {
     session.hide = !(matchesQueryText && matchesTracks && matchesSegment);
   }
 
-  getSpeakers() {
+  getFactories() {
     return this.load().map((data: any) => {
-      return data.speakers.sort((a: any, b: any) => {
+      return data.factories.sort((a: any, b: any) => {
         let aName = a.name.split(' ').pop();
         let bName = b.name.split(' ').pop();
         return aName.localeCompare(bName);

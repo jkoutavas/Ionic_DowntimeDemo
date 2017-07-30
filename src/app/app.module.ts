@@ -16,7 +16,8 @@ import { PopoverPage } from '../pages/about-popover/about-popover';
 import { AccountPage } from '../pages/account/account';
 import { LoginPage } from '../pages/login/login';
 import { MapPage } from '../pages/map/map';
-import { LinesPage } from '../pages/lines/lines';
+import { MachineDetailPage } from '../pages/machine-detail/machine-detail';
+import { MachineListPage } from '../pages/machine-list/machine-list';
 import { SessionDetailPage } from '../pages/session-detail/session-detail';
 import { SignupPage } from '../pages/signup/signup';
 import { FactoryDetailPage } from '../pages/factory-detail/factory-detail';
@@ -37,7 +38,8 @@ import { UserData } from '../providers/user-data';
     LoginPage,
     MapPage,
     PopoverPage,
-    LinesPage,
+    MachineDetailPage,
+    MachineListPage,
     SessionDetailPage,
     SignupPage,
     FactoryDetailPage,
@@ -52,9 +54,10 @@ import { UserData } from '../providers/user-data';
     IonicModule.forRoot(ConferenceApp, {}, {
       links: [
         { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },
-        { component: LinesPage, name: 'Schedule', segment: 'schedule' },
+        { component: MachineListPage, name: 'MachineList', segment: 'machineList' },
+        { component: MachineDetailPage, name: 'MachineDetail', segment: 'machineDetail/:machineId' },
         { component: SessionDetailPage, name: 'SessionDetail', segment: 'sessionDetail/:sessionId' },
-         { component: FactoryListPage, name: 'FactoryList', segment: 'factoryList' },
+        { component: FactoryListPage, name: 'FactoryList', segment: 'factoryList' },
         { component: FactoryDetailPage, name: 'FactoryDetail', segment: 'factoryDetail/:factoryId' },
         { component: MapPage, name: 'Map', segment: 'map' },
         { component: AboutPage, name: 'About', segment: 'about' },
@@ -75,7 +78,8 @@ import { UserData } from '../providers/user-data';
     LoginPage,
     MapPage,
     PopoverPage,
-    LinesPage,
+    MachineDetailPage,
+    MachineListPage,
     SessionDetailPage,
     SignupPage,
     FactoryDetailPage,

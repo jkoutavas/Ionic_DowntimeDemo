@@ -12,7 +12,7 @@ import { MapPage } from '../pages/map/map';
 import { SignupPage } from '../pages/signup/signup';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
-import { LinesPage } from '../pages/lines/lines';
+import { MachineListPage } from '../pages/machine-list/machine-list';
 import { FactoryListPage } from '../pages/factory-list/factory-list';
 import { SupportPage } from '../pages/support/support';
 
@@ -44,7 +44,7 @@ export class ConferenceApp {
   appPages: PageInterface[] = [
     { title: 'Map', name: 'TabsPage', component: TabsPage, tabComponent: MapPage, index: 0, icon: 'map' },
     { title: 'Factories', name: 'TabsPage', component: TabsPage, tabComponent: FactoryListPage, index: 1, icon: 'contacts' },
-    { title: 'Lines', name: 'TabsPage', component: TabsPage, tabComponent: LinesPage, index: 2, icon: 'calendar' },
+    { title: 'Machines', name: 'TabsPage', component: TabsPage, tabComponent: MachineListPage, index: 2, icon: 'calendar' },
     { title: 'About', name: 'TabsPage', component: TabsPage, tabComponent: AboutPage, index: 3, icon: 'information-circle' }
   ];
   loggedInPages: PageInterface[] = [

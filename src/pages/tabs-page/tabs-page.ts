@@ -4,7 +4,7 @@ import { NavParams } from 'ionic-angular';
 
 import { AboutPage } from '../about/about';
 import { MapPage } from '../map/map';
-import { LinesPage } from '../lines/lines';
+import { MachineListPage } from '../machine-list/machine-list';
 import { FactoryListPage } from '../factory-list/factory-list';
 
 @Component({
@@ -12,7 +12,7 @@ import { FactoryListPage } from '../factory-list/factory-list';
 })
 export class TabsPage {
   // set the root pages for each tab
-  tab1Root: any = LinesPage;
+  tab1Root: any = MachineListPage;
   tab2Root: any = FactoryListPage;
   tab3Root: any = MapPage;
   tab4Root: any = AboutPage;

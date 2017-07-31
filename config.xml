@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="io.ionic.conferenceapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Ionic Conference</name>
+<widget id="net.industrialintelligence.demoapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Industrial Intelligence Downtime Demo App</name>
   <description>
-        An Ionic Framework application for the Ionic Conference.
+        A demo app for Industrial Intelligence's Downtime IIoT.
   </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+  <author email="dtessitore@IIoT.Team" href="http://industrialintellgence.net/">
+      Industrial Intelligence Team
   </author>
   <content src="index.html"/>
   <access origin="*"/>

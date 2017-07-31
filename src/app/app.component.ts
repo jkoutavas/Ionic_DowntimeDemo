@@ -33,7 +33,7 @@ export interface PageInterface {
 @Component({
   templateUrl: 'app.template.html'
 })
-export class ConferenceApp {
+export class DemoApp {
   // the root nav is a child of the root app component
   // @ViewChild(Nav) gets a reference to the app's root nav
   @ViewChild(Nav) nav: Nav;
@@ -80,7 +80,7 @@ export class ConferenceApp {
         this.platformReady()
       });
 
-    // load the conference data
+    // load the downtime data
     downtimeData.load();
 
     // decide which menu items should be hidden by current login status stored in local storage

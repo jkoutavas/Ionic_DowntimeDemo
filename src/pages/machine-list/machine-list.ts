@@ -12,6 +12,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { DowntimeData } from '../../providers/downtime-data';
 
 import { MachineDetailPage } from '../machine-detail/machine-detail';
+import { FactoryDetailPage } from '../factory-detail/factory-detail';
 
 // TODO remove
 export interface ActionSheetButton {
@@ -46,6 +47,10 @@ export class MachineListPage {
 
   goToMachineDetail(machine: any) {
     this.navCtrl.push(MachineDetailPage, { machineId: machine.id });
+  }
+
+    goToFactoryDetail(factory: any) {
+    this.navCtrl.push(FactoryDetailPage, { factoryId: factory.id });
   }
 
   goToMachineTwitter(machine: any) {

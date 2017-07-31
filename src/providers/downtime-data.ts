@@ -35,6 +35,7 @@ export class DowntimeData {
       if( factory ) {
         factory.machines = factory.machines || []
         factory.machines.push(machine);
+        machine.factory = factory;
       }
     });
 

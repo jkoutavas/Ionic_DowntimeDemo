@@ -1,6 +1,7 @@
 {
   "machines": [{
     "name": "Red Bud 2",
+    "profilePic": "assets/img/machines/redbud.png",
     "id": "1",
     "factoryId": "1"
   }
@@ -8,7 +9,7 @@
 
   "factories": [{
     "name": "Marietta Service Center",
-    "profilePic": "assets/img/factories/marietta.jpg",
+    "profilePic": "assets/img/factories/marietta.png",
     "twitter": "ionicframework",
     "about": "Burt is a Bear.",
     "location": "Everywhere",
@@ -17,7 +18,7 @@
     "id": "1"
   }, {
     "name": "Chicago Service Center",
-    "profilePic": "assets/img/factories/chicago.jpg",
+    "profilePic": "assets/img/factories/chicago.png",
     "twitter": "ionicframework",
     "about": "Charlie is a Cheetah.",
     "location": "Everywhere",
@@ -26,7 +27,7 @@
     "id": "2"
   }, {
     "name": "Houston Service Center",
-    "profilePic": "assets/img/factories/houston.jpg",
+    "profilePic": "assets/img/factories/houston.png",
     "twitter": "ionicframework",
     "about": "Donald is a Duck.",
     "location": "Everywhere",

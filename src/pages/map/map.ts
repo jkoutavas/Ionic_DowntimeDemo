@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 
-import { ConferenceData } from '../../providers/conference-data';
+import { DowntimeData } from '../../providers/downtime-data';
 
 import { Platform } from 'ionic-angular';
 
@@ -15,12 +15,12 @@ declare var google: any;
 export class MapPage {
 
   @ViewChild('mapCanvas') mapElement: ElementRef;
-  constructor(public confData: ConferenceData, public platform: Platform) {
+  constructor(public data: DowntimeData, public platform: Platform) {
   }
 
   ionViewDidLoad() {
 
-      this.confData.getMap().subscribe((mapData: any) => {
+      this.data.getMap().subscribe((mapData: any) => {
         let mapEle = this.mapElement.nativeElement;
 
         let map = new google.maps.Map(mapEle, {

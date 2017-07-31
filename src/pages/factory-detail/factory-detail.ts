@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { ConferenceData } from '../../providers/conference-data';
+import { DowntimeData } from '../../providers/downtime-data';
 
 @IonicPage({
   segment: 'factory/:factoryId'
@@ -13,7 +13,7 @@ import { ConferenceData } from '../../providers/conference-data';
 export class FactoryDetailPage {
   factory: any;
 
-  constructor(public dataProvider: ConferenceData, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public dataProvider: DowntimeData, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewWillEnter() {
@@ -30,7 +30,7 @@ export class FactoryDetailPage {
 
   }
 
-  goToSessionDetail(session: any) {
-    this.navCtrl.push('SessionDetailPage', { sessionId: session.id });
+  goToMachineDetail(machine: any) {
+    this.navCtrl.push('MachineDetailPage', { machineId: machine.id });
   }
 }

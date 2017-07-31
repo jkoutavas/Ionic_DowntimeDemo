@@ -9,9 +9,8 @@ import {
 } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 
-import { ConferenceData } from '../../providers/conference-data';
+import { DowntimeData } from '../../providers/downtime-data';
 
-import { SessionDetailPage } from '../session-detail/session-detail';
 import { MachineDetailPage } from '../machine-detail/machine-detail';
 
 // TODO remove
@@ -34,19 +33,15 @@ export class MachineListPage {
   constructor(
     public actionSheetCtrl: ActionSheetController,
     public navCtrl: NavController,
-    public confData: ConferenceData,
+    public downtimeData: DowntimeData,
     public config: Config,
     public inAppBrowser: InAppBrowser
   ) {}
 
   ionViewDidLoad() {
-    this.confData.getFactories().subscribe((machines: any[]) => {
+    this.downtimeData.getMachines().subscribe((machines: any[]) => {
       this.machines = machines;
     });
-  }
-
-  goToSessionDetail(session: any) {
-    this.navCtrl.push(SessionDetailPage, { sessionId: session.id });
   }
 
   goToMachineDetail(machine: any) {

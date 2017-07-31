@@ -16,7 +16,7 @@ import { MachineListPage } from '../pages/machine-list/machine-list';
 import { FactoryListPage } from '../pages/factory-list/factory-list';
 import { SupportPage } from '../pages/support/support';
 
-import { ConferenceData } from '../providers/conference-data';
+import { DowntimeData } from '../providers/downtime-data';
 import { UserData } from '../providers/user-data';
 
 export interface PageInterface {
@@ -64,7 +64,7 @@ export class ConferenceApp {
     public userData: UserData,
     public menu: MenuController,
     public platform: Platform,
-    public confData: ConferenceData,
+    public downtimeData: DowntimeData,
     public storage: Storage,
     public splashScreen: SplashScreen
   ) {
@@ -81,7 +81,7 @@ export class ConferenceApp {
       });
 
     // load the conference data
-    confData.load();
+    downtimeData.load();
 
     // decide which menu items should be hidden by current login status stored in local storage
     this.userData.hasLoggedIn().then((hasLoggedIn) => {

@@ -26,10 +26,6 @@
 
             <ion-card-content class="outer-content">
               <ion-list>
-                <button ion-item *ngFor="let session of machine.sessions" (click)="goToSessionDetail(session)">
-                  <h3>{{session.name}}</h3>
-                </button>
-
                 <ion-row justify-content-center>
                   <ion-col col-6>
                     <img src="assets/img/gauge.png"/>

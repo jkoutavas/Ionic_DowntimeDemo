@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { ConferenceData } from '../../providers/conference-data';
+import { DowntimeData } from '../../providers/downtime-data';
 
 @IonicPage({
   segment: 'machine/:machineId'
@@ -13,13 +13,13 @@ import { ConferenceData } from '../../providers/conference-data';
 export class MachineDetailPage {
   machine: any;
 
-  constructor(public dataProvider: ConferenceData, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public dataProvider: DowntimeData, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewWillEnter() {
     this.dataProvider.load().subscribe((data: any) => {
-      if (data && data.factories) {
-        for (const machine of data.factories) {
+      if (data && data.machines) {
+        for (const machine of data.machines) {
           if (machine && machine.id === this.navParams.data.machineId) {
             this.machine = machine;
             break;
@@ -30,7 +30,7 @@ export class MachineDetailPage {
 
   }
 
-  goToSessionDetail(session: any) {
-    this.navCtrl.push('SessionDetailPage', { sessionId: session.id });
+  goToMachineDetail(machine: any) {
+    this.navCtrl.push('MachineDetailPage', { machineId: machine.id });
   }
 }

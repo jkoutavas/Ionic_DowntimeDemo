@@ -26,8 +26,8 @@
 
             <ion-card-content class="outer-content">
               <ion-list>
-                <button ion-item *ngFor="let session of factory.sessions" (click)="goToSessionDetail(session)">
-                  <h3>{{session.name}}</h3>
+                <button ion-item *ngFor="let machine of factory.machines" (click)="goToMachineDetail(session)">
+                  <h3>{{machine.name}}</h3>
                 </button>
 
                 <ion-row justify-content-center>

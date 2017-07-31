@@ -45,8 +45,8 @@ export class FactoryListPage {
     });
   }
 
-  goToMachineDetail(session: any) {
-    this.navCtrl.push(MachineDetailPage, { sessionId: session.id });
+  goToMachineDetail(machine: any) {
+    this.navCtrl.push(MachineDetailPage, { machineId: machine.id });
   }
 
   goToFactoryDetail(factory: any) {

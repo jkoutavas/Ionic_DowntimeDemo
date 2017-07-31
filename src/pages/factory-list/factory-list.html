@@ -26,7 +26,7 @@
 
             <ion-card-content class="outer-content">
               <ion-list>
-                <button ion-item *ngFor="let machine of factory.machines" (click)="goToMachineDetail(session)">
+                <button ion-item *ngFor="let machine of factory.machines" (click)="goToMachineDetail(machine)">
                   <h3>{{machine.name}}</h3>
                 </button>
 

@@ -28,8 +28,6 @@ import { SupportPage } from '../pages/support/support';
 import { DowntimeData } from '../providers/downtime-data';
 import { UserData } from '../providers/user-data';
 
-import { ChartModule } from 'angular-highcharts';
-
 import { HealthGaugeComponent } from '../components/health-gauge/health-gauge';
 
 @NgModule({
@@ -70,7 +68,6 @@ import { HealthGaugeComponent } from '../components/health-gauge/health-gauge';
       ]
     }),
     IonicStorageModule.forRoot(),
-    ChartModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

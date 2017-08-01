@@ -54,7 +54,9 @@ declare var require : any; // need for the ChartModule import
   ],
   imports: [
     BrowserModule,
-    ChartModule.forRoot(require('highcharts')),
+    ChartModule.forRoot(require('highcharts'),
+      require('highcharts/highcharts-more'),
+      require('highcharts/modules/solid-gauge')),
     HttpModule,
     IonicModule.forRoot(DemoApp, {}, {
       links: [

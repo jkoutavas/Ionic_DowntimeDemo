@@ -1,7 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-
-import * as Highcharts from 'highcharts';
-
+import { Component } from '@angular/core';
 
 /**
  * Generated class for the HealthGaugeComponent component.
@@ -13,16 +10,10 @@ import * as Highcharts from 'highcharts';
   selector: 'health-gauge',
   templateUrl: 'health-gauge.html'
 })
-export class HealthGaugeComponent implements OnInit {
-
-  @ViewChild('container') chartContainer: any;
+export class HealthGaugeComponent {
 
   constructor() {
-  }
-
-  ngOnInit(): void {
-
-    Highcharts.chart(this.chartContainer.nativeElement, {
+    this.options = {
       chart: {
         type: 'bar'
       },
@@ -44,6 +35,8 @@ export class HealthGaugeComponent implements OnInit {
         name: 'John',
         data: [5, 7, 3]
       }]
-    });
+    }
   }
+
+  options: Object;
 }

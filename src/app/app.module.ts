@@ -28,7 +28,11 @@ import { SupportPage } from '../pages/support/support';
 import { DowntimeData } from '../providers/downtime-data';
 import { UserData } from '../providers/user-data';
 
+import { ChartModule } from 'angular2-highcharts';
+
 import { HealthGaugeComponent } from '../components/health-gauge/health-gauge';
+
+declare var require : any; // need for the ChartModule import
 
 @NgModule({
   declarations: [
@@ -50,6 +54,7 @@ import { HealthGaugeComponent } from '../components/health-gauge/health-gauge';
   ],
   imports: [
     BrowserModule,
+    ChartModule.forRoot(require('highcharts')),
     HttpModule,
     IonicModule.forRoot(DemoApp, {}, {
       links: [

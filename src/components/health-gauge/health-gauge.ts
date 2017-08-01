@@ -21,8 +21,8 @@ export class HealthGaugeComponent {
       title: "",
       
       pane: {
-        center: ['20%', '20%'],
-        size: '40%',
+        center: ['50%', '50%'],
+        size: '100%',
         startAngle: -90,
         endAngle: 90,
         background: {
@@ -33,6 +33,8 @@ export class HealthGaugeComponent {
         }
     },
 
+    credits: false,
+    
     tooltip: {
       enabled: false
     },
@@ -54,7 +56,7 @@ export class HealthGaugeComponent {
         y: 16
       }
     },
-
+    
     series: [{
       name: 'Speed',
       data: [80],
@@ -77,5 +79,10 @@ export class HealthGaugeComponent {
   }
 }
 
+saveInstance(chartInstance: any) {
+  this.chart = chartInstance;
+}
+
   options: Object;
+  chart: Object;
 };

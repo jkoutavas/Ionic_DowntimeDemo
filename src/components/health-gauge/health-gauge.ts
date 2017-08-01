@@ -13,6 +13,7 @@ import { Component } from '@angular/core';
 export class HealthGaugeComponent {
 
   constructor() {
+
     this.options = { 
       chart: {
         type: 'solidgauge'
@@ -63,7 +64,7 @@ export class HealthGaugeComponent {
 
     series: [{
       name: 'Health',
-      data: [Math.floor(Math.random()*4)],
+      data: [this.randomValue()],
       dataLabels: {
         format: '<div style="text-align:center"><span style="font-size:25px;color:' +
           ('black') + '">{y}</span><br/>'
@@ -82,10 +83,20 @@ export class HealthGaugeComponent {
   }
 }
 
-saveInstance(chartInstance: any) {
-  this.chart = chartInstance;
+randomValue() {
+  return Math.floor(Math.random()*4);
 }
 
-  options: Object;
-  chart: Object;
+saveInstance(chartInstance: any) {
+  if( this.chart == null ) {
+    this.chart = chartInstance;
+    const me = this;
+    setInterval(function () {
+      me.chart['series'][0].setData([me.randomValue()], true, true);
+    }, 2000);
+  }
+}
+
+options: Object;
+chart: any;
 };

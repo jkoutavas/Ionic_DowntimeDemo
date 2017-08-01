@@ -1,2 +1,2 @@
 <!-- Generated template for the HealthGaugeComponent component -->
-<div class="c"><chart [options]="options" style="height: 150px;"></chart></div>
+<div class="c"><chart [options]="options" style="height: 150px;" (load)="saveInstance($event.context)"></chart></div>

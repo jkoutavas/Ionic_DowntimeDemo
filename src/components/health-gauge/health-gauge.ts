@@ -41,29 +41,32 @@ export class HealthGaugeComponent {
 
     // the value axis
     yAxis: {
+      min: 0,
+      max: 3,
       stops: [
-          [0.1, '#55BF3B'], // green
-          [0.5, '#DDDF0D'], // yellow
-          [0.9, '#DF5353'] // red
+          [0.3, '#FF0000'], // red
+          [0.7, '#DDDF0D'], // yellow
+          [1.0, '#55BF3B'] // green
       ],
       lineWidth: 0,
       minorTickInterval: null,
-      tickAmount: 2,
+//      tickAmount: 2,
       title: {
         y: -70
       },
       labels: {
         y: 16
-      }
+      },
+      
+      minorTickLength: 0,
     },
-    
+
     series: [{
-      name: 'Speed',
-      data: [80],
+      name: 'Health',
+      data: [Math.floor(Math.random()*4)],
       dataLabels: {
         format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-          ('black') + '">{y}</span><br/>' +
-          '<span style="font-size:12px;color:silver">km/h</span></div>'
+          ('black') + '">{y}</span><br/>'
       }
     }],
 

@@ -53,13 +53,6 @@ export class FactoryListPage {
     this.navCtrl.push(FactoryDetailPage, { factoryId: factory.id });
   }
 
-  goToFactoryTwitter(factory: any) {
-    this.inAppBrowser.create(
-      `https://twitter.com/${factory.twitter}`,
-      '_blank'
-    );
-  }
-
   openFactoryShare(factory: any) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Share ' + factory.name,

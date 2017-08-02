@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import {
   ActionSheet,
   ActionSheetController,
-  ActionSheetOptions,
   Config,
   NavController
 } from 'ionic-angular';
@@ -53,64 +52,4 @@ export class MachineListPage {
     this.navCtrl.push(FactoryDetailPage, { factoryId: factory.id });
   }
 
-  goToMachineTwitter(machine: any) {
-    this.inAppBrowser.create(
-      `https://twitter.com/${machine.twitter}`,
-      '_blank'
-    );
-  }
-
-  openMachineShare(machine: any) {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: 'Share ' + machine.name,
-      buttons: [
-        {
-          text: 'Copy Link',
-          handler: () => {
-            console.log('Copy link clicked on https://twitter.com/' + machine.twitter);
-            if ( (window as any)['cordova'] && (window as any)['cordova'].plugins.clipboard) {
-              (window as any)['cordova'].plugins.clipboard.copy(
-                'https://twitter.com/' + machine.twitter
-              );
-            }
-          }
-        } as ActionSheetButton,
-        {
-          text: 'Share via ...'
-        } as ActionSheetButton,
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        } as ActionSheetButton
-      ]
-    } as ActionSheetOptions);
-
-    actionSheet.present();
-  }
-
-  openContact(machine: any) {
-    let mode = this.config.get('mode');
-
-    let actionSheet = this.actionSheetCtrl.create({
-      title: 'Contact ' + machine.name,
-      buttons: [
-        {
-          text: `Email ( ${machine.email} )`,
-          icon: mode !== 'ios' ? 'mail' : null,
-          handler: () => {
-            window.open('mailto:' + machine.email);
-          }
-        } as ActionSheetButton,
-        {
-          text: `Call ( ${machine.phone} )`,
-          icon: mode !== 'ios' ? 'call' : null,
-          handler: () => {
-            window.open('tel:' + machine.phone);
-          }
-        } as ActionSheetButton
-      ]
-    } as ActionSheetOptions);
-
-    actionSheet.present();
-  }
 }

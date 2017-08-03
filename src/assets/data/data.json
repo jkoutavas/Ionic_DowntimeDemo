@@ -3,32 +3,38 @@
     "name": "Red Bud 1",
     "profilePic": "assets/img/machines/redbud.png",
     "id": "1",
-    "factoryId": "1"
+    "factoryId": "1",
+    "up":true
     }, {
     "name": "Red Bud 2",
     "profilePic": "assets/img/machines/redbud.png",
     "id": "2",
-    "factoryId": "1"
+    "factoryId": "1",
+    "up":false
   }, {
     "name": "Red Bud 3",
     "profilePic": "assets/img/machines/redbud.png",
     "id": "3",
-    "factoryId": "2"
+    "factoryId": "2",
+    "up":true
   }, {
     "name": "Red Bud 4",
     "profilePic": "assets/img/machines/redbud.png",
     "id": "4",
-    "factoryId": "2"
+    "factoryId": "2",
+    "up":false
   }, {
     "name": "Red Bud 5",
     "profilePic": "assets/img/machines/redbud.png",
     "id": "5",
-    "factoryId": "2"
+    "factoryId": "2",
+    "up":true
   }, {
     "name": "Red Bud 6",
     "profilePic": "assets/img/machines/redbud.png",
     "id": "6",
-    "factoryId": "3"
+    "factoryId": "3",
+    "up":false
 }],
 
   "factories": [{

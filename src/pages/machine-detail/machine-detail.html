@@ -14,7 +14,21 @@
     <button ion-button icon-only clear small color="instagram">
       <ion-icon name="logo-instagram"></ion-icon>
     </button>
+  
   </div>
 
-  <p>{{machine?.about}}</p>
+     
+  <div text-center *ngIf="machine">
+    <div *ngIf="machine.up===true; else downTemplate">
+      <h1>It's up</h1>
+    </div>
+  </div>
+
+
+
 </ion-content>
+
+<ng-template #downTemplate>
+      <h1>It's down</h1>
+  </ng-template>
+  

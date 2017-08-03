@@ -30,6 +30,7 @@ export interface ActionSheetButton {
 export class MachineListPage {
   actionSheet: ActionSheet;
   machines: any[] = [];
+  title: string;
 
   constructor(
     public actionSheetCtrl: ActionSheetController,
@@ -50,6 +51,7 @@ export class MachineListPage {
     } else {
       this.machines = this.navParams.data.machines;
     }
+    this.title = this.navParams.data.title || "Machines";
   }
 
   goToMachineDetail(machine: any) {

@@ -46,7 +46,7 @@ export class FactoryListPage {
   }
 
   goToMachineList(machineList: any) {
-    this.navCtrl.push(MachineListPage, { machines: machineList });
+    this.navCtrl.push(MachineListPage, { machines: machineList, title: "Factories" });
   }
 
   goToFactoryDetail(factory: any) {

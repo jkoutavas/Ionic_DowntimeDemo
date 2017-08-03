@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 /**
  * Generated class for the HealthGaugeComponent component.
@@ -8,11 +8,15 @@ import { Component } from '@angular/core';
  */
 @Component({
   selector: 'health-gauge',
-  templateUrl: 'health-gauge.html'
-})
+  templateUrl: 'health-gauge.html',
+  })
+
 export class HealthGaugeComponent {
 
-  constructor() {
+  @Input() max: number = 3;
+  @Input() value: number = 1;
+
+    ngOnInit() {
 
     this.options = { 
       chart: {
@@ -42,32 +46,29 @@ export class HealthGaugeComponent {
 
     // the value axis
     yAxis: {
+      visible: false,
       min: 0,
-      max: 3,
+      max: Number(this.max),
       stops: [
           [0.3, '#FF0000'], // red
           [0.7, '#DDDF0D'], // yellow
           [1.0, '#55BF3B'] // green
       ],
       lineWidth: 0,
-      minorTickInterval: null,
-//      tickAmount: 2,
       title: {
         y: -70
       },
       labels: {
         y: 16
       },
-      
-      minorTickLength: 0,
-    },
+     },
 
     series: [{
-      name: 'Health',
-      data: [this.randomValue()],
+      name: Number(this.max),
+      data: [Number(this.value)],
       dataLabels: {
-        format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-          ('black') + '">{y}</span><br/>'
+        format: '<div style="text-align:center"><span style="font-size:18px;color:' +
+          ('black') + '">{y}/{series.name}</span><br/>'
       }
     }],
 
@@ -83,16 +84,12 @@ export class HealthGaugeComponent {
   }
 }
 
-randomValue() {
-  return Math.floor(Math.random()*4);
-}
-
 saveInstance(chartInstance: any) {
   if( this.chart == null ) {
     this.chart = chartInstance;
     const me = this;
     setInterval(function () {
-      me.chart['series'][0].setData([me.randomValue()], true, true);
+      me.chart['series'][0].setData([me.value], true, true);
     }, 2000);
   }
 }

@@ -32,12 +32,8 @@
                   </ion-col>
                 </ion-row>
 
-                <button ion-item *ngFor="let machine of factory.machines" (click)="goToMachineDetail(machine)">
-                  <h3>{{machine.name}}</h3>
-                </button>
-
-                <button ion-item (click)="goToFactoryDetail(factory)">
-                  <h3>About {{factory.name}}</h3>
+                <button ion-item (click)="goToMachineList(factory.machines)">
+                  <h3>{{factory.name}} machines list</h3>
                 </button>
               </ion-list>
             </ion-card-content>

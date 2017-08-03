@@ -11,7 +11,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { DowntimeData } from '../../providers/downtime-data';
 
-import { MachineDetailPage } from '../machine-detail/machine-detail';
+import { MachineListPage } from '../machine-list/machine-list';
 import { FactoryDetailPage } from '../factory-detail/factory-detail';
 
 // TODO remove
@@ -45,8 +45,8 @@ export class FactoryListPage {
     });
   }
 
-  goToMachineDetail(machine: any) {
-    this.navCtrl.push(MachineDetailPage, { machineId: machine.id });
+  goToMachineList(machineList: any) {
+    this.navCtrl.push(MachineListPage, { machines: machineList });
   }
 
   goToFactoryDetail(factory: any) {

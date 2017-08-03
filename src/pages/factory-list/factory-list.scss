@@ -14,9 +14,10 @@ page-factory-list {
   }
 
   // Todo: remove when this issue https://github.com/ionic-team/ionic/issues/11212 is fixed
-  @media(min-width: 769px) {
+  @media(min-width: 470px) {
     .factory-card {
       height: 370px;
+      width: 470px;
     }
   }
 

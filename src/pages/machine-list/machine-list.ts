@@ -4,7 +4,8 @@ import {
   ActionSheet,
   ActionSheetController,
   Config,
-  NavController
+  NavController,
+  NavParams
 } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 
@@ -33,22 +34,29 @@ export class MachineListPage {
   constructor(
     public actionSheetCtrl: ActionSheetController,
     public navCtrl: NavController,
+    public navParams: NavParams,
     public downtimeData: DowntimeData,
     public config: Config,
     public inAppBrowser: InAppBrowser
-  ) {}
+  ) {
+    
+  }
 
   ionViewDidLoad() {
-    this.downtimeData.getMachines().subscribe((machines: any[]) => {
-      this.machines = machines;
-    });
+    if( !this.navParams.data.machines ) {
+      this.downtimeData.getMachines().subscribe((machines: any[]) => {
+        this.machines = machines;
+      });
+    } else {
+      this.machines = this.navParams.data.machines;
+    }
   }
 
   goToMachineDetail(machine: any) {
     this.navCtrl.push(MachineDetailPage, { machineId: machine.id });
   }
 
-    goToFactoryDetail(factory: any) {
+  goToFactoryDetail(factory: any) {
     this.navCtrl.push(FactoryDetailPage, { factoryId: factory.id });
   }
 

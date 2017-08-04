@@ -31,6 +31,7 @@ import { UserData } from '../providers/user-data';
 import { ChartModule } from 'angular2-highcharts';
 
 import { HealthGaugeComponent } from '../components/health-gauge/health-gauge';
+import { ClockProvider } from '../providers/clock/clock';
 
 declare var require : any; // need for the ChartModule import
 
@@ -99,7 +100,8 @@ declare var require : any; // need for the ChartModule import
     DowntimeData,
     UserData,
     InAppBrowser,
-    SplashScreen
+    SplashScreen,
+    ClockProvider
   ]
 })
 export class AppModule { }

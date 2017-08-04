@@ -18,7 +18,6 @@ import { SupportPage } from '../pages/support/support';
 
 import { DowntimeData } from '../providers/downtime-data';
 import { UserData } from '../providers/user-data';
-import { ClockProvider } from '../providers/clock/clock';
 
 export interface PageInterface {
   title: string;
@@ -39,8 +38,6 @@ export class DemoApp {
   // @ViewChild(Nav) gets a reference to the app's root nav
   @ViewChild(Nav) nav: Nav;
 
-  time: Date;
-  
   // List of pages that can be navigated to from the left menu
   // the left menu only works after login
   // the login page disables the left menu
@@ -69,8 +66,7 @@ export class DemoApp {
     public platform: Platform,
     public downtimeData: DowntimeData,
     public storage: Storage,
-    public splashScreen: SplashScreen,
-    private clockService: ClockProvider
+    public splashScreen: SplashScreen
   ) {
 
     // Check if the user has already seen the tutorial
@@ -94,8 +90,6 @@ export class DemoApp {
     this.enableMenu(true);
 
     this.listenToLoginEvents();
-
-    this.clockService.getClock().subscribe(time => this.time = time);
   }
 
   openPage(page: PageInterface) {

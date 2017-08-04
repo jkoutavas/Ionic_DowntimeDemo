@@ -27,11 +27,12 @@ import { SupportPage } from '../pages/support/support';
 
 import { DowntimeData } from '../providers/downtime-data';
 import { UserData } from '../providers/user-data';
+import { ClockProvider } from '../providers/clock/clock';
 
 import { ChartModule } from 'angular2-highcharts';
 
 import { HealthGaugeComponent } from '../components/health-gauge/health-gauge';
-import { ClockProvider } from '../providers/clock/clock';
+import { ClockComponent } from '../components/clock/clock';
 
 declare var require : any; // need for the ChartModule import
 
@@ -51,7 +52,8 @@ declare var require : any; // need for the ChartModule import
     TabsPage,
     TutorialPage,
     SupportPage,
-    HealthGaugeComponent
+    HealthGaugeComponent,
+    ClockComponent
   ],
   imports: [
     BrowserModule,

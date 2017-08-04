@@ -2,7 +2,7 @@
   <div text-center>
     {{time | date:'medium' }}   
   </div>
-  
-  <button ion-button (click)="startClock()">Start</button>
-  <button ion-button (click)="stopClock()">Stop</button>
 
+  <button #myButton ion-button icon-only (click)="togglePlay()">
+    <ion-icon [name]="playIcon"></ion-icon>
+</button>

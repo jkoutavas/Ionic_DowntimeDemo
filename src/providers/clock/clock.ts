@@ -10,17 +10,19 @@ import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class ClockProvider {
+  public playing: boolean = true;
+
   private clock: Observable<Date>;
+  
   private startingDate: Date = new Date();
   private ticks: number = 1;
-  private stopped: boolean = false;
 
   constructor() {
     this.clock = Observable.interval(1000).map(_ => this.incrementDate()).share();
   }
 
   incrementDate(): Date {
-    if( !this.stopped ) {
+    if( this.playing ) {
       this.startingDate = new Date(this.startingDate.getTime() + 1000*this.ticks);
     }
 
@@ -31,11 +33,10 @@ export class ClockProvider {
     return this.clock;
   }
 
-  start() {
-    this.stopped = false;
+  togglePlay() : boolean {
+    this.playing = !this.playing;
+
+    return this.playing;
   }
 
-  stop() {
-    this.stopped = true;
-  }
 }

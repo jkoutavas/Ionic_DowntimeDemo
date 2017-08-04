@@ -20,12 +20,9 @@ export class ClockComponent {
     this.clockProvider.getClock().subscribe(time => this.time = time);
   }
 
-  startClock() {
-    this.clockProvider.start();
-  }
+  playIcon: string = "pause";
 
-  stopClock() {
-    this.clockProvider.stop();
-  }
-
+    togglePlay() {
+      this.playIcon = this.clockProvider.togglePlay() ? "pause" : "play";
+    }
 }

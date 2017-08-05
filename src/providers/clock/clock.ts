@@ -33,6 +33,10 @@ export class ClockProvider {
     return this.clock;
   }
 
+  setStartingDate(date: Date) {
+    this.startingDate = date;
+  }
+  
   togglePlay() : boolean {
     this.playing = !this.playing;
 

@@ -1,8 +1,36 @@
 <!-- Generated template for the ClockComponent component -->
+<div>
+  
   <div text-center>
     {{time | date:'medium' }}   
   </div>
 
-  <button #myButton ion-button icon-only (click)="togglePlay()">
-    <ion-icon [name]="playIcon"></ion-icon>
-</button>
+  <br/>
+
+  <div style="margin-left:10px; margin-right:10px;">
+
+    <button ion-button icon-only (click)="togglePlay()">
+      <ion-icon [name]="playIcon"></ion-icon>
+    </button>
+
+    <button ion-button icon-only (click)="rewind()">
+      <ion-icon name="rewind"></ion-icon>
+    </button>
+
+    <button ion-button icon-only (click)="fastforward()">
+      <ion-icon name="fastforward"></ion-icon>
+    </button>
+
+    <ion-range min="{{days}}" max="0" [(ngModel)]="day" style="width:100%;">
+      <ion-label range-left>{{days}}</ion-label>
+      <ion-label range-right>0</ion-label>
+    </ion-range>
+  </div>
+
+  <div text-center>
+    {{start | date:'mediumDate'}} ... {{end | date:'mediumDate'}}
+  </div>
+ 
+  <br/>
+
+</div>

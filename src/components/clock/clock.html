@@ -13,12 +13,12 @@
       <ion-icon [name]="playIcon"></ion-icon>
     </button>
 
-    <button ion-button icon-only (click)="rewind()">
-      <ion-icon name="rewind"></ion-icon>
+    <button ion-button icon-only (click)="goBack()">
+      <ion-icon name="arrow-back"></ion-icon>
     </button>
 
-    <button ion-button icon-only (click)="fastforward()">
-      <ion-icon name="fastforward"></ion-icon>
+    <button ion-button icon-only (click)="goForward()">
+      <ion-icon name="arrow-forward"></ion-icon>
     </button>
 
     <ion-range min="0" max="{{days}}" [(ngModel)]="day" style="width:100%;">

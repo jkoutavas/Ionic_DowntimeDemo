@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
+import {MultiDictionary} from 'typescript-collections';
 
 @Injectable()
 export class DowntimeData {
@@ -20,11 +21,14 @@ export class DowntimeData {
   public days: number = 0;
 
   private clock: Observable<Date>;
-  private startingDate: Date = new Date();
+  private currentDate: Date = new Date();
   private ticks: number = 1;
   private _day: number = 0;
  
+  private events: MultiDictionary<number,object>;
+
   constructor(public http: Http, public user: UserData) {
+    this.events = new MultiDictionary<number,object>();
     this.clock = Observable.interval(1000).map(_ => this.incrementDate()).share();
   }
 
@@ -57,17 +61,19 @@ export class DowntimeData {
       machine.downtimeEvents.forEach((event: any) => {
         firstEventTime = Math.min(event.startTime,firstEventTime);
         lastEventTime = Math.max(event.endTime,lastEventTime);
+        this.events.setValue(event.startTime,{"machineId":machine.machineId,"event":event});
       });
     });
     let difference: number = lastEventTime - firstEventTime;
     let totalSeconds = difference / 1000;
     this.days = Math.max(Math.floor(totalSeconds / 86400), 1);
 
-    this.end = new Date;
-    this.start = new Date();
-    this.start.setDate(this.start.getDate()-this.days);
-    this.setStartingDate(this.start);
-  
+    this.start = new Date(firstEventTime);
+    this.end = new Date(lastEventTime);
+    this.currentDate = this.start;
+    
+    console.log("event count = " + this.events.size());
+    
     return this.data;
   }
 
@@ -102,25 +108,21 @@ export class DowntimeData {
 
     var date: Date = new Date();
     date.setDate(this.start.getDate()+this._day);
-    this.setStartingDate(date);
+    this.currentDate = date;
   }
 
   incrementDate(): Date {
     if( this.playing ) {
-      this.startingDate = new Date(this.startingDate.getTime() + 1000*this.ticks);
+      this.currentDate = new Date(this.currentDate.getTime() + 1000*this.ticks);
     }
 
-    return this.startingDate;
+    return this.currentDate;
   }
 
   getClock(): Observable<Date> {
     return this.clock;
   }
 
-  setStartingDate(date: Date) {
-    this.startingDate = date;
-  }
-  
   togglePlay() : boolean {
     this.playing = !this.playing;
 

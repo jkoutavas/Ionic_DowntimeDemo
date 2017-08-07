@@ -49,11 +49,12 @@ import { DowntimeData } from '../../providers/downtime-data';
     this.downtimeData.day = value;
   }
 
-  rewind() {
-    this.downtimeData.day = 0;
+  goBack() {
+    this.downtimeData.day = this.downtimeData.day-1;
   }
 
-  fastforward() {
+  goForward() {
+    this.downtimeData.day = this.downtimeData.day+1;
   }
 
   isDate(date:Date) { return date && date.getTime() === date.getTime() }

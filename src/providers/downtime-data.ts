@@ -17,12 +17,12 @@ export class DowntimeData {
   public playing: boolean = true;
   public start: Date;
   public end: Date;
-   public days: number = -60;
+  public days: number = 0;
 
   private clock: Observable<Date>;
   private startingDate: Date = new Date();
   private ticks: number = 1;
-  private _day: number = -60;
+  private _day: number = 0;
  
   constructor(public http: Http, public user: UserData) {
     this.clock = Observable.interval(1000).map(_ => this.incrementDate()).share();
@@ -42,7 +42,10 @@ export class DowntimeData {
     // build up the data by linking factories to machines
     this.data = data.json();
 
-    // loop through each line
+    var firstEventTime: number = Number.MAX_VALUE;
+    var lastEventTime: number = Number.MIN_VALUE;
+
+    // loop through each machine and gather up some useful info
     this.data.machines.forEach((machine: any) => {
       let factory = this.data.factories.find((f: any) => f.id === machine.factoryId);
       if( factory ) {
@@ -50,11 +53,19 @@ export class DowntimeData {
         factory.machines.push(machine);
         machine.factory = factory;
       }
+
+      machine.downtimeEvents.forEach((event: any) => {
+        firstEventTime = Math.min(event.startTime,firstEventTime);
+        lastEventTime = Math.max(event.endTime,lastEventTime);
+      });
     });
-  
+    let difference: number = lastEventTime - firstEventTime;
+    let totalSeconds = difference / 1000;
+    this.days = Math.max(Math.floor(totalSeconds / 86400), 1);
+
     this.end = new Date;
     this.start = new Date();
-    this.start.setDate(this.start.getDate()+this.days);
+    this.start.setDate(this.start.getDate()-this.days);
     this.setStartingDate(this.start);
   
     return this.data;
@@ -85,12 +96,12 @@ export class DowntimeData {
   get day(): number {
     return this._day;
   }
-  
+
   set day(value: number) {
     this._day = value;
 
     var date: Date = new Date();
-    date.setDate(this.end.getDate()+this._day);
+    date.setDate(this.start.getDate()+this._day);
     this.setStartingDate(date);
   }
 

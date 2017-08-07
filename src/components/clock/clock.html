@@ -21,9 +21,9 @@
       <ion-icon name="fastforward"></ion-icon>
     </button>
 
-    <ion-range min="{{days}}" max="0" [(ngModel)]="day" style="width:100%;">
-      <ion-label range-left>{{days}}</ion-label>
-      <ion-label range-right>0</ion-label>
+    <ion-range min="0" max="{{days}}" [(ngModel)]="day" style="width:100%;">
+      <ion-label range-left>0</ion-label>
+      <ion-label range-right>{{days}}</ion-label>
     </ion-range>
   </div>
 

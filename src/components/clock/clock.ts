@@ -50,7 +50,7 @@ import { DowntimeData } from '../../providers/downtime-data';
   }
 
   rewind() {
-    this.downtimeData.day = this.downtimeData.days;
+    this.downtimeData.day = 0;
   }
 
   fastforward() {

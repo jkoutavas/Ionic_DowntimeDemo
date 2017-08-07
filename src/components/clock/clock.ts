@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ClockProvider } from '../../providers/clock/clock';
+import { DowntimeData } from '../../providers/downtime-data';
 
 /**
  * Generated class for the ClockComponent component.
@@ -10,39 +10,51 @@ import { ClockProvider } from '../../providers/clock/clock';
  */
 @Component({
   selector: 'clock',
-  templateUrl: 'clock.html'
-})
-export class ClockComponent {
+  templateUrl: 'clock.html',
+ })
 
-  time: Date;
-  start: Date;
-  end: Date;
-  _day: number = -60;
-  days: number = -60;
+ export class ClockComponent {
 
-  constructor(private clockProvider: ClockProvider) {
-    this.end = new Date;
-    this.start = new Date();
-    this.start.setDate(this.start.getDate()+this.days);
-    this.clockProvider.setStartingDate(this.start);
-    this.clockProvider.getClock().subscribe(time => this.time = time);
+  time: Date = new Date;
+  
+  constructor(private downtimeData: DowntimeData) {
   }
 
-  playIcon: string = "pause";
+  ngOnInit() {
+    this.downtimeData.getClock().subscribe(time => this.time = time);
+ }
 
+  playIcon: string = "pause";
   togglePlay() {
-    this.playIcon = this.clockProvider.togglePlay() ? "pause" : "play";
+    this.playIcon = this.downtimeData.togglePlay() ? "pause" : "play";
   }
 
   get day(): number {
-    return this._day;
+    return this.downtimeData.day;
+  }
+
+  get days(): number {
+    return this.downtimeData.days;
+  }
+
+  get start(): Date {
+    return this.downtimeData.start;
+  }
+
+  get end(): Date {
+    return this.downtimeData.end;
   }
 
   set day(value: number) {
-    this._day = value;
-
-    var date: Date = new Date();
-    date.setDate(this.end.getDate()+this._day);
-    this.clockProvider.setStartingDate(date);
+    this.downtimeData.day = value;
   }
+
+  rewind() {
+    this.downtimeData.day = this.downtimeData.days;
+  }
+
+  fastforward() {
+  }
+
+  isDate(date:Date) { return date && date.getTime() === date.getTime() }
 }

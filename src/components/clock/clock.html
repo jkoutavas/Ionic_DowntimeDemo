@@ -1,13 +1,13 @@
 <!-- Generated template for the ClockComponent component -->
 <div>
-  
-  <div text-center>
+
+  <div text-center *ngIf='isDate(time)'>
     {{time | date:'medium' }}   
   </div>
 
   <br/>
 
-  <div style="margin-left:10px; margin-right:10px;">
+  <div *ngIf='isDate(time)' style="margin-left:10px; margin-right:10px;">
 
     <button ion-button icon-only (click)="togglePlay()">
       <ion-icon [name]="playIcon"></ion-icon>
@@ -27,10 +27,12 @@
     </ion-range>
   </div>
 
-  <div text-center>
+
+  <div text-center *ngIf="isDate(start) && isDate(end)">
     {{start | date:'mediumDate'}} ... {{end | date:'mediumDate'}}
   </div>
- 
+
+
   <br/>
 
 </div>

@@ -4,7 +4,8 @@ import { Http } from '@angular/http';
 
 import { UserData } from './user-data';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
@@ -13,7 +14,19 @@ import 'rxjs/add/observable/of';
 export class DowntimeData {
   data: any;
 
-  constructor(public http: Http, public user: UserData) { }
+  public playing: boolean = true;
+  public start: Date;
+  public end: Date;
+   public days: number = -60;
+
+  private clock: Observable<Date>;
+  private startingDate: Date = new Date();
+  private ticks: number = 1;
+  private _day: number = -60;
+ 
+  constructor(public http: Http, public user: UserData) {
+    this.clock = Observable.interval(1000).map(_ => this.incrementDate()).share();
+  }
 
   load(): any {
     if (this.data) {
@@ -38,7 +51,12 @@ export class DowntimeData {
         machine.factory = factory;
       }
     });
-
+  
+    this.end = new Date;
+    this.start = new Date();
+    this.start.setDate(this.start.getDate()+this.days);
+    this.setStartingDate(this.start);
+  
     return this.data;
   }
 
@@ -62,6 +80,40 @@ export class DowntimeData {
     return this.load().map((data: any) => {
       return data.map;
     });
+  }
+
+  get day(): number {
+    return this._day;
+  }
+  
+  set day(value: number) {
+    this._day = value;
+
+    var date: Date = new Date();
+    date.setDate(this.end.getDate()+this._day);
+    this.setStartingDate(date);
+  }
+
+  incrementDate(): Date {
+    if( this.playing ) {
+      this.startingDate = new Date(this.startingDate.getTime() + 1000*this.ticks);
+    }
+
+    return this.startingDate;
+  }
+
+  getClock(): Observable<Date> {
+    return this.clock;
+  }
+
+  setStartingDate(date: Date) {
+    this.startingDate = date;
+  }
+  
+  togglePlay() : boolean {
+    this.playing = !this.playing;
+
+    return this.playing;
   }
 
 }

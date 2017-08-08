@@ -11,14 +11,16 @@
 
     <ion-content class="outer-content">
 
-      <ion-list>
-        <ion-list-header>
-          Overall Health
-        </ion-list-header>
-        <clock></clock>
-        <health-gauge max=6 value=3></health-gauge>
-        <events-shuttle></events-shuttle>
-      </ion-list>
+      <div *ngIf="maxHealth>0">
+        <ion-list>
+          <ion-list-header>
+            Overall Health
+          </ion-list-header>
+          <clock></clock>
+          <health-gauge [max]="maxHealth" [value]="currentHealth"></health-gauge>
+          <events-shuttle></events-shuttle>
+        </ion-list>
+      </div>
 
       <ion-list>
         <ion-list-header>

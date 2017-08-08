@@ -27,6 +27,9 @@ export class DowntimeData {
   public eventCount: number = 0;
 
   private clock: Observable<Date>;
+  public overallHealthMax: number = 0;
+  public overallHealth: number = 0;
+
   private currentDate: Date = new Date();
   private ticks: number = 1;
   private _eventIdx: number = 0;
@@ -54,6 +57,12 @@ export class DowntimeData {
 
     // loop through each machine and gather up some useful info
     this.data.machines.forEach((machine: any) => {
+
+      this.overallHealthMax = this.overallHealthMax + 1;
+      if( machine.up ) {
+        this.overallHealth = this.overallHealth + 1;
+      }
+
       let factory = this.data.factories.find((f: any) => f.id === machine.factoryId);
       if( factory ) {
         factory.machines = factory.machines || []

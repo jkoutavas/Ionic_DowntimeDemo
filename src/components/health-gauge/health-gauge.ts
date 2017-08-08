@@ -13,11 +13,14 @@ import { Component, Input } from '@angular/core';
 
 export class HealthGaugeComponent {
 
-  @Input() max: number = 3;
-  @Input() value: number = 1;
+  @Input() max: number = 1;
+  @Input() value: number = 0;
 
     ngOnInit() {
+      this.makeOptions();
+    }
 
+    makeOptions() {
     this.options = { 
       chart: {
         type: 'solidgauge'
@@ -48,7 +51,7 @@ export class HealthGaugeComponent {
     yAxis: {
       visible: false,
       min: 0,
-      max: Number(this.max),
+      max: this.max,
       stops: [
           [0.3, '#FF0000'], // red
           [0.7, '#DDDF0D'], // yellow
@@ -88,9 +91,10 @@ saveInstance(chartInstance: any) {
   if( this.chart == null ) {
     this.chart = chartInstance;
     const me = this;
-    setInterval(function () {
-      me.chart['series'][0].setData([me.value], true, true);
-    }, 2000);
+//    setInterval(function () {
+      me.chart.series[0].name =  String(me.max);
+      me.chart.series[0].setData([me.value], true, true);
+//    }, 2000);
   }
 }
 

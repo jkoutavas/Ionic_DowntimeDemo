@@ -38,6 +38,9 @@ export class DemoApp {
   // @ViewChild(Nav) gets a reference to the app's root nav
   @ViewChild(Nav) nav: Nav;
 
+  public maxHealth: number = 0;
+  public currentHealth: number = 0;
+
   // List of pages that can be navigated to from the left menu
   // the left menu only works after login
   // the login page disables the left menu
@@ -81,7 +84,12 @@ export class DemoApp {
       });
 
     // load the downtime data
-    downtimeData.load();
+    downtimeData.load().subscribe((data: any) => {
+      if (data) {
+        this.maxHealth = downtimeData.overallHealthMax;
+        this.currentHealth = downtimeData.overallHealth;
+      }
+    });
    
     // decide which menu items should be hidden by current login status stored in local storage
     this.userData.hasLoggedIn().then((hasLoggedIn) => {

@@ -11,6 +11,12 @@ import 'rxjs/add/observable/of';
 
 import {MultiDictionary} from 'typescript-collections';
 
+class Event {
+  public machineId: number;
+  public startDate: Date;
+  public endDate: Date;
+}
+
 @Injectable()
 export class DowntimeData {
   data: any;
@@ -18,17 +24,17 @@ export class DowntimeData {
   public playing: boolean = true;
   public start: Date;
   public end: Date;
-  public days: number = 0;
+  public eventCount: number = 0;
 
   private clock: Observable<Date>;
   private currentDate: Date = new Date();
   private ticks: number = 1;
-  private _day: number = 0;
+  private _eventIdx: number = 0;
  
-  private events: MultiDictionary<number,object>;
+  private events: MultiDictionary<number,Event>;
 
   constructor(public http: Http, public user: UserData) {
-    this.events = new MultiDictionary<number,object>();
+    this.events = new MultiDictionary<number,Event>();
     this.clock = Observable.interval(1000).map(_ => this.incrementDate()).share();
   }
 
@@ -46,9 +52,6 @@ export class DowntimeData {
     // build up the data by linking factories to machines
     this.data = data.json();
 
-    var firstEventTime: number = Number.MAX_VALUE;
-    var lastEventTime: number = Number.MIN_VALUE;
-
     // loop through each machine and gather up some useful info
     this.data.machines.forEach((machine: any) => {
       let factory = this.data.factories.find((f: any) => f.id === machine.factoryId);
@@ -59,21 +62,20 @@ export class DowntimeData {
       }
 
       machine.downtimeEvents.forEach((event: any) => {
-        firstEventTime = Math.min(event.startTime,firstEventTime);
-        lastEventTime = Math.max(event.endTime,lastEventTime);
-        this.events.setValue(event.startTime,{"machineId":machine.machineId,"event":event});
+        var e: Event = new Event();
+        e.machineId = machine.machineId;
+        
+        let a = event.durationHoursMins.split(':');
+        let seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60; 
+        e.startDate = new Date(event.startTime);
+        e.endDate = new Date(event.startTime+seconds*1000);
+        this.events.setValue(event.startTime,e);
       });
     });
-    let difference: number = lastEventTime - firstEventTime;
-    let totalSeconds = difference / 1000;
-    this.days = Math.max(Math.floor(totalSeconds / 86400), 1);
 
-    this.start = new Date(firstEventTime);
-    this.end = new Date(lastEventTime);
-    this.currentDate = this.start;
-    
-    console.log("event count = " + this.events.size());
-    
+    this.eventCount = this.events.size();
+    this.eventIdx = 0;
+
     return this.data;
   }
 
@@ -99,16 +101,18 @@ export class DowntimeData {
     });
   }
 
-  get day(): number {
-    return this._day;
+  get eventIdx(): number {
+    return this._eventIdx;
   }
 
-  set day(value: number) {
-    this._day = value;
+  set eventIdx(value: number) {
+    this._eventIdx = value;
 
-    var date: Date = new Date();
-    date.setDate(this.start.getDate()+this._day);
-    this.currentDate = date;
+    let key: number = this.events.keys()[this._eventIdx];
+    let event: Event = this.events.getValue(key)[0];
+    this.start = event.startDate;
+    this.end = event.endDate;
+    this.currentDate = this.start;
   }
 
   incrementDate(): Date {

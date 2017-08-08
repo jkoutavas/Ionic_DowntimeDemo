@@ -29,12 +29,12 @@ import { DowntimeData } from '../../providers/downtime-data';
     this.playIcon = this.downtimeData.togglePlay() ? "pause" : "play";
   }
 
-  get day(): number {
-    return this.downtimeData.day;
+  get eventIdx(): number {
+    return this.downtimeData.eventIdx+1;
   }
 
-  get days(): number {
-    return this.downtimeData.days;
+  get eventCount(): number {
+    return this.downtimeData.eventCount;
   }
 
   get start(): Date {
@@ -45,17 +45,27 @@ import { DowntimeData } from '../../providers/downtime-data';
     return this.downtimeData.end;
   }
 
-  set day(value: number) {
-    this.downtimeData.day = value;
+  set eventIdx(value: number) {
+    this.downtimeData.eventIdx = value-1;
   }
 
   goBack() {
-    this.downtimeData.day = this.downtimeData.day-1;
+    this.downtimeData.eventIdx = this.downtimeData.eventIdx-1;
   }
 
   goForward() {
-    this.downtimeData.day = this.downtimeData.day+1;
+    this.downtimeData.eventIdx = this.downtimeData.eventIdx+1;
   }
 
-  isDate(date:Date) { return date && date.getTime() === date.getTime() }
+  isDate(date:Date) { 
+    return date && date.getTime() === date.getTime() 
+  }
+  
+  get isBackDisabled() {
+    return this.downtimeData.eventIdx == 0;
+  }
+
+  get isForwardDisabled() {
+    return this.downtimeData.eventIdx == this.downtimeData.eventCount-1;
+  }
 }

@@ -1,0 +1,31 @@
+<!-- Generated template for the EventsShuttleComponent component -->
+
+<div style="margin-left:10px; margin-right:10px;">
+
+  <div text-center *ngIf="isDate(start) && isDate(end)">
+    Event {{eventIdx}}: {{start | date:'mediumTime'}} ... {{end | date:'mediumTime'}}
+  </div>
+
+  <br/>
+  
+  <div text-center>
+    <button ion-button icon-only (click)="togglePlay()">
+      <ion-icon [name]="playIcon"></ion-icon>
+    </button>
+
+    <button ion-button icon-only [disabled]=isBackDisabled (click)="goBack()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
+
+    <button ion-button icon-only [disabled]=isForwardDisabled (click)="goForward()">
+      <ion-icon name="arrow-forward"></ion-icon>
+    </button>
+  </div>
+
+  <ion-range min="1" max="{{eventCount}}" [(ngModel)]="eventIdx" style="width:100%;">
+    <ion-label range-left>Event 1</ion-label>
+    <ion-label range-right>Event {{eventCount}}</ion-label>
+  </ion-range>
+</div>
+
+<br/>

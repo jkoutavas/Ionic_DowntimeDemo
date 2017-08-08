@@ -32,6 +32,7 @@ import { ChartModule } from 'angular2-highcharts';
 
 import { HealthGaugeComponent } from '../components/health-gauge/health-gauge';
 import { ClockComponent } from '../components/clock/clock';
+import { EventsShuttleComponent } from '../components/events-shuttle/events-shuttle';
 
 declare var require : any; // need for the ChartModule import
 
@@ -52,7 +53,8 @@ declare var require : any; // need for the ChartModule import
     TutorialPage,
     SupportPage,
     HealthGaugeComponent,
-    ClockComponent
+    ClockComponent,
+    EventsShuttleComponent
   ],
   imports: [
     BrowserModule,
@@ -94,8 +96,9 @@ declare var require : any; // need for the ChartModule import
     TabsPage,
     TutorialPage,
     SupportPage,
+    HealthGaugeComponent,
     ClockComponent,
-    HealthGaugeComponent
+    EventsShuttleComponent,
    ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

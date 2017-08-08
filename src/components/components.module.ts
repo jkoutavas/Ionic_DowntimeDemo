@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { HealthGaugeComponent } from './health-gauge/health-gauge';
 import { ClockComponent } from './clock/clock';
+import { EventsShuttleComponent } from './events-shuttle/events-shuttle';
 @NgModule({
 	declarations: [HealthGaugeComponent,
-    ClockComponent],
+    ClockComponent,
+    EventsShuttleComponent],
 	imports: [],
 	exports: [HealthGaugeComponent,
-    ClockComponent]
+    ClockComponent,
+    EventsShuttleComponent]
 })
 export class ComponentsModule {}

@@ -34,7 +34,7 @@
     "profilePic": "assets/img/machines/redbud.png",
     "id": "2",
     "factoryId": "1",
-    "up":false,
+    "up":true,
     "downtimeEvents":[{
       "id": 27310632,
       "codeId": null,
@@ -97,7 +97,7 @@
     "profilePic": "assets/img/machines/redbud.png",
     "id": "4",
     "factoryId": "2",
-    "up":false,
+    "up":true,
     "downtimeEvents":[{
       "id": 27310632,
       "codeId": null,
@@ -159,9 +159,9 @@
     "profilePic": "assets/img/machines/redbud.png",
     "id": "6",
     "factoryId": "3",
-    "up":false,
+    "up":true,
     "downtimeEvents":[{
-       "id": 27310632,
+      "id": 27310632,
       "codeId": null,
       "downtimeCode": "",
       "categoryId": null,

@@ -15,7 +15,7 @@ import { DowntimeData } from '../../providers/downtime-data';
 
  export class ClockComponent {
 
-  time: Date = new Date;
+  time: Date;
   
   constructor(private downtimeData: DowntimeData) {
   }

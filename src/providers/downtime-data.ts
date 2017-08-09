@@ -22,8 +22,6 @@ export class DowntimeData {
   data: any;
 
   public playing: boolean = true;
-  public start: Date;
-  public end: Date;
   public eventCount: number = 0;
 
   private clock: Observable<Date>;
@@ -46,7 +44,7 @@ export class DowntimeData {
     this.overallHealth = new Observable((observer: Observer<number>) => {
       this.overallHealthObserver = observer;
     });
-}
+  }
 
   load(): Promise<any> {
     this.data = null;
@@ -94,8 +92,6 @@ export class DowntimeData {
     this.eventCount = this.events.size();
     this.eventIdx = 0;
 
-    this.overallHealthObserver.next(this._overallHealth);
-
     return this.data;
   }
 
@@ -135,9 +131,7 @@ export class DowntimeData {
     let key: number = this.events.keys()[this._eventIdx];
     let event: Event = this.events.getValue(key)[0];
     this.updateMachines(event);
-    this.start = event.startDate;
-    this.end = event.endDate;
-    this.currentDate = this.start;
+    this.currentDate = event.startDate;
   }
 
   updateMachines(event:Event) {

@@ -30,14 +30,6 @@ export class EventsShuttleComponent {
     return this.downtimeData.eventCount;
   }
 
-  get start(): Date {
-    return this.downtimeData.start;
-  }
-
-  get end(): Date {
-    return this.downtimeData.end;
-  }
-
   set eventIdx(value: number) {
     this.downtimeData.eventIdx = value-1;
   }

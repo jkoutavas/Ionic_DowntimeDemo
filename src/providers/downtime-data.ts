@@ -79,7 +79,7 @@ export class DowntimeData {
 
       machine.downtimeEvents.forEach((event: any) => {
         var e: Event = new Event();
-        e.machineId = machine.machineId;
+        e.machineId = machine.id;
         
         let a = event.durationHoursMins.split(':');
         let seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60; 
@@ -138,10 +138,14 @@ export class DowntimeData {
     this.data.machines.forEach((machine: any) => {
       machine.up = true;
     });
-    var machine = this.data.machines.find((m: any) => m.machineId === event.machineId);
-    machine.up = false;
-    this._overallHealth--;
-    this.overallHealthObserver.next(this._overallHealth);
+    var machine = this.data.machines.find((m: any) => m.id === event.machineId);
+    if( machine ) {
+      machine.up = false;
+      this._overallHealth--;
+      if( this.overallHealthObserver ) {
+        this.overallHealthObserver.next(this._overallHealth);
+      }
+    }
   }
 
   incrementDate(): Date {

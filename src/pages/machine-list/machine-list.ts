@@ -45,9 +45,7 @@ export class MachineListPage {
 
   ionViewDidLoad() {
     if( !this.navParams.data.machines ) {
-      this.downtimeData.getMachines().subscribe((machines: any[]) => {
-        this.machines = machines;
-      });
+      this.machines = this.downtimeData.getMachines();
     } else {
       this.machines = this.navParams.data.machines;
     }

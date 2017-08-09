@@ -40,9 +40,7 @@ export class FactoryListPage {
   ) {}
 
   ionViewDidLoad() {
-    this.downtimeData.getFactories().subscribe((factories: any[]) => {
-      this.factories = factories;
-    });
+    this.factories = this.downtimeData.getFactories();
   }
 
   goToMachineList(machineList: any) {

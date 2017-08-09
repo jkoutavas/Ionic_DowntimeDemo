@@ -17,17 +17,12 @@ export class MachineDetailPage {
   }
 
   ionViewWillEnter() {
-    this.dataProvider.getData().subscribe((data: any) => {
-      if (data && data.machines) {
-        for (const machine of data.machines) {
-          if (machine && machine.id === this.navParams.data.machineId) {
-            this.machine = machine;
-            break;
-          }
-        }
+    for (const machine of this.dataProvider.getMachines()) {
+      if (machine && machine.id === this.navParams.data.machineId) {
+        this.machine = machine;
+        break;
       }
-    });
-
+    }
   }
 
   goToMachineDetail(machine: any) {

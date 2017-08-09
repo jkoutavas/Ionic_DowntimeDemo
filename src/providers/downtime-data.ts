@@ -19,7 +19,7 @@ class Event {
 
 @Injectable()
 export class DowntimeData {
-  data: any;
+  private data: any;
 
   public playing: boolean = true;
   public eventCount: number = 0;
@@ -100,25 +100,19 @@ export class DowntimeData {
   }
 
   getFactories() {
-    return this.getData().map((data: any) => {
-      return data.factories.sort((a: any, b: any) => {
+    return this.data.factories.sort((a: any, b: any) => {
         let aName = a.name.split(' ').pop();
         let bName = b.name.split(' ').pop();
         return aName.localeCompare(bName);
       });
-    });
   }
 
   getMachines() {
-    return this.getData().map((data: any) => {
-      return data.machines;
-    });
+    return this.data.machines;
   }
 
   getMap() {
-    return this.getData().map((data: any) => {
-      return data.map;
-    });
+    return this.data.map;
   }
 
   get eventIdx(): number {

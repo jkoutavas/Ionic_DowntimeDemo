@@ -17,16 +17,12 @@ export class FactoryDetailPage {
   }
 
   ionViewWillEnter() {
-    this.dataProvider.getData().subscribe((data: any) => {
-      if (data && data.factories) {
-        for (const factory of data.factories) {
-          if (factory && factory.id === this.navParams.data.factoryId) {
-            this.factory = factory;
-            break;
-          }
-        }
+    for (const factory of this.dataProvider.getFactories()) {
+      if (factory && factory.id === this.navParams.data.factoryId) {
+        this.factory = factory;
+        break;
       }
-    });
+    }
   }
 
   goToMachineDetail(machine: any) {

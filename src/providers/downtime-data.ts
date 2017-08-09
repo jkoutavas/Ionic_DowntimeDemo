@@ -4,7 +4,7 @@ import { Http } from '@angular/http';
 
 import { UserData } from './user-data';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
@@ -27,8 +27,12 @@ export class DowntimeData {
   public eventCount: number = 0;
 
   private clock: Observable<Date>;
+  
   public overallHealthMax: number = 0;
-  public overallHealth: number = 0;
+
+  public overallHealth: Observable<number>;
+  private overallHealthObserver: Observer<number>;
+  public _overallHealth: number = 0;
 
   private currentDate: Date = new Date();
   private ticks: number = 1;
@@ -39,7 +43,10 @@ export class DowntimeData {
   constructor(public http: Http, public user: UserData) {
     this.events = new MultiDictionary<number,Event>();
     this.clock = Observable.interval(1000).map(_ => this.incrementDate()).share();
- }
+    this.overallHealth = new Observable((observer: Observer<number>) => {
+      this.overallHealthObserver = observer;
+    });
+}
 
   load(): Promise<any> {
     this.data = null;
@@ -60,9 +67,9 @@ export class DowntimeData {
     // loop through each machine and gather up some useful info
     this.data.machines.forEach((machine: any) => {
 
-      this.overallHealthMax = this.overallHealthMax + 1;
+      this.overallHealthMax++;
       if( machine.up ) {
-        this.overallHealth = this.overallHealth + 1;
+        this._overallHealth++;
       }
 
       let factory = this.data.factories.find((f: any) => f.id === machine.factoryId);
@@ -87,8 +94,11 @@ export class DowntimeData {
     this.eventCount = this.events.size();
     this.eventIdx = 0;
 
+    this.overallHealthObserver.next(this._overallHealth);
+
     return this.data;
   }
+
   getData() {
     return Observable.of(this.data);
   }
@@ -136,7 +146,8 @@ export class DowntimeData {
     });
     var machine = this.data.machines.find((m: any) => m.machineId === event.machineId);
     machine.up = false;
-    this.overallHealth = this.overallHealth - 1;
+    this._overallHealth--;
+    this.overallHealthObserver.next(this._overallHealth);
   }
 
   incrementDate(): Date {

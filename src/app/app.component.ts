@@ -82,15 +82,11 @@ export class DemoApp {
         }
         this.platformReady()
       });
-
-    // load the downtime data
-    downtimeData.load().subscribe((data: any) => {
-      if (data) {
-        this.maxHealth = downtimeData.overallHealthMax;
-        this.currentHealth = downtimeData.overallHealth;
-      }
-    });
    
+    this.downtimeData.getMachines().subscribe((_: any[]) => {
+      this.updateHealth();
+    });
+
     // decide which menu items should be hidden by current login status stored in local storage
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
       this.enableMenu(hasLoggedIn === true);
@@ -100,6 +96,10 @@ export class DemoApp {
     this.listenToLoginEvents();
   }
 
+  updateHealth() {
+    this.maxHealth = this.downtimeData.overallHealthMax;
+    this.currentHealth = this.downtimeData.overallHealth;
+  }
   openPage(page: PageInterface) {
     let params = {};
 

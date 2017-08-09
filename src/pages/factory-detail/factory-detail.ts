@@ -17,7 +17,7 @@ export class FactoryDetailPage {
   }
 
   ionViewWillEnter() {
-    this.dataProvider.load().subscribe((data: any) => {
+    this.dataProvider.getData().subscribe((data: any) => {
       if (data && data.factories) {
         for (const factory of data.factories) {
           if (factory && factory.id === this.navParams.data.factoryId) {
@@ -27,7 +27,6 @@ export class FactoryDetailPage {
         }
       }
     });
-
   }
 
   goToMachineDetail(machine: any) {

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler, APP_INITIALIZER } from '@angular/core';
 
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
@@ -35,6 +35,10 @@ import { ClockComponent } from '../components/clock/clock';
 import { EventsShuttleComponent } from '../components/events-shuttle/events-shuttle';
 
 declare var require : any; // need for the ChartModule import
+
+export function startupServiceFactory(startupService: DowntimeData): Function {
+    return () => startupService.load();
+}
 
 @NgModule({
   declarations: [
@@ -106,6 +110,13 @@ declare var require : any; // need for the ChartModule import
     UserData,
     InAppBrowser,
     SplashScreen,
+
+     {
+      provide: APP_INITIALIZER,
+      useFactory: startupServiceFactory,
+      deps: [DowntimeData],
+      multi: true
+    }
   ]
 })
 export class AppModule { }

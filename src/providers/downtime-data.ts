@@ -39,15 +39,17 @@ export class DowntimeData {
   constructor(public http: Http, public user: UserData) {
     this.events = new MultiDictionary<number,Event>();
     this.clock = Observable.interval(1000).map(_ => this.incrementDate()).share();
-  }
+ }
 
-  load(): any {
-    if (this.data) {
-      return Observable.of(this.data);
-    } else {
-      return this.http.get('assets/data/data.json')
-        .map(this.processData, this);
-    }
+  load(): Promise<any> {
+    this.data = null;
+
+    return this.http
+            .get('assets/data/data.json')
+            .map(this.processData, this)
+            .toPromise()
+            .then((data: any) => this.data = data)
+            .catch((_: any) => Promise.resolve());
   }
 
   processData(data: any) {
@@ -87,9 +89,12 @@ export class DowntimeData {
 
     return this.data;
   }
+  getData() {
+    return Observable.of(this.data);
+  }
 
   getFactories() {
-    return this.load().map((data: any) => {
+    return this.getData().map((data: any) => {
       return data.factories.sort((a: any, b: any) => {
         let aName = a.name.split(' ').pop();
         let bName = b.name.split(' ').pop();
@@ -99,13 +104,13 @@ export class DowntimeData {
   }
 
   getMachines() {
-    return this.load().map((data: any) => {
+    return this.getData().map((data: any) => {
       return data.machines;
     });
   }
 
   getMap() {
-    return this.load().map((data: any) => {
+    return this.getData().map((data: any) => {
       return data.map;
     });
   }
@@ -119,9 +124,19 @@ export class DowntimeData {
 
     let key: number = this.events.keys()[this._eventIdx];
     let event: Event = this.events.getValue(key)[0];
+    this.updateMachines(event);
     this.start = event.startDate;
     this.end = event.endDate;
     this.currentDate = this.start;
+  }
+
+  updateMachines(event:Event) {
+    this.data.machines.forEach((machine: any) => {
+      machine.up = true;
+    });
+    var machine = this.data.machines.find((m: any) => m.machineId === event.machineId);
+    machine.up = false;
+    this.overallHealth = this.overallHealth - 1;
   }
 
   incrementDate(): Date {

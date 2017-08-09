@@ -17,7 +17,7 @@ export class MachineDetailPage {
   }
 
   ionViewWillEnter() {
-    this.dataProvider.load().subscribe((data: any) => {
+    this.dataProvider.getData().subscribe((data: any) => {
       if (data && data.machines) {
         for (const machine of data.machines) {
           if (machine && machine.id === this.navParams.data.machineId) {

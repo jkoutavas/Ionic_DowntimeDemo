@@ -72,8 +72,10 @@ export class DowntimeData {
 
       let factory = this.data.factories.find((f: any) => f.id === machine.factoryId);
       if( factory ) {
-        factory.machines = factory.machines || []
+        factory.upMachines = factory.upMachines || 0;
+        factory.machines = factory.machines || [];
         factory.machines.push(machine);
+        factory.upMachines++;
         machine.factory = factory;
       }
 
@@ -139,6 +141,15 @@ export class DowntimeData {
       }
     });
 
+    this.data.factories.forEach((factory: any) => {
+      factory.upMachines = 0;
+      factory.machines.forEach((machine: any) => {
+        if(machine.up) {
+          factory.upMachines++;
+        }
+      });
+    });
+    
     if( this.overallHealthObserver ) {
       this.overallHealthObserver.next(this._overallHealth);
     }

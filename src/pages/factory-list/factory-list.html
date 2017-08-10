@@ -28,7 +28,7 @@
               <ion-list>
                 <ion-row justify-content-center>
                   <ion-col col-6>
-                    <health-gauge max={{factory.machines.length}} value={{countUpMachines(factory.machines)}}></health-gauge>
+                    <health-gauge max={{factory.machines.length}} [value]="factory.upMachines"></health-gauge>
                   </ion-col>
                 </ion-row>
 

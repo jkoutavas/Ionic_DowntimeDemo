@@ -47,16 +47,6 @@ export class FactoryListPage {
     this.navCtrl.push(MachineListPage, { machines: machineList, title: "Factories" });
   }
 
-  countUpMachines(machineList: any) {
-    var count = 0;
-    for( var i=0; i<machineList.length; i++ ) {
-      if(machineList[i].up) {
-        count++;
-      }
-    }   
-    return count;
-  }
-
   goToFactoryDetail(factory: any) {
     this.navCtrl.push(FactoryDetailPage, { factoryId: factory.id });
   }

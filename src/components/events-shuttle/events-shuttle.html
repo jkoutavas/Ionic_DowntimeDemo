@@ -2,7 +2,7 @@
 
 <div style="margin-left:10px; margin-right:10px;">
 
-  <div text-center *ngIf="isDate(start) && isDate(end)">
+  <div class="start-end" text-center *ngIf="isDate(start) && isDate(end)">
     Event {{eventIdx}}: {{start | date:'mediumTime'}} ... {{end | date:'mediumTime'}}
   </div>
 

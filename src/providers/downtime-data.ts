@@ -9,8 +9,6 @@ import { Observable, Observer } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
-import {MultiDictionary} from 'typescript-collections';
-
 class Event {
   public machineId: number;
   public startDate: Date;
@@ -36,10 +34,10 @@ export class DowntimeData {
   private ticks: number = 1;
   private _eventIdx: number = 0;
  
-  private events: MultiDictionary<number,Event>;
+  private events: Event[];
 
   constructor(public http: Http, public user: UserData) {
-    this.events = new MultiDictionary<number,Event>();
+    this.events = [];
     this.clock = Observable.interval(1000).map(_ => this.incrementDate()).share();
     this.overallHealth = new Observable((observer: Observer<number>) => {
       this.overallHealthObserver = observer;
@@ -62,10 +60,12 @@ export class DowntimeData {
     // build up the data by linking factories to machines
     this.data = data.json();
 
+    this.overallHealthMax = this.data.machines.length;
+    this.eventCount = 0;
+
     // loop through each machine and gather up some useful info
     this.data.machines.forEach((machine: any) => {
 
-      this.overallHealthMax++;
       if( machine.up ) {
         this._overallHealth++;
       }
@@ -85,11 +85,11 @@ export class DowntimeData {
         let seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60; 
         e.startDate = new Date(event.startTime);
         e.endDate = new Date(event.startTime+seconds*1000);
-        this.events.setValue(event.startTime,e);
+        this.events.push(e);
+        this.eventCount++;
       });
     });
 
-    this.eventCount = this.events.size();
     this.eventIdx = 0;
 
     return this.data;
@@ -121,24 +121,26 @@ export class DowntimeData {
 
   set eventIdx(value: number) {
     this._eventIdx = value;
-
-    let key: number = this.events.keys()[this._eventIdx];
-    let event: Event = this.events.getValue(key)[0];
-    this.updateMachines(event);
+    let event = this.events[this._eventIdx];
     this.currentDate = event.startDate;
+    this.updateMachines();
   }
 
-  updateMachines(event:Event) {
+  updateMachines() {
+    this._overallHealth = this.overallHealthMax;
     this.data.machines.forEach((machine: any) => {
       machine.up = true;
     });
-    var machine = this.data.machines.find((m: any) => m.id === event.machineId);
-    if( machine ) {
-      machine.up = false;
-      this._overallHealth--;
-      if( this.overallHealthObserver ) {
-        this.overallHealthObserver.next(this._overallHealth);
+    this.events.forEach((event: Event) => {
+      var machine = this.data.machines.find((m: any) => m.id === event.machineId);
+      if (this.currentDate >= event.startDate && this.currentDate <= event.endDate) {
+        this._overallHealth--;
+        machine.up = false;
       }
+    });
+
+    if( this.overallHealthObserver ) {
+      this.overallHealthObserver.next(this._overallHealth);
     }
   }
 
@@ -160,4 +162,11 @@ export class DowntimeData {
     return this.playing;
   }
 
+  get startDate() : Date {
+    return this.events[this.eventIdx].startDate;
+  }
+
+  get endDate() : Date {
+    return this.events[this.eventIdx].endDate;
+  }
 }

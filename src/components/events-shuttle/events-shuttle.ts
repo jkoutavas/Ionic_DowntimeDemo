@@ -53,4 +53,13 @@ export class EventsShuttleComponent {
   get isForwardDisabled() {
     return this.downtimeData.eventIdx == this.downtimeData.eventCount-1;
   }
+
+  get start() : Date {
+    return this.downtimeData.startDate;
+  }
+
+  get end() : Date {
+    return this.downtimeData.endDate;
+  }
+
 }

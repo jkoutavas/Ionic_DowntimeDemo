@@ -62,6 +62,7 @@ export class DowntimeData {
 
     this.overallHealthMax = this.data.machines.length;
     this.eventCount = 0;
+    var events : Event[] = [];
 
     // loop through each machine and gather up some useful info
     this.data.machines.forEach((machine: any) => {
@@ -87,9 +88,12 @@ export class DowntimeData {
         let seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60; 
         e.startDate = new Date(event.startTime);
         e.endDate = new Date(event.startTime+seconds*1000);
-        this.events.push(e);
+        events.push(e);
         this.eventCount++;
       });
+    });
+    this.events = events.sort((a: Event, b: Event) => {
+        return a.startDate.getTime()-b.startDate.getTime();
     });
 
     this.eventIdx = 0;

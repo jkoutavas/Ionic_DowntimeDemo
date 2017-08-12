@@ -208,24 +208,18 @@
   "factories": [{
     "name": "Marietta Service Center",
     "profilePic": "assets/img/factories/marietta.png",
-    "about": "Burt is a Bear.",
-    "location": "Everywhere",
     "email": "burt@example.com",
     "phone": "+1-541-754-3010",
     "id": "1"
   }, {
     "name": "Chicago Service Center",
     "profilePic": "assets/img/factories/chicago.png",
-    "about": "Charlie is a Cheetah.",
-    "location": "Everywhere",
     "email": "charlie@example.com",
     "phone": "+1-541-754-3010",
     "id": "2"
   }, {
     "name": "Houston Service Center",
     "profilePic": "assets/img/factories/houston.png",
-    "about": "Donald is a Duck.",
-    "location": "Everywhere",
     "email": "donald@example.com",
     "phone": "+1-541-754-3010",
     "id": "3"

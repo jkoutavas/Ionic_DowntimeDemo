@@ -18,7 +18,7 @@ export class FactoryDetailPage {
 
   ionViewWillEnter() {
     for (const factory of this.dataProvider.getFactories()) {
-      if (factory && factory.id === this.navParams.data.factoryId) {
+      if (factory && factory.id == this.navParams.data.factoryId) {
         this.factory = factory;
         break;
       }

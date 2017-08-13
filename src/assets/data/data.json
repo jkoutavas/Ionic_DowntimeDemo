@@ -2,8 +2,8 @@
   "machines": [{
     "name": "Red Bud 1",
     "profilePic": "assets/img/machines/redbud.png",
-    "id": "1",
-    "factoryId": "1",
+    "id": 1,
+    "factoryId": 1,
     "schedule": 0,
     "up":true,
     "downtimeEvents":[{
@@ -35,8 +35,8 @@
     }, {
     "name": "Red Bud 2",
     "profilePic": "assets/img/machines/redbud.png",
-    "id": "2",
-    "factoryId": "1",
+    "id": 2,
+    "factoryId": 1,
     "up":true,
     "downtimeEvents":[{
       "id": 27293345,
@@ -79,8 +79,8 @@
   }, {
     "name": "Red Bud 3",
     "profilePic": "assets/img/machines/redbud.png",
-    "id": "3",
-    "factoryId": "2",
+    "id": 3,
+    "factoryId": 2,
     "schedule": 0,
     "up":true,
     "downtimeEvents":[{
@@ -112,8 +112,8 @@
   }, {
     "name": "Red Bud 4",
     "profilePic": "assets/img/machines/redbud.png",
-    "id": "4",
-    "factoryId": "2",
+    "id": 4,
+    "factoryId": 2,
     "schedule": 0,
     "up":true,
     "downtimeEvents":[{
@@ -145,8 +145,8 @@
   }, {
     "name": "Red Bud 5",
     "profilePic": "assets/img/machines/redbud.png",
-    "id": "5",
-    "factoryId": "2",
+    "id": 5,
+    "factoryId": 2,
     "schedule": 0,
     "up":true,
     "downtimeEvents":[{
@@ -178,8 +178,8 @@
   }, {
     "name": "Red Bud 6",
     "profilePic": "assets/img/machines/redbud.png",
-    "id": "6",
-    "factoryId": "3",
+    "id": 6,
+    "factoryId": 3,
     "schedule": 0,
     "up":true,
     "downtimeEvents":[{
@@ -215,7 +215,7 @@
     "profilePic": "assets/img/factories/marietta.png",
     "email": "burt@example.com",
     "phone": "+1-541-754-3010",
-    "id": "1",
+    "id": 1,
     "schedules": [{
       "shifts": 3,
       "shiftHours": 8,
@@ -226,7 +226,7 @@
     "profilePic": "assets/img/factories/chicago.png",
     "email": "charlie@example.com",
     "phone": "+1-541-754-3010",
-    "id": "2",
+    "id": 2,
     "schedules": [{
       "shifts": 3,
       "shiftHours": 8,

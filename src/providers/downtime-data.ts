@@ -71,7 +71,7 @@ export class DowntimeData {
         this._overallHealth++;
       }
 
-      let factory = this.data.factories.find((f: any) => f.id === machine.factoryId);
+      let factory = this.data.factories.find((f: any) => f.id == machine.factoryId);
       if( factory ) {
         factory.upMachines = factory.upMachines || 0;
         factory.machines = factory.machines || [];
@@ -138,7 +138,7 @@ export class DowntimeData {
       machine.up = true;
     });
     this.events.forEach((event: Event) => {
-      var machine = this.data.machines.find((m: any) => m.id === event.machineId);
+      var machine = this.data.machines.find((m: any) => m.id == event.machineId);
       if (this.currentDate >= event.startDate && this.currentDate <= event.endDate) {
         this._overallHealth--;
         machine.up = false;

@@ -18,7 +18,7 @@ export class MachineDetailPage {
 
   ionViewWillEnter() {
     for (const machine of this.dataProvider.getMachines()) {
-      if (machine && machine.id === this.navParams.data.machineId) {
+      if (machine && machine.id == this.navParams.data.machineId) {
         this.machine = machine;
         break;
       }

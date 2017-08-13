@@ -4,6 +4,7 @@
     "profilePic": "assets/img/machines/redbud.png",
     "id": "1",
     "factoryId": "1",
+    "schedule": 0,
     "up":true,
     "downtimeEvents":[{
       "id": 27293451,
@@ -80,6 +81,7 @@
     "profilePic": "assets/img/machines/redbud.png",
     "id": "3",
     "factoryId": "2",
+    "schedule": 0,
     "up":true,
     "downtimeEvents":[{
       "id": 27292784,
@@ -112,6 +114,7 @@
     "profilePic": "assets/img/machines/redbud.png",
     "id": "4",
     "factoryId": "2",
+    "schedule": 0,
     "up":true,
     "downtimeEvents":[{
       "id": 27291719,
@@ -144,6 +147,7 @@
     "profilePic": "assets/img/machines/redbud.png",
     "id": "5",
     "factoryId": "2",
+    "schedule": 0,
     "up":true,
     "downtimeEvents":[{
       "id": 27292505,
@@ -176,6 +180,7 @@
     "profilePic": "assets/img/machines/redbud.png",
     "id": "6",
     "factoryId": "3",
+    "schedule": 0,
     "up":true,
     "downtimeEvents":[{
       "id": 27292297,
@@ -210,21 +215,35 @@
     "profilePic": "assets/img/factories/marietta.png",
     "email": "burt@example.com",
     "phone": "+1-541-754-3010",
-    "id": "1"
+    "id": "1",
+    "schedules": [{
+      "shifts": 3,
+      "shiftHours": 8,
+      "shiftDays": 5
+    }]
   }, {
     "name": "Chicago Service Center",
     "profilePic": "assets/img/factories/chicago.png",
     "email": "charlie@example.com",
     "phone": "+1-541-754-3010",
-    "id": "2"
+    "id": "2",
+    "schedules": [{
+      "shifts": 3,
+      "shiftHours": 8,
+      "shiftDays": 7
+    }]  
   }, {
     "name": "Houston Service Center",
     "profilePic": "assets/img/factories/houston.png",
     "email": "donald@example.com",
     "phone": "+1-541-754-3010",
-    "id": "3"
+    "id": "3",
+    "schedules": [{
+      "shifts": 1,
+      "shiftHours": 8,
+      "shiftDays": 5
+    }]
   }],
-
 
   "map": [{
     "name": "Marietta Service Center",

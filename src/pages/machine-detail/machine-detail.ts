@@ -28,4 +28,9 @@ export class MachineDetailPage {
   goToMachineDetail(machine: any) {
     this.navCtrl.push('MachineDetailPage', { machineId: machine.id });
   }
+
+  get schedule(): any {
+    return this.machine.factory.schedules[this.machine.schedule];
+  }
 }
+

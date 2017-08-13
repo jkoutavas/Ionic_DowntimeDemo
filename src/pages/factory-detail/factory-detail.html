@@ -16,5 +16,20 @@
     </button>
   </div>
 
-  <p>{{factory?.machines.length}} machines.</p>
+  <div *ngIf="factory">
+    <h3>Machines:</h3>
+    <ol>
+      <li *ngFor="let machine of factory.machines">
+        <div>{{machine.name}}</div>
+      </li>
+    </ol>
+
+    <h3>Schedules:</h3>
+    <ol>
+      <li *ngFor="let sched of factory.schedules">
+        <div>shifts: {{sched.shifts}} / hours: {{sched.shiftHours}} / days: {{sched.shiftDays}}</div>
+      </li>
+    </ol>
+  </div>
+
 </ion-content>

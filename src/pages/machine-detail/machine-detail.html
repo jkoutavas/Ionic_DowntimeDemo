@@ -23,6 +23,10 @@
     </div>
   </div>
 
+  <div *ngIf="machine">
+    shifts: {{schedule.shifts}} / hours: {{schedule.shiftHours}} / days: {{schedule.shiftDays}}
+  </div>
+
 </ion-content>
 
 <ng-template #downTemplate>

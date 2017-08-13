@@ -10,7 +10,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
 class Event {
+  public id: number;
   public machineId: number;
+  public codeId: number;
   public startDate: Date;
   public endDate: Date;
 }
@@ -67,7 +69,7 @@ export class DowntimeData {
     // loop through each machine and gather up some useful info
     this.data.machines.forEach((machine: any) => {
 
-      if( machine.up ) {
+      if( machine.downtimeEventId == 0 ) {
         this._overallHealth++;
       }
 
@@ -83,7 +85,9 @@ export class DowntimeData {
       machine.downtimeEvents.forEach((event: any) => {
         var e: Event = new Event();
         e.machineId = machine.id;
-        
+        e.id = event.id;
+        e.codeId = event.codeId;
+
         let a = event.durationHoursMins.split(':');
         let seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60; 
         e.startDate = new Date(event.startTime);
@@ -121,6 +125,10 @@ export class DowntimeData {
     return this.data.map;
   }
 
+  getDowntimeCodes() {
+    return this.data.downtimeCodes;
+  }
+
   get eventIdx(): number {
     return this._eventIdx;
   }
@@ -135,20 +143,20 @@ export class DowntimeData {
   updateMachines() {
     this._overallHealth = this.overallHealthMax;
     this.data.machines.forEach((machine: any) => {
-      machine.up = true;
+      machine.downtimeEventId = 0;
     });
     this.events.forEach((event: Event) => {
       var machine = this.data.machines.find((m: any) => m.id == event.machineId);
       if (this.currentDate >= event.startDate && this.currentDate <= event.endDate) {
         this._overallHealth--;
-        machine.up = false;
+        machine.downtimeEventId = event.id;
       }
     });
 
     this.data.factories.forEach((factory: any) => {
       factory.upMachines = 0;
       factory.machines.forEach((machine: any) => {
-        if(machine.up) {
+        if(machine.downtimeEventId==0) {
           factory.upMachines++;
         }
       });

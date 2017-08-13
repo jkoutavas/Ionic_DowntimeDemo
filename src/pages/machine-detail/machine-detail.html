@@ -18,7 +18,7 @@
   </div>
      
   <div text-center *ngIf="machine">
-    <div *ngIf="machine.up===true; else downTemplate">
+    <div *ngIf="machine.downtimeEventId==0; else downTemplate">
       <ion-icon name="thumbs-up"></ion-icon>
     </div>
   </div>
@@ -31,5 +31,6 @@
 
 <ng-template #downTemplate>
   <ion-icon name="thumbs-down"></ion-icon>
+  {{machine.downtimeEventId}}
 </ng-template>
   

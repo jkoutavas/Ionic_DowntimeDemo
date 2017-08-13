@@ -22,9 +22,13 @@
                 </ion-thumbnail>
                 {{machine.name}}
               </button>
-              <div *ngIf="machine.up===true; else downTemplate">
+              <div *ngIf="machine.downtimeEventId==0; else downTemplate">
                 <ion-icon name="thumbs-up"></ion-icon>
               </div>
+              <ng-template #downTemplate>
+                  <ion-icon name="thumbs-down"></ion-icon>
+                  {{downtime(machine).code}}
+                </ng-template>
             </ion-card-header>
 
             <ion-card-content class="outer-content">
@@ -47,7 +51,3 @@
     </ion-grid>
   </ion-list>
 </ion-content>
-
-<ng-template #downTemplate>
-  <ion-icon name="thumbs-down"></ion-icon>
-</ng-template>

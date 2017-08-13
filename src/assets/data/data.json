@@ -5,7 +5,7 @@
     "id": 1,
     "factoryId": 1,
     "schedule": 0,
-    "up":true,
+    "downtimeEventId": 0,
     "downtimeEvents":[{
       "id": 27293451,
       "codeId": 15864,
@@ -37,7 +37,7 @@
     "profilePic": "assets/img/machines/redbud.png",
     "id": 2,
     "factoryId": 1,
-    "up":true,
+    "downtimeEventId": 0,
     "downtimeEvents":[{
       "id": 27293345,
       "codeId": 16047,
@@ -82,7 +82,7 @@
     "id": 3,
     "factoryId": 2,
     "schedule": 0,
-    "up":true,
+    "downtimeEventId": 0,
     "downtimeEvents":[{
       "id": 27292784,
       "codeId": 15864,
@@ -115,7 +115,7 @@
     "id": 4,
     "factoryId": 2,
     "schedule": 0,
-    "up":true,
+    "downtimeEventId": 0,
     "downtimeEvents":[{
       "id": 27291719,
       "codeId": 16047,
@@ -148,7 +148,7 @@
     "id": 5,
     "factoryId": 2,
     "schedule": 0,
-    "up":true,
+    "downtimeEventId": 0,
     "downtimeEvents":[{
       "id": 27292505,
       "codeId": 15864,
@@ -181,7 +181,7 @@
     "id": 6,
     "factoryId": 3,
     "schedule": 0,
-    "up":true,
+    "downtimeEventId": 0,
     "downtimeEvents":[{
       "id": 27292297,
       "codeId": 15864,
@@ -258,6 +258,566 @@
     "name": "Houston Service Center",
     "lat": 29.878499,
     "lng": -95.594125
-  }]
+  }],
 
+  "downtimeCodes":[{
+    "id": 21054,
+    "codeId": 16044,
+    "code": "AWT_CORPRT",
+    "description": "AWAITING CORPORATE DECISION",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16044&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21101,
+    "codeId": 16056,
+    "code": "INSP_FINAL",
+    "description": "Awaiting Final inspection",
+    "category": "DELAYRESN2",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16056&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21102,
+    "codeId": 16055,
+    "code": "INSP_SETUP",
+    "description": "Awaiting Set-up Inspection",
+    "category": "DELAYRESN2",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16055&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21106,
+    "codeId": 16057,
+    "code": "STRIP_CHG",
+    "description": "Changing out strippable during production",
+    "category": "DELAYRESN2",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16057&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21097,
+    "codeId": 16048,
+    "code": "CHG_TY2",
+    "description": "Coil + Head Changeover Type 2",
+    "category": "DELAYRESN2",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16048&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21098,
+    "codeId": 16051,
+    "code": "CHG_TY2S",
+    "description": "Coil + Head Changeover Type 2 with Strippable Setup",
+    "category": "DELAYRESN2",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16051&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21095,
+    "codeId": 16047,
+    "code": "CHG_TY1",
+    "description": "Coil Only Changeover Type1",
+    "category": "DELAYRESN2",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16047&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21096,
+    "codeId": 16050,
+    "code": "CHG_TY1S",
+    "description": "Coil Only Changeover Type1 with Strippable Setup",
+    "category": "DELAYRESN2",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16050&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21058,
+    "codeId": 16039,
+    "code": "COMP_ISSUE",
+    "description": "COMPUTER ISSUE",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16039&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21059,
+    "codeId": 16024,
+    "code": "EOS",
+    "description": "END OF SHIFT",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16024&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21060,
+    "codeId": 16042,
+    "code": "FORKLF_NA",
+    "description": "FORKLIFT UNAVAILABLE",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16042&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21061,
+    "codeId": 16022,
+    "code": "LABREAS",
+    "description": "LABOR REASSIGNMENT",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16022&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21062,
+    "codeId": 16021,
+    "code": "MAINT",
+    "description": "MACHINE MAINTENANCE",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16021&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21067,
+    "codeId": 16017,
+    "code": "MNT_CONVEY",
+    "description": "MAINTENANCE -  CONVEYOR LINE",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16017&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21075,
+    "codeId": 16013,
+    "code": "MNT_SHRBLA",
+    "description": "MAINTENANCE -  SHEAR BLADE",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16013&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21077,
+    "codeId": 16014,
+    "code": "MNT_SLTKNV",
+    "description": "MAINTENANCE -  SLITTER KNIVES",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16014&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21065,
+    "codeId": 16020,
+    "code": "MNT_AIRCMP",
+    "description": "MAINTENANCE - AIR COMPRESSOR",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16020&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 23224,
+    "codeId": 17607,
+    "code": "MNT_BEADER",
+    "description": "MAINTENANCE - BEADER",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=17607&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21066,
+    "codeId": 16019,
+    "code": "MNT_BRKADJ",
+    "description": "MAINTENANCE - BRAKE ADJUSTMENT",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16019&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21068,
+    "codeId": 16011,
+    "code": "MNT_CRSTBL",
+    "description": "MAINTENANCE - CROSSOVER TABLE",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16011&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21069,
+    "codeId": 16018,
+    "code": "MNT_ELECT",
+    "description": "MAINTENANCE - ELECTRICAL",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16018&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21070,
+    "codeId": 16016,
+    "code": "MNT_GRIPFD",
+    "description": "MAINTENANCE - GRIP FEED SYSTEM REPAIR",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16016&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21071,
+    "codeId": 16006,
+    "code": "MNT_GRIPTB",
+    "description": "MAINTENANCE - GRIPPER TABLE",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16006&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21072,
+    "codeId": 16015,
+    "code": "MNT_HYDHOS",
+    "description": "MAINTENANCE - HYDRAULIC  HOSE REPLACEMENT",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16015&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21073,
+    "codeId": 16010,
+    "code": "MNT_LEVELR",
+    "description": "MAINTENANCE - LEVELER",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16010&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21074,
+    "codeId": 16008,
+    "code": "MNT_RECOIL",
+    "description": "MAINTENANCE - RECOILER",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16008&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21076,
+    "codeId": 16007,
+    "code": "MNT_SLITHD",
+    "description": "MAINTENANCE - SLITTER HEAD",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16007&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21078,
+    "codeId": 16012,
+    "code": "MNT_STACKR",
+    "description": "MAINTENANCE - STACKER",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16012&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21079,
+    "codeId": 16009,
+    "code": "MNT_UNCOIL",
+    "description": "MAINTENANCE - UNCOILER",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16009&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21064,
+    "codeId": 16027,
+    "code": "MEETING",
+    "description": "MEETING",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16027&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21080,
+    "codeId": 16034,
+    "code": "OTHER",
+    "description": "OTHER - MANUALLY ENTER ISSUE",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16034&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21103,
+    "codeId": 16053,
+    "code": "PKG_MATER",
+    "description": "Packaging Material",
+    "category": "DELAYRESN2",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16053&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21082,
+    "codeId": 16040,
+    "code": "POWER_OUT",
+    "description": "POWER OUTAGE",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16040&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21085,
+    "codeId": 16025,
+    "code": "QUALITY",
+    "description": "QUALITY ISSUES",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16025&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21086,
+    "codeId": 16043,
+    "code": "RESTK_SKDS",
+    "description": "RESTACKING SKIDS",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16043&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21055,
+    "codeId": 16023,
+    "code": "BREAK",
+    "description": "SCHEDULED BREAK TIME",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16023&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21104,
+    "codeId": 16058,
+    "code": "SKD_BLDHOU",
+    "description": "Scheduled Skid Building (Houston Only)",
+    "category": "DELAYRESN2",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16058&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21087,
+    "codeId": 16032,
+    "code": "SETUPISSUE",
+    "description": "SETUP ISSUE",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16032&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21088,
+    "codeId": 16041,
+    "code": "SHTLFT_NA",
+    "description": "SHEET LIFTER UNAVAILABLE",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16041&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21056,
+    "codeId": 16026,
+    "code": "BUILDSKID",
+    "description": "SKIDS UNAVAILABLE - OPERATOR/HELPER BUILDING SKIDS",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16026&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21089,
+    "codeId": 16038,
+    "code": "SKD_OTHER",
+    "description": "SKIDS UNAVAILABLE - OTHER",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16038&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21090,
+    "codeId": 16036,
+    "code": "SKD_SCHCHG",
+    "description": "SKIDS UNAVAILABLE - SCHEDULE CHANGE",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16036&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21091,
+    "codeId": 16037,
+    "code": "SKD_WRGSIZ",
+    "description": "SKIDS UNAVAILABLE - WRONG SIZE",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16037&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21099,
+    "codeId": 16049,
+    "code": "CHG_TY3",
+    "description": "Slit Head Changeover Type 3",
+    "category": "DELAYRESN2",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16049&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21100,
+    "codeId": 16052,
+    "code": "CHG_TY3S",
+    "description": "Slit Head Changeover Type 3 with Strippable Setup",
+    "category": "DELAYRESN2",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16052&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21057,
+    "codeId": 16030,
+    "code": "CL_LEVELER",
+    "description": "STOP THE LINE TO CLEAN THE LEVELER",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16030&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 23223,
+    "codeId": 17608,
+    "code": "Strip Dividers",
+    "description": "Strip Dividers",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=17608&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 20950,
+    "codeId": 15864,
+    "code": "Scheduled Downtime",
+    "description": "System scheduled downtime code",
+    "category": "Scheduled",
+    "otherCode": null,
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=15864&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21093,
+    "codeId": 16046,
+    "code": "TRAINING",
+    "description": "TRAINING",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16046&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21094,
+    "codeId": 16045,
+    "code": "TRIAL_RUNS",
+    "description": "TRIAL RUNS",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16045&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21063,
+    "codeId": 16029,
+    "code": "MASTERCOIL",
+    "description": "WAITING ON MASTER COIL",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16029&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21081,
+    "codeId": 16035,
+    "code": "PKG_FULL",
+    "description": "WAITING ON PACKAGING",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16035&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21083,
+    "codeId": 16028,
+    "code": "PRDORD",
+    "description": "WAITING ON PRODUCTION ORDER",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16028&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21084,
+    "codeId": 16033,
+    "code": "QUALDEV",
+    "description": "WAITING ON QUALITY/TOLERANCE DEVIATION APPROVAL",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16033&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21092,
+    "codeId": 16031,
+    "code": "SLITSETUP",
+    "description": "WAITING ON SLITTER SETUP",
+    "category": "DELAYREASN",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16031&iphoneReq=1",
+    "notesReq": false
+  },
+  {
+    "id": 21105,
+    "codeId": 16054,
+    "code": "SKD_WEIGHT",
+    "description": "Weighing skids offline",
+    "category": "DELAYRESN2",
+    "otherCode": "",
+    "imageURL": "/TestMds/DowntimeCodesCatalogImageData/blah.jpg.dbimage?imageId=16054&iphoneReq=1",
+    "notesReq": false
+  }]
 }

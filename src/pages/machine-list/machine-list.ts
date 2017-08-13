@@ -60,4 +60,9 @@ export class MachineListPage {
     this.navCtrl.push(FactoryDetailPage, { factoryId: factory.id });
   }
 
+  downtime(machine: any): any {
+    let e = machine.downtimeEvents.find((e: any) => e.id == machine.downtimeEventId);
+    return this.downtimeData.getDowntimeCodes().find((d: any) => d.codeId == e.codeId);
+  }
+  
 }

@@ -26,9 +26,15 @@
                 <ion-icon name="thumbs-up"></ion-icon>
               </div>
               <ng-template #downTemplate>
-                  <ion-icon name="thumbs-down"></ion-icon>
-                  {{downtime(machine).code}}
-                </ng-template>
+                <ion-icon name="thumbs-down">
+                  <ion-item>
+                    <ion-avatar item-start>
+                      <img src="https://apps.ei3.com{{downtime(machine).imageURL}}">
+                    </ion-avatar>
+                    {{downtime(machine).code}}
+                  </ion-item>
+                </ion-icon>
+              </ng-template>
             </ion-card-header>
 
             <ion-card-content class="outer-content">

@@ -9,14 +9,6 @@ import { Observable, Observer } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
-class Event {
-  public id: number;
-  public machineId: number;
-  public codeId: number;
-  public startDate: Date;
-  public endDate: Date;
-}
-
 @Injectable()
 export class DowntimeData {
   private data: any;
@@ -36,10 +28,7 @@ export class DowntimeData {
   private ticks: number = 1;
   private _eventIdx: number = 0;
  
-  private events: Event[];
-
   constructor(public http: Http, public user: UserData) {
-    this.events = [];
     this.clock = Observable.interval(1000).map(_ => this.incrementDate()).share();
     this.overallHealth = new Observable((observer: Observer<number>) => {
       this.overallHealthObserver = observer;
@@ -63,12 +52,10 @@ export class DowntimeData {
     this.data = data.json();
 
     this.overallHealthMax = this.data.machines.length;
-    this.eventCount = 0;
-    var events : Event[] = [];
+    this.eventCount = this.data.downtimeEvents.length;
 
     // loop through each machine and gather up some useful info
     this.data.machines.forEach((machine: any) => {
-
       if( machine.downtimeEventId == 0 ) {
         this._overallHealth++;
       }
@@ -81,25 +68,11 @@ export class DowntimeData {
         factory.upMachines++;
         machine.factory = factory;
       }
-
-      machine.downtimeEvents.forEach((event: any) => {
-        var e: Event = new Event();
-        e.machineId = machine.id;
-        e.id = event.id;
-        e.codeId = event.codeId;
-
-        let a = event.durationHoursMins.split(':');
-        let seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60; 
-        e.startDate = new Date(event.startTime);
-        e.endDate = new Date(event.startTime+seconds*1000);
-        events.push(e);
-        this.eventCount++;
-      });
-    });
-    this.events = events.sort((a: Event, b: Event) => {
-        return a.startDate.getTime()-b.startDate.getTime();
     });
 
+    this.data.downtimeEvents = this.data.downtimeEvents.sort((a: any, b: any) => {
+        return a.startTime - b.startTime;
+    });
     this.eventIdx = 0;
 
     return this.data;
@@ -129,28 +102,34 @@ export class DowntimeData {
     return this.data.downtimeCodes;
   }
 
+  getDowntimeEvents() {
+    return this.data.downtimeEvents;
+  }
+
   get eventIdx(): number {
     return this._eventIdx;
   }
 
   set eventIdx(value: number) {
     this._eventIdx = value;
-    let event = this.events[this._eventIdx];
-    this.currentDate = event.startDate;
+    let event = this.data.downtimeEvents[this._eventIdx];
+    this.currentDate = new Date(event.startTime);
     this.updateMachines();
   }
 
   updateMachines() {
+    let currentTime = this.currentDate.getTime();
     this._overallHealth = this.overallHealthMax;
     this.data.machines.forEach((machine: any) => {
       machine.downtimeEventId = 0;
-    });
-    this.events.forEach((event: Event) => {
-      var machine = this.data.machines.find((m: any) => m.id == event.machineId);
-      if (this.currentDate >= event.startDate && this.currentDate <= event.endDate) {
-        this._overallHealth--;
-        machine.downtimeEventId = event.id;
-      }
+      let events = this.data.downtimeEvents.filter((e: any) => e.machineId == machine.id);
+      for( let e of events ) {
+        if (currentTime >= e.startTime && currentTime < e.endTime) {
+          this._overallHealth--;
+          machine.downtimeEventId = e.id;
+          break;
+        }
+      };
     });
 
     this.data.factories.forEach((factory: any) => {
@@ -170,8 +149,8 @@ export class DowntimeData {
   incrementDate(): Date {
     if( this.playing ) {
       this.currentDate = new Date(this.currentDate.getTime() + 1000*this.ticks);
-      let currentEvent = this.events[this.eventIdx];
-      if( this.currentDate > currentEvent.endDate && this.eventIdx < this.events.length-1 ) {
+      let currentEvent = this.data.downtimeEvents[this.eventIdx];
+      if( this.currentDate > currentEvent.endDate && this.eventIdx < this.data.downtimeEvents.length-1 ) {
         this.eventIdx = this.eventIdx+1;
       }
     }
@@ -190,10 +169,10 @@ export class DowntimeData {
   }
 
   get startDate() : Date {
-    return this.events[this.eventIdx].startDate;
+    return new Date(this.data.downtimeEvents[this.eventIdx].startTime);
   }
 
   get endDate() : Date {
-    return this.events[this.eventIdx].endDate;
+    return new Date(this.data.downtimeEvents[this.eventIdx].endTime);
   }
 }

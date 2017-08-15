@@ -30,7 +30,8 @@ export class MachineDetailPage {
   }
 
   get schedule(): any {
-    return this.machine.factory.schedules[this.machine.schedule];
+    let schedule = this.machine.factory.schedules[this.machine.schedule];
+    return schedule;
   }
 }
 

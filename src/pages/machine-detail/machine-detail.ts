@@ -13,11 +13,11 @@ import { DowntimeData } from '../../providers/downtime-data';
 export class MachineDetailPage {
   machine: any;
 
-  constructor(public dataProvider: DowntimeData, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public downtimeData: DowntimeData, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewWillEnter() {
-    for (const machine of this.dataProvider.getMachines()) {
+    for (const machine of this.downtimeData.getMachines()) {
       if (machine && machine.id == this.navParams.data.machineId) {
         this.machine = machine;
         break;
@@ -33,5 +33,11 @@ export class MachineDetailPage {
     let schedule = this.machine.factory.schedules[this.machine.schedule];
     return schedule;
   }
+
+  get downtime(): any {
+    let e = this.downtimeData.getDowntimeEvents().find((e: any) => e.id == this.machine.downtimeEventId);
+    return this.downtimeData.getDowntimeCodes().find((d: any) => d.codeId == e.codeId);
+  }
+  
 }
 

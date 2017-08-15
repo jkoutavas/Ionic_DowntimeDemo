@@ -30,9 +30,10 @@ import { UserData } from '../providers/user-data';
 
 import { ChartModule } from 'angular2-highcharts';
 
-import { HealthGaugeComponent } from '../components/health-gauge/health-gauge';
 import { ClockComponent } from '../components/clock/clock';
 import { EventsShuttleComponent } from '../components/events-shuttle/events-shuttle';
+import { HealthGaugeComponent } from '../components/health-gauge/health-gauge';
+import { Top5GraphComponent } from '../components/top5-graph/top5-graph';
 
 declare var require : any; // need for the ChartModule import
 
@@ -58,7 +59,8 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
     SupportPage,
     HealthGaugeComponent,
     ClockComponent,
-    EventsShuttleComponent
+    EventsShuttleComponent,
+    Top5GraphComponent
   ],
   imports: [
     BrowserModule,

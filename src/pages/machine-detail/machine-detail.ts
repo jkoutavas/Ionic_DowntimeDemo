@@ -11,18 +11,35 @@ import { DowntimeData } from '../../providers/downtime-data';
   templateUrl: 'machine-detail.html'
 })
 export class MachineDetailPage {
-  machine: any;
+  private machine: any;
+  private downtimeCodes: any[] = [];
 
   constructor(public downtimeData: DowntimeData, public navCtrl: NavController, public navParams: NavParams) {
-  }
-
-  ionViewWillEnter() {
     for (const machine of this.downtimeData.getMachines()) {
       if (machine && machine.id == this.navParams.data.machineId) {
         this.machine = machine;
         break;
       }
     }
+
+    let machineId = this.machine.id;
+    let events = this.downtimeData.getDowntimeEvents().filter(function(event:any){
+      return event.machineId == machineId;
+    });
+    var reasons: { [id: number] : number; } = {}
+    events.forEach((event: any) => {
+      if( reasons[event.codeId] === undefined ) {
+        reasons[event.codeId] = 1;
+      } else {
+        reasons[event.codeId]++;
+      }
+    });
+    this.downtimeCodes = Object.keys(reasons).map(function(key:any) {
+      return [key, reasons[key]];
+    });
+    this.downtimeCodes.sort(function(first, second) {
+        return second[1] - first[1];
+    });
   }
 
   goToMachineDetail(machine: any) {
@@ -39,5 +56,20 @@ export class MachineDetailPage {
     return this.downtimeData.getDowntimeCodes().find((d: any) => d.codeId == e.codeId);
   }
   
+  get topDowntimeCodeCategories(): any[] {
+    var result: any[] = [];
+    this.downtimeCodes.forEach((pair: any[]) => {
+      result.push(pair[0]);
+    });
+    return result;
+  }
+
+  get topDowntimeCodeTotals(): any {
+    var result: any[] = [];
+    this.downtimeCodes.forEach((pair: any[]) => {
+      result.push(pair[1]);
+    });
+    return result;
+  }
 }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 /**
  * Generated class for the Top5GraphComponent component.
@@ -12,21 +12,21 @@ import { Component } from '@angular/core';
 })
 export class Top5GraphComponent {
 
-  private options: Object;
+  @Input() categories: String[];
+  @Input() totals: Number[];
 
+  private options: Object;
+  
   ngOnInit() {
     this.options = { 
       chart: {
         type: 'bar'
       },
       title: {
-        text: 'Historic World Population by Region'
-      },
-      subtitle: {
-        text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
+        text: 'Top Five Downtime Codes'
       },
       xAxis: {
-        categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+        categories: this.categories,
         title: {
           text: null
         }
@@ -34,7 +34,7 @@ export class Top5GraphComponent {
       yAxis: {
         min: 0,
         title: {
-          text: 'Population (millions)',
+          text: 'occurances',
           align: 'high'
         },
         labels: {
@@ -42,38 +42,14 @@ export class Top5GraphComponent {
         }
       },
       tooltip: {
-        valueSuffix: ' millions'
+        valueSuffix: ' events'
       },
-      plotOptions: {
-        bar: {
-          dataLabels: {
-            enabled: true
-          }
-        }
-      },
-      legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
-        x: -40,
-        y: 80,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor: '#FFFFFF',
-        shadow: true
-      },
-      credits: {
+       credits: {
         enabled: false
       },
       series: [{
-        name: 'Year 1800',
-        data: [107, 31, 635, 203, 2]
-      }, {
-        name: 'Year 1900',
-        data: [133, 156, 947, 408, 6]
-      }, {
-        name: 'Year 2012',
-        data: [1052, 954, 4250, 740, 38]
+        name: "Downtime",
+        data: this.totals
       }]
     }
   }

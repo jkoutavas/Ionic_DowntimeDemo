@@ -148,9 +148,10 @@ export class DowntimeData {
 
   incrementDate(): Date {
     if( this.playing ) {
-      this.currentDate = new Date(this.currentDate.getTime() + 1000*this.ticks);
+      let newTime = this.currentDate.getTime() + 1000*this.ticks;
+      this.currentDate = new Date(newTime);
       let currentEvent = this.data.downtimeEvents[this.eventIdx];
-      if( this.currentDate > currentEvent.endDate && this.eventIdx < this.data.downtimeEvents.length-1 ) {
+      if( newTime > currentEvent.endTime && this.eventIdx < this.data.downtimeEvents.length-1 ) {
         this.eventIdx = this.eventIdx+1;
       }
     }

@@ -11,6 +11,7 @@
     "profilePic": "assets/img/machines/redbud.png",
     "id": 2,
     "factoryId": 1,
+    "schedule": 0,
     "downtimeEventId": 0
   }, {
     "name": "Red Bud 3",

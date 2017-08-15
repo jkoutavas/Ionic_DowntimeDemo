@@ -59,9 +59,10 @@ export class MachineDetailPage {
   get topDowntimeCodeCategories(): any[] {
     var result: any[] = [];
     this.downtimeCodes.forEach((pair: any[]) => {
-      result.push(pair[0]);
+      let code = this.downtimeData.getDowntimeCodes().find((d: any) => d.codeId == pair[0]);      
+      result.push(code.description);
     });
-    return result;
+    return result.slice(0, 5);
   }
 
   get topDowntimeCodeTotals(): any {
@@ -69,7 +70,7 @@ export class MachineDetailPage {
     this.downtimeCodes.forEach((pair: any[]) => {
       result.push(pair[1]);
     });
-    return result;
+    return result.slice(0, 5);
   }
 }
 

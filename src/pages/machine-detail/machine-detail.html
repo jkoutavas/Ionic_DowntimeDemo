@@ -14,9 +14,12 @@
     <button ion-button icon-only clear small color="instagram">
       <ion-icon name="logo-instagram"></ion-icon>
     </button>
-  
+
   </div>
 
+  <h3 text-center *ngIf="machine">
+    shifts: {{schedule.shifts}} / hours: {{schedule.shiftHours}} / days: {{schedule.shiftDays}}
+  </h3>
 
   <div text-center *ngIf="machine">
     <div *ngIf="machine.downtimeEventId==0; else downTemplate">
@@ -32,10 +35,6 @@
         </ion-item>
       </ion-icon>
     </ng-template>
-  </div>
-
-  <div *ngIf="machine">
-    shifts: {{schedule.shifts}} / hours: {{schedule.shiftHours}} / days: {{schedule.shiftDays}}
   </div>
 
   <top5-graph [categories]="topDowntimeCodeCategories" [totals]="topDowntimeCodeTotals"></top5-graph>

@@ -79,16 +79,16 @@
   }],
 
   "map": [{
-    "name": "Marietta Service Center",
+    "factoryId": 1,
     "lat": 34.063524,
     "lng": -84.517483,
     "center": true
   }, {
-    "name": "Chicago Service Center",
+    "factoryId": 2,
     "lat": 41.490338,
     "lng": -87.578401
   }, {
-    "name": "Houston Service Center",
+    "factoryId": 3,
     "lat": 29.878499,
     "lng": -95.594125
   }],

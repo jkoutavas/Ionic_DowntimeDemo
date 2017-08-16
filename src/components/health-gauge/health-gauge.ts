@@ -64,8 +64,8 @@ export class HealthGaugeComponent {
         min: 0,
         max: this.max,
         stops: [
-            [0.3, '#FF0000'], // red
-            [0.7, '#DDDF0D'], // yellow
+            [0.2, '#FF0000'], // red
+            [0.8, '#DDDF0D'], // yellow
             [1.0, '#55BF3B'] // green
         ],
         lineWidth: 0,

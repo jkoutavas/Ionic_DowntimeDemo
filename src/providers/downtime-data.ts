@@ -32,7 +32,7 @@ export class DowntimeData {
     this.clock = Observable.interval(1000).map(_ => this.incrementDate()).share();
     this.overallHealth = new Observable((observer: Observer<number>) => {
       this.overallHealthObserver = observer;
-    });
+    }).share();
   }
 
   load(): Promise<any> {

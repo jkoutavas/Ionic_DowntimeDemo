@@ -28,10 +28,12 @@ export class MachineDetailPage {
     });
     var reasons: { [id: number] : number; } = {}
     events.forEach((event: any) => {
-      if( reasons[event.codeId] === undefined ) {
-        reasons[event.codeId] = 1;
-      } else {
-        reasons[event.codeId]++;
+      if( event.codeId ) {
+        if( reasons[event.codeId] === undefined ) {
+          reasons[event.codeId] = 1;
+        } else {
+          reasons[event.codeId]++;
+        }
       }
     });
     this.downtimeCodes = Object.keys(reasons).map(function(key:any) {

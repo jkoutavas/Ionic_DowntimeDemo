@@ -14,7 +14,6 @@ export class DowntimeData {
   private data: any;
 
   public playing: boolean = true;
-  public eventCount: number = 0;
 
   private clock: Observable<Date>;
   
@@ -52,7 +51,6 @@ export class DowntimeData {
     this.data = data.json();
 
     this.overallHealthMax = this.data.machines.length;
-    this.eventCount = this.data.downtimeEvents.length;
 
     // loop through each machine and gather up some useful info
     this.data.machines.forEach((machine: any) => {
@@ -70,12 +68,32 @@ export class DowntimeData {
       }
     });
 
-    this.data.downtimeEvents = this.data.downtimeEvents.sort((a: any, b: any) => {
+    let events = this.data.downtimeEvents.sort((a: any, b: any) => {
         return a.startTime - b.startTime;
     });
+    
+    // generate the filler "up time" events
+    this.data.downtimeEvents = [];
+    for( var i=0; i<events.length-1; ++i ) {
+      let thisEvent = events[i];
+      this.data.downtimeEvents.push(thisEvent);
+      let nextEvent = events[i+1];
+      this.data.downtimeEvents.push({
+        "id": 0,
+        "codeId": 0,
+        "machineId": thisEvent.machineId,
+        "startTime": thisEvent.endTime+1,
+        "endTime": nextEvent.startTime-1
+      });
+    }
+
     this.eventIdx = 0;
 
     return this.data;
+  }
+
+  get eventCount(): number {
+    return this.data.downtimeEvents.length;
   }
 
   getData() {
@@ -125,7 +143,9 @@ export class DowntimeData {
       let events = this.data.downtimeEvents.filter((e: any) => e.machineId == machine.id);
       for( let e of events ) {
         if (currentTime >= e.startTime && currentTime < e.endTime) {
-          this._overallHealth--;
+          if( e.id != 0 ) { // e.id==0 represents uptime event
+            this._overallHealth--;
+          }
           machine.downtimeEventId = e.id;
           break;
         }

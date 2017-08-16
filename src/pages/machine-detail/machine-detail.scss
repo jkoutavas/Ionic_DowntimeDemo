@@ -10,15 +10,15 @@ page-machine-detail {
 
   .thumbs-up {
     font-size: 48px;
-    color: green;
+    color: color($colors, healthGreen, base);
   }
 
   .thumbs-down {
     font-size: 48px;
-    color: red;
+    color: color($colors, healthRed, base);
   }
 
   .downtime-code {
-    color: red;
+    color: color($colors, healthRed, base);
   }
 }

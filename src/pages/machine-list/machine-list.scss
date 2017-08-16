@@ -34,18 +34,18 @@ page-machine-list {
     font-size: 32px;
     float: right; 
     text-align: top;
-    color: green;
+    color: color($colors, healthGreen, base);
   }
   
   .thumbs-down {
     font-size: 32px;
     float: right; 
     text-align: top;
-    color: red;
+    color: color($colors, healthRed, base);
   }
   
   .downtime-code {
-    color: red;
+    color: color($colors, healthRed, base);
   }
 
   .underline {

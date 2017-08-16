@@ -1,12 +1,24 @@
+page-machine-detail {
 
-.machine-detail img {
-  max-width: 140px;
-}
+  img {
+    max-width: 140px;
+  }
 
-.machine-detail p {
-  color: #60646B;
-}
+  p {
+    color: #60646B;
+  }
 
-ion-icon {
-  font-size: 40px;
+  .thumbs-up {
+    font-size: 48px;
+    color: green;
+  }
+
+  .thumbs-down {
+    font-size: 48px;
+    color: red;
+  }
+
+  .downtime-code {
+    color: red;
+  }
 }

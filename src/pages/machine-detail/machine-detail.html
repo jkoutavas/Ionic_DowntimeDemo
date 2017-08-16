@@ -22,16 +22,16 @@
   </h3>
 
   <div text-center *ngIf="machine">
-    <div *ngIf="machine.downtimeEventId==0; else downTemplate">
-      <ion-icon name="thumbs-up"></ion-icon>
-    </div>
+    <ion-icon *ngIf="machine.downtimeEventId==0; else downTemplate" class="thumbs-up" name="thumbs-up"></ion-icon>
     <ng-template #downTemplate>
-      <ion-icon name="thumbs-down">
+      <ion-icon class="thumbs-down" name="thumbs-down">
         <ion-item>
           <ion-avatar item-start>
             <img src="https://apps.ei3.com{{downtime.imageURL}}">
           </ion-avatar>
-          {{downtime.code}}
+          <div class = "downtime-code">
+            {{downtime.code}}
+          </div>
         </ion-item>
       </ion-icon>
     </ng-template>

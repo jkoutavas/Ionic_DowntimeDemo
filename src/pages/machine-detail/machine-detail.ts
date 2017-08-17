@@ -22,8 +22,8 @@ export class MachineDetailPage {
       }
     }
 
-    let machineId = this.machine.id;
-    let events = this.downtimeData.getDowntimeEvents().filter(function(event:any){
+    const machineId = this.machine.id;
+    const events = this.downtimeData.getDowntimeEvents().filter(function(event:any){
       return event.machineId == machineId;
     });
     var reasons: { [id: number] : number; } = {}
@@ -49,19 +49,19 @@ export class MachineDetailPage {
   }
 
   get schedule(): any {
-    let schedule = this.machine.factory.schedules[this.machine.schedule];
+    const schedule = this.machine.factory.schedules[this.machine.schedule];
     return schedule;
   }
 
   get downtime(): any {
-    let e = this.downtimeData.getDowntimeEvents().find((e: any) => e.id == this.machine.downtimeEventId);
+    const e = this.downtimeData.getDowntimeEvents().find((e: any) => e.id == this.machine.downtimeEventId);
     return this.downtimeData.getDowntimeCodes().find((d: any) => d.codeId == e.codeId);
   }
   
   get topDowntimeCodeCategories(): any[] {
     var result: any[] = [];
     this.downtimeCodes.forEach((pair: any[]) => {
-      let code = this.downtimeData.getDowntimeCodes().find((d: any) => d.codeId == pair[0]);      
+      const code = this.downtimeData.getDowntimeCodes().find((d: any) => d.codeId == pair[0]);      
       result.push(code.description);
     });
     return result.slice(0, 5);

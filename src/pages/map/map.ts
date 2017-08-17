@@ -35,8 +35,8 @@ export class MapPage {
           content: `<h5>${markerData.name}</h5>`
         });
 
-        let factory = this.data.getFactories().find((f: any) => f.id == markerData.factoryId);
-        let marker = new google.maps.Marker({
+        const factory = this.data.getFactories().find((f: any) => f.id == markerData.factoryId);
+        const marker = new google.maps.Marker({
           position: markerData,
           map: map,
           title: factory.name,

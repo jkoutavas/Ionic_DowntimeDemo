@@ -61,7 +61,7 @@ export class MachineListPage {
   }
 
   downtime(machine: any): any {
-    let e = this.downtimeData.getDowntimeEvents().find((e: any) => e.id == machine.downtimeEventId);
+    const e = this.downtimeData.getDowntimeEvents().find((e: any) => e.id == machine.downtimeEventId);
     return this.downtimeData.getDowntimeCodes().find((d: any) => d.codeId == e.codeId);
   }
   

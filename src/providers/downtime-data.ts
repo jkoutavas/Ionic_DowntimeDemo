@@ -68,16 +68,16 @@ export class DowntimeData {
       }
     });
 
-    let events = this.data.downtimeEvents.sort((a: any, b: any) => {
+    const events = this.data.downtimeEvents.sort((a: any, b: any) => {
         return a.startTime - b.startTime;
     });
     
     // generate the filler "up time" events
     this.data.downtimeEvents = [];
     for( var i=0; i<events.length-1; ++i ) {
-      let thisEvent = events[i];
+      const thisEvent = events[i];
       this.data.downtimeEvents.push(thisEvent);
-      let nextEvent = events[i+1];
+      const nextEvent = events[i+1];
       this.data.downtimeEvents.push({
         "id": 0,
         "codeId": 0,
@@ -102,8 +102,8 @@ export class DowntimeData {
 
   getFactories() {
     return this.data.factories.sort((a: any, b: any) => {
-        let aName = a.name.split(' ').pop();
-        let bName = b.name.split(' ').pop();
+        const aName = a.name.split(' ').pop();
+        const bName = b.name.split(' ').pop();
         return aName.localeCompare(bName);
       });
   }
@@ -130,17 +130,17 @@ export class DowntimeData {
 
   set eventIdx(value: number) {
     this._eventIdx = value;
-    let event = this.data.downtimeEvents[this._eventIdx];
+    const event = this.data.downtimeEvents[this._eventIdx];
     this.currentDate = new Date(event.startTime);
     this.updateMachines();
   }
 
   updateMachines() {
-    let currentTime = this.currentDate.getTime();
+    const currentTime = this.currentDate.getTime();
     this._overallHealth = this.overallHealthMax;
     this.data.machines.forEach((machine: any) => {
       machine.downtimeEventId = 0;
-      let events = this.data.downtimeEvents.filter((e: any) => e.machineId == machine.id);
+      const events = this.data.downtimeEvents.filter((e: any) => e.machineId == machine.id);
       for( let e of events ) {
         if (currentTime >= e.startTime && currentTime < e.endTime) {
           if( e.id != 0 ) { // e.id==0 represents uptime event
@@ -168,9 +168,9 @@ export class DowntimeData {
 
   incrementDate(): Date {
     if( this.playing ) {
-      let newTime = this.currentDate.getTime() + 1000*this.ticks;
+      const newTime = this.currentDate.getTime() + 1000*this.ticks;
       this.currentDate = new Date(newTime);
-      let currentEvent = this.data.downtimeEvents[this.eventIdx];
+      const currentEvent = this.data.downtimeEvents[this.eventIdx];
       if( newTime > currentEvent.endTime && this.eventIdx < this.data.downtimeEvents.length-1 ) {
         this.eventIdx = this.eventIdx+1;
       }

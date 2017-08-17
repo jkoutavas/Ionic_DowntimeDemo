@@ -24,7 +24,7 @@ export class UserData {
   };
 
   removeFavorite(sessionName: string): void {
-    let index = this._favorites.indexOf(sessionName);
+    const index = this._favorites.indexOf(sessionName);
     if (index > -1) {
       this._favorites.splice(index, 1);
     }

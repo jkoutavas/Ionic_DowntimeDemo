@@ -74,7 +74,7 @@ export class DowntimeData {
     
     // generate the filler "up time" events
     this.data.downtimeEvents = [];
-    for( var i=0; i<events.length-1; ++i ) {
+    for( let i=0; i<events.length-1; ++i ) {
       const thisEvent = events[i];
       this.data.downtimeEvents.push(thisEvent);
       const nextEvent = events[i+1];

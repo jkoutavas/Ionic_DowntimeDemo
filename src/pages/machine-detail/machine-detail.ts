@@ -26,7 +26,7 @@ export class MachineDetailPage {
     const events = this.downtimeData.getDowntimeEvents().filter(function(event:any){
       return event.machineId == machineId;
     });
-    var reasons: { [id: number] : number; } = {}
+    let reasons: { [id: number] : number; } = {}
     events.forEach((event: any) => {
       if( event.codeId ) {
         if( reasons[event.codeId] === undefined ) {
@@ -59,7 +59,7 @@ export class MachineDetailPage {
   }
   
   get topDowntimeCodeCategories(): any[] {
-    var result: any[] = [];
+    let result: any[] = [];
     this.downtimeCodes.forEach((pair: any[]) => {
       const code = this.downtimeData.getDowntimeCodes().find((d: any) => d.codeId == pair[0]);      
       result.push(code.description);
@@ -68,7 +68,7 @@ export class MachineDetailPage {
   }
 
   get topDowntimeCodeTotals(): any {
-    var result: any[] = [];
+    let result: any[] = [];
     this.downtimeCodes.forEach((pair: any[]) => {
       result.push(pair[1]);
     });

@@ -62,8 +62,8 @@ export class MapPage {
   }
 
   getHealthColor(factory:any) : string {
-    let health = factory.upMachines / factory.machines.length;
-    var color = "FF0000"; // red
+    const health = factory.upMachines / factory.machines.length;
+    let color = "FF0000"; // red
     if( health == 1.0 ) {
       color = "55BF3B"; // green
     } else if( health > 0.3 ) {

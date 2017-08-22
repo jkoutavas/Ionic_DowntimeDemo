@@ -11,12 +11,18 @@ import { Component, Input } from '@angular/core';
   templateUrl: 'top5-graph.html'
 })
 export class Top5GraphComponent {
-
-  @Input() categories: String[];
-  @Input() totals: Number[];
-
-  private options: Object;
   
+  @Input()
+  set topDowntimeCodes(codes:[string[],number[]]) {
+    if( this.chart ) {
+      this.chart.xAxis[0].categories = codes[0];
+      this.chart.series[0].setData(codes[1], true, true);
+    }
+  }
+  
+  private options: Object;
+  private chart: any = null;
+
   ngOnInit() {
     this.options = { 
       chart: {
@@ -26,7 +32,7 @@ export class Top5GraphComponent {
         text: 'Top Five Downtime Codes'
       },
       xAxis: {
-        categories: this.categories,
+        categories: [],
         title: {
           text: null
         }
@@ -49,8 +55,15 @@ export class Top5GraphComponent {
       },
       series: [{
         name: "Downtime",
-        data: this.totals
+        data: []
       }]
     }
   }
+
+  saveInstance(chartInstance: any) {
+    if( this.chart == null ) {
+      this.chart = chartInstance;
+    }
+  }
+
 }

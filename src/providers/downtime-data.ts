@@ -78,13 +78,15 @@ export class DowntimeData {
       const thisEvent = events[i];
       this.data.downtimeEvents.push(thisEvent);
       const nextEvent = events[i+1];
-      this.data.downtimeEvents.push({
-        "id": 0,
-        "codeId": 0,
-        "machineId": thisEvent.machineId,
-        "startTime": thisEvent.endTime+1,
-        "endTime": nextEvent.startTime-1
-      });
+      if( thisEvent.machineId == nextEvent.machineId ) {
+        this.data.downtimeEvents.push({
+          "id": 0,
+          "codeId": 0,
+          "machineId": thisEvent.machineId,
+          "startTime": thisEvent.endTime+1,
+          "endTime": nextEvent.startTime-1
+        });
+      }
     }
 
     this.eventIdx = 0;

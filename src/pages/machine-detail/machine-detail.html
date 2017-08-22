@@ -18,7 +18,7 @@
   </div>
 
   <h3 text-center *ngIf="machine">
-    shifts: {{schedule.shifts}} / hours: {{schedule.shiftHours}} / days: {{schedule.shiftDays}}
+    shifts: {{schedule.shiftHours.length}} / hours: 8 / days: {{schedule.shiftDays.length}}
   </h3>
 
   <div text-center *ngIf="machine">
@@ -35,10 +35,13 @@
         </ion-item>
       </ion-icon>
     </ng-template>
+
+    <machine-status [machine]="machine"></machine-status>
+    
+    <top5-graph [categories]="topDowntimeCodeCategories" [totals]="topDowntimeCodeTotals"></top5-graph>
+  
   </div>
 
-  <top5-graph [categories]="topDowntimeCodeCategories" [totals]="topDowntimeCodeTotals"></top5-graph>
-  
 </ion-content>
 
 <ng-template #downTemplate>

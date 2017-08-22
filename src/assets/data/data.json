@@ -50,9 +50,8 @@
     "phone": "+1-541-754-3010",
     "id": 1,
     "schedules": [{
-      "shifts": 3,
-      "shiftHours": 8,
-      "shiftDays": 5
+      "shiftHours": [[6,7,8,9,10,11,12,13],[14,15,16,17,18,19,20,21],[22,23,0,1,2,3,4,5]],
+      "shiftDays": [1,2,3,4,5]
     }]
   }, {
     "name": "Chicago Service Center",
@@ -61,9 +60,8 @@
     "phone": "+1-541-754-3010",
     "id": 2,
     "schedules": [{
-      "shifts": 3,
-      "shiftHours": 8,
-      "shiftDays": 7
+      "shiftHours": [[6,7,8,9,10,11,12,13],[14,15,16,17,18,19,20,21],[22,23,0,1,2,3,4,5]],
+      "shiftDays": [0,1,2,3,4,5,6]
     }]  
   }, {
     "name": "Houston Service Center",
@@ -72,9 +70,8 @@
     "phone": "+1-541-754-3010",
     "id": 3,
     "schedules": [{
-      "shifts": 1,
-      "shiftHours": 8,
-      "shiftDays": 5
+      "shiftHours": [[5,6,7,8,9,10,11,12],[13,14,15,16,17,18,19,20]],
+      "shiftDays": [1,2,3,4,5]
     }]
   }],
 
@@ -12209,351 +12206,824 @@
       "id": 27951298,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501534800355,
-      "endTime": 1501536226355
-    },
-    {
+      "startTime": 1501534800915,
+      "endTime": 1501536226915
+    }, {
       "id": 27951808,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501536346355,
-      "endTime": 1501536766355
-    },
-    {
+      "startTime": 1501536346915,
+      "endTime": 1501536766915
+    }, {
       "id": 27951956,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501536886355,
-      "endTime": 1501537126355
-    },
-    {
+      "startTime": 1501536886915,
+      "endTime": 1501537126915
+    }, {
       "id": 27952145,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501537306355,
-      "endTime": 1501550686355
-    },
-    {
+      "startTime": 1501537306914,
+      "endTime": 1501550686915
+    }, {
       "id": 27986889,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501621200354,
-      "endTime": 1501622746354
-    },
-    {
+      "startTime": 1501621200914,
+      "endTime": 1501622746914
+    }, {
       "id": 27987443,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501622866354,
-      "endTime": 1501623106354
-    },
-    {
+      "startTime": 1501622866914,
+      "endTime": 1501623106914
+    }, {
       "id": 27987763,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501623826354,
-      "endTime": 1501624006354
-    },
-    {
+      "startTime": 1501623826914,
+      "endTime": 1501624006914
+    }, {
+      "id": 27988134,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1501624846914,
+      "endTime": 1501625746914
+    }, {
+      "id": 27988465,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1501625806914,
+      "endTime": 1501625926914
+    }, {
+      "id": 27988646,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1501626526914,
+      "endTime": 1501637146914
+    }, {
       "id": 28018869,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501707600354,
-      "endTime": 1501709746354
-    },
-    {
+      "startTime": 1501707600914,
+      "endTime": 1501709746914
+    }, {
       "id": 28019639,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501709806354,
-      "endTime": 1501709926354
-    },
-    {
+      "startTime": 1501709806914,
+      "endTime": 1501709926914
+    }, {
       "id": 28019757,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501710106354,
-      "endTime": 1501710226354
-    },
-    {
+      "startTime": 1501710106914,
+      "endTime": 1501710226914
+    }, {
       "id": 28019759,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501710286354,
-      "endTime": 1501710406354
-    },
-    {
+      "startTime": 1501710286914,
+      "endTime": 1501710406914
+    }, {
       "id": 28019994,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501710886354,
-      "endTime": 1501723006354
-    },
-    {
+      "startTime": 1501710886914,
+      "endTime": 1501723006914
+    }, {
       "id": 28050341,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501794227353,
-      "endTime": 1501794526353
-    },
-    {
+      "startTime": 1501794227913,
+      "endTime": 1501794526913
+    }, {
       "id": 28050568,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501794766353,
-      "endTime": 1501794946353
-    },
-    {
+      "startTime": 1501794766913,
+      "endTime": 1501794946913
+    }, {
       "id": 28050679,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501795186353,
-      "endTime": 1501795426353
-    },
-    {
+      "startTime": 1501795186913,
+      "endTime": 1501795426913
+    }, {
       "id": 28050869,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501795606353,
-      "endTime": 1501795846353
-    },
-    {
+      "startTime": 1501795606913,
+      "endTime": 1501795846913
+    }, {
       "id": 28051043,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501796207353,
-      "endTime": 1501796386353
-    },
-    {
+      "startTime": 1501796207913,
+      "endTime": 1501796386913
+    }, {
       "id": 28051151,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501796566353,
-      "endTime": 1501796866353
-    },
-    {
+      "startTime": 1501796566913,
+      "endTime": 1501796866913
+    }, {
       "id": 28051244,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501796986353,
-      "endTime": 1501809946353
-    },
-    {
+      "startTime": 1501796986913,
+      "endTime": 1501809946913
+    }, {
       "id": 28079518,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1501880400353,
-      "endTime": 1501889506353
-    },
-    {
+      "startTime": 1501880400913,
+      "endTime": 1501889506913
+    }, {
+      "id": 28081802,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1501889926913,
+      "endTime": 1501890046913
+    }, {
+      "id": 28081877,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1501890286913,
+      "endTime": 1501890467913
+    }, {
+      "id": 28081979,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1501890706913,
+      "endTime": 1501891786913
+    }, {
+      "id": 28082275,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1501891906913,
+      "endTime": 1501892026913
+    }, {
+      "id": 28082351,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1501892326913,
+      "endTime": 1501892386913
+    }, {
+      "id": 28082421,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1501892686913,
+      "endTime": 1501892866913
+    }, {
+      "id": 28082560,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1501893166913,
+      "endTime": 1501893527913
+    }, {
+      "id": 28082700,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1501893886913,
+      "endTime": 1501894306913
+    }, {
+      "id": 28082817,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1501894426913,
+      "endTime": 1501894546913
+    }, {
       "id": 28137465,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502139646352,
-      "endTime": 1502139766352
-    },
-    {
+      "startTime": 1502139646912,
+      "endTime": 1502139766912
+    }, {
       "id": 28137625,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502140006352,
-      "endTime": 1502140126352
-    },
-    {
+      "startTime": 1502140006912,
+      "endTime": 1502140126912
+    }, {
       "id": 28137673,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502140246352,
-      "endTime": 1502141747352
-    },
-    {
+      "startTime": 1502140246912,
+      "endTime": 1502141747912
+    }, {
       "id": 28138190,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502141866352,
-      "endTime": 1502141986352
-    },
-    {
+      "startTime": 1502141866912,
+      "endTime": 1502141986912
+    }, {
       "id": 28138278,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502142106352,
-      "endTime": 1502142226352
-    },
-    {
+      "startTime": 1502142106912,
+      "endTime": 1502142226912
+    }, {
       "id": 28138332,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502142346352,
-      "endTime": 1502142466352
-    },
-    {
+      "startTime": 1502142346912,
+      "endTime": 1502142466912
+    }, {
       "id": 28138478,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502142706352,
-      "endTime": 1502165566352
-    },
-    {
+      "startTime": 1502142706912,
+      "endTime": 1502165566912
+    }, {
       "id": 28169815,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502226000352,
-      "endTime": 1502226946352
-    },
-    {
+      "startTime": 1502226000912,
+      "endTime": 1502226946912
+    }, {
       "id": 28170270,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502227006352,
-      "endTime": 1502227306352
-    },
-    {
+      "startTime": 1502227006912,
+      "endTime": 1502227306912
+    }, {
       "id": 28170481,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502227546352,
-      "endTime": 1502227726352
-    },
-    {
+      "startTime": 1502227546912,
+      "endTime": 1502227726912
+    }, {
       "id": 28170688,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502227966352,
-      "endTime": 1502251306352
-    },
-    {
+      "startTime": 1502227966912,
+      "endTime": 1502251306912
+    }, {
       "id": 28202963,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502312400352,
-      "endTime": 1502314847352
-    },
-    {
+      "startTime": 1502312400912,
+      "endTime": 1502314847912
+    }, {
       "id": 28203835,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502314907352,
-      "endTime": 1502327386352
-    },
-    {
+      "startTime": 1502314907912,
+      "endTime": 1502327386912
+    }, {
       "id": 28237376,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502398800351,
-      "endTime": 1502398910351
-    },
-    {
+      "startTime": 1502398800911,
+      "endTime": 1502398910911
+    }, {
       "id": 28237441,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502398970351,
-      "endTime": 1502400350351
-    },
-    {
+      "startTime": 1502398970911,
+      "endTime": 1502400350911
+    }, {
       "id": 28237991,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502400470351,
-      "endTime": 1502400590351
-    },
-    {
+      "startTime": 1502400470911,
+      "endTime": 1502400590911
+    }, {
       "id": 28238053,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502400650351,
-      "endTime": 1502401070351
-    },
-    {
+      "startTime": 1502400650911,
+      "endTime": 1502401070911
+    }, {
       "id": 28238194,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502401130351,
-      "endTime": 1502401430351
-    },
-    {
+      "startTime": 1502401130911,
+      "endTime": 1502401430911
+    }, {
       "id": 28238415,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502401730351,
-      "endTime": 1502424470351
-    },
-    {
+      "startTime": 1502401730911,
+      "endTime": 1502424470911
+    }, {
       "id": 28269254,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502485200351,
-      "endTime": 1502488490351
-    },
-    {
+      "startTime": 1502485200911,
+      "endTime": 1502488490911
+    }, {
       "id": 28270163,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502488550351,
-      "endTime": 1502488910351
-    },
-    {
+      "startTime": 1502488550911,
+      "endTime": 1502488910911
+    }, {
+      "id": 28270297,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502488970911,
+      "endTime": 1502489090911
+    }, {
+      "id": 28270407,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502489450911,
+      "endTime": 1502489690911
+    }, {
+      "id": 28270612,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502490110911,
+      "endTime": 1502490230911
+    }, {
+      "id": 28270687,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502490590911,
+      "endTime": 1502490710911
+    }, {
+      "id": 28270855,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502491010911,
+      "endTime": 1502491310911
+    }, {
+      "id": 28270926,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502491430911,
+      "endTime": 1502492990911
+    }, {
+      "id": 28271392,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502493050911,
+      "endTime": 1502493350911
+    }, {
+      "id": 28271534,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502493650911,
+      "endTime": 1502494010911
+    }, {
+      "id": 28271682,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502494250911,
+      "endTime": 1502494430911
+    }, {
+      "id": 28271813,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502494670911,
+      "endTime": 1502494910911
+    }, {
+      "id": 28271935,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502495150911,
+      "endTime": 1502495450911
+    }, {
+      "id": 28272061,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502495690911,
+      "endTime": 1502495870911
+    }, {
+      "id": 28272232,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502496110911,
+      "endTime": 1502496350911
+    }, {
+      "id": 28272330,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502496650911,
+      "endTime": 1502496710911
+    }, {
+      "id": 28272392,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502496950911,
+      "endTime": 1502497130911
+    }, {
+      "id": 28272500,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502497430911,
+      "endTime": 1502497670911
+    }, {
+      "id": 28272644,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502497911911,
+      "endTime": 1502498750911
+    }, {
+      "id": 28272864,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502498870911,
+      "endTime": 1502499050911
+    }, {
+      "id": 28272928,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502499110911,
+      "endTime": 1502499350911
+    }, {
+      "id": 28273000,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502499590911,
+      "endTime": 1502500010911
+    }, {
+      "id": 28317370,
+      "codeId": 16051,
+      "machineId": 6,
+      "startTime": 1502703170910,
+      "endTime": 1502706170910
+    }, {
+      "id": 28320078,
+      "codeId": 16048,
+      "machineId": 6,
+      "startTime": 1502710070910,
+      "endTime": 1502712290910
+    }, {
       "id": 28332844,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502744400350,
-      "endTime": 1502745110350
-    },
-    {
+      "startTime": 1502744400909,
+      "endTime": 1502745110909
+    }, {
       "id": 28333091,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502745170350,
-      "endTime": 1502745470350
-    },
-    {
+      "startTime": 1502745170909,
+      "endTime": 1502745470909
+    }, {
       "id": 28333193,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502745591350,
-      "endTime": 1502745710350
-    },
-    {
+      "startTime": 1502745591909,
+      "endTime": 1502745710909
+    }, {
       "id": 28333269,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502745770350,
-      "endTime": 1502746070350
-    },
-    {
+      "startTime": 1502745770909,
+      "endTime": 1502746070909
+    }, {
       "id": 28333360,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502746191350,
-      "endTime": 1502746610350
-    },
-    {
+      "startTime": 1502746191909,
+      "endTime": 1502746610909
+    }, {
       "id": 28333558,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502746730350,
-      "endTime": 1502746850350
-    },
-    {
+      "startTime": 1502746730909,
+      "endTime": 1502746850909
+    }, {
       "id": 28333648,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502746970350,
-      "endTime": 1502747090350
-    },
-    {
+      "startTime": 1502746970909,
+      "endTime": 1502747090909
+    }, {
       "id": 28333752,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502747270350,
-      "endTime": 1502747390350
-    },
-    {
+      "startTime": 1502747270909,
+      "endTime": 1502747390909
+    }, {
       "id": 28333792,
       "codeId": 15864,
       "machineId": 6,
-      "startTime": 1502747450350,
-      "endTime": 1502748830350
-    }  
+      "startTime": 1502747450909,
+      "endTime": 1502748830909
+    }, {
+      "id": 28334210,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502748891909,
+      "endTime": 1502749130909
+    }, {
+      "id": 28334392,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502749310909,
+      "endTime": 1502749432909
+    }, {
+      "id": 28334492,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502749730909,
+      "endTime": 1502765030909
+    }, {
+      "id": 28364634,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502830800909,
+      "endTime": 1502830910909
+    }, {
+      "id": 28364720,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502831030909,
+      "endTime": 1502831210909
+    }, {
+      "id": 28364902,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502831630909,
+      "endTime": 1502831750909
+    }, {
+      "id": 28364993,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502831810909,
+      "endTime": 1502833490909
+    }, {
+      "id": 28365615,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502833550909,
+      "endTime": 1502833850909
+    }, {
+      "id": 28365867,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502834270909,
+      "endTime": 1502835590909
+    }, {
+      "id": 28366360,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502835650909,
+      "endTime": 1502835890909
+    }, {
+      "id": 28366602,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502836310909,
+      "endTime": 1502852750909
+    }, {
+      "id": 28396904,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502917200909,
+      "endTime": 1502918270909
+    }, {
+      "id": 28397316,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502918390909,
+      "endTime": 1502918450909
+    }, {
+      "id": 28397433,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502918690909,
+      "endTime": 1502918810909
+    }, {
+      "id": 28397628,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502919110909,
+      "endTime": 1502919170909
+    }, {
+      "id": 28397906,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502919770909,
+      "endTime": 1502919830909
+    }, {
+      "id": 28398019,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1502920130909,
+      "endTime": 1502940590909
+    }, {
+      "id": 28430825,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503003600908,
+      "endTime": 1503003831908
+    }, {
+      "id": 28430898,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503003891908,
+      "endTime": 1503004011908
+    }, {
+      "id": 28430982,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503004190908,
+      "endTime": 1503004430908
+    }, {
+      "id": 28431166,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503004610908,
+      "endTime": 1503028130908
+    }, {
+      "id": 28462745,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503090000908,
+      "endTime": 1503092930908
+    }, {
+      "id": 28463624,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503092990908,
+      "endTime": 1503093470908
+    }, {
+      "id": 28463857,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503093710908,
+      "endTime": 1503093830908
+    }, {
+      "id": 28463892,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503093890908,
+      "endTime": 1503094010908
+    }, {
+      "id": 28463974,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503094070908,
+      "endTime": 1503094190908
+    }, {
+      "id": 28464004,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503094250908,
+      "endTime": 1503094550908
+    }, {
+      "id": 28464095,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503094610908,
+      "endTime": 1503094910908
+    }, {
+      "id": 28464214,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503095030908,
+      "endTime": 1503095210908
+    }, {
+      "id": 28464344,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503095510908,
+      "endTime": 1503095750908
+    }, {
+      "id": 28464473,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503096050908,
+      "endTime": 1503096170908
+    }, {
+      "id": 28464569,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503096411908,
+      "endTime": 1503096650908
+    }, {
+      "id": 28464639,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503096710908,
+      "endTime": 1503098030908
+    }, {
+      "id": 28465035,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503098090908,
+      "endTime": 1503098210908
+    }, {
+      "id": 28465141,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503098450908,
+      "endTime": 1503098510908
+    }, {
+      "id": 28465269,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503098990908,
+      "endTime": 1503099170908
+    }, {
+      "id": 28465371,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503099350908,
+      "endTime": 1503099410908
+    }, {
+      "id": 28465410,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503099590908,
+      "endTime": 1503099710908
+    }, {
+      "id": 28465485,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503099890908,
+      "endTime": 1503099950908
+    }, {
+      "id": 28465692,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503100610908,
+      "endTime": 1503102650908
+    }, {
+      "id": 28466203,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503102710908,
+      "endTime": 1503103670908
+    }, {
+      "id": 28466473,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503103730908,
+      "endTime": 1503103910908
+    }, {
+      "id": 28466551,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503104090908,
+      "endTime": 1503104450908
+    }, {
+      "id": 28527141,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503349200907,
+      "endTime": 1503349310907
+    }, {
+      "id": 28527212,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503349490907,
+      "endTime": 1503351050907
+    }, {
+      "id": 28527861,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503351170907,
+      "endTime": 1503351410907
+    }, {
+      "id": 28528112,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503351650907,
+      "endTime": 1503351770907
+    }, {
+      "id": 28528213,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503351890907,
+      "endTime": 1503353570907
+    }, {
+      "id": 28528909,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503353630907,
+      "endTime": 1503353990907
+    }, {
+      "id": 28529115,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503354170907,
+      "endTime": 1503354290907
+    }, {
+      "id": 28529197,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503354410907,
+      "endTime": 1503354890907
+    }, {
+      "id": 28529385,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503354950907,
+      "endTime": 1503355070907
+    }, {
+      "id": 28529432,
+      "codeId": 15864,
+      "machineId": 6,
+      "startTime": 1503355130907,
+      "endTime": 1503373250907
+    }
   ]
 }

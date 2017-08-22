@@ -24,7 +24,7 @@ export class MachineDetailPage {
 
     const machineId = this.machine.id;
     const events = this.downtimeData.getDowntimeEvents().filter(function(event:any){
-      return event.machineId == machineId;
+      return event.machineId == machineId && event.codeId != 15864 /* scheduled downtime */ && event.codeId != 16024 /*end of shift*/;
     });
     let reasons: { [id: number] : number; } = {}
     events.forEach((event: any) => {

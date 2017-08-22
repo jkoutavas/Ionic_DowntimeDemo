@@ -34,6 +34,7 @@ import { ClockComponent } from '../components/clock/clock';
 import { EventsShuttleComponent } from '../components/events-shuttle/events-shuttle';
 import { HealthGaugeComponent } from '../components/health-gauge/health-gauge';
 import { Top5GraphComponent } from '../components/top5-graph/top5-graph';
+import { MachineStatusComponent } from '../components/machine-status/machine-status';
 
 declare var require : any; // need for the ChartModule import
 
@@ -60,7 +61,8 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
     HealthGaugeComponent,
     ClockComponent,
     EventsShuttleComponent,
-    Top5GraphComponent
+    Top5GraphComponent,
+    MachineStatusComponent
   ],
   imports: [
     BrowserModule,
@@ -101,10 +103,7 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
     FactoryListPage,
     TabsPage,
     TutorialPage,
-    SupportPage,
-    HealthGaugeComponent,
-    ClockComponent,
-    EventsShuttleComponent,
+    SupportPage
    ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

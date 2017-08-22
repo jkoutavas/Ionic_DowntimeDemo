@@ -51,13 +51,10 @@ export class DowntimeData {
     this.data = data.json();
 
     this.overallHealthMax = this.data.machines.length;
-
+    this._overallHealth = this.overallHealthMax;
+    
     // loop through each machine and gather up some useful info
     this.data.machines.forEach((machine: any) => {
-      if( machine.downtimeEventId == 0 ) {
-        this._overallHealth++;
-      }
-
       let factory = this.data.factories.find((f: any) => f.id == machine.factoryId);
       if( factory ) {
         factory.upMachines = factory.upMachines || 0;

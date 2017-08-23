@@ -35,17 +35,14 @@
         </ion-item>
       </ion-icon>
     </ng-template>
-
-    <machine-status [machine]="machine"></machine-status>
-    
-    <top5-graph [topDowntimeCodes]="topDowntimeCodes"></top5-graph>
+  </div>
   
+  <div text-center *ngIf="machine">
+    <machine-status [machine]="machine"></machine-status>
+  </div>
+
+  <div *ngIf="hasDowntimeCodes">
+    <top5-graph [topDowntimeCodes]="topDowntimeCodes"></top5-graph>
   </div>
 
 </ion-content>
-
-<ng-template #downTemplate>
-  <ion-icon name="thumbs-down"></ion-icon>
-  {{machine.downtimeEventId}}
-</ng-template>
-  

@@ -1,4 +1,32 @@
 <!-- Generated template for the MachineStatusComponent component -->
-<div>
-  {{text}}
-</div>
+
+<ion-card>
+    
+  <ion-card-content>
+      
+
+    <div class = "row">
+      <span align="right" class = "col no-padding">Target</span>
+      <span align="left" class = "col no-padding">{{target}}</span>
+    </div>
+
+    <div class = "row">
+      <span align="right" class = "col no-padding">Actual</span>
+      <span align="left" class = "col no-padding">{{actual}}</span>
+    </div>
+
+    <div class = "row">
+      <span align="right" class = "col no-padding">Efficiency</span>
+      <span align="left" class = "col no-padding">{{efficiency}}%</span>
+    </div>
+
+    <div class = "row">
+      <span align="right" class = "col no-padding">Downtime</span>
+      <span align="left" class = "col no-padding">{{downtime}}</span>
+    </div>
+ 
+
+  </ion-card-content>
+
+</ion-card>
+

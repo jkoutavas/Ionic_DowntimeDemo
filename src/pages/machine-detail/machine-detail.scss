@@ -4,10 +4,6 @@ page-machine-detail {
     max-width: 140px;
   }
 
-  p {
-    color: #60646B;
-  }
-
   .thumbs-up {
     font-size: 48px;
     color: color($colors, healthGreen, base);
@@ -19,6 +15,12 @@ page-machine-detail {
   }
 
   .downtime-code {
+    font: 120% Helvetica, sans-serif;
     color: color($colors, healthRed, base);
+  }
+
+  .item-md.item-block .item-inner {
+    padding-right: 8px;
+    border-bottom: 0px;
   }
 }

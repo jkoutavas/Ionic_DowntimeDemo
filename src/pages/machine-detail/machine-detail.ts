@@ -76,5 +76,10 @@ export class MachineDetailPage {
     const e = this.downtimeData.getDowntimeEvents().find((e: any) => e.id == this.machine.downtimeEventId);
     return this.downtimeData.getDowntimeCodes().find((d: any) => d.codeId == e.codeId);
   }
+
+  get hasDowntimeCodes() : boolean {
+    return this.topDowntimeCodes != null && this.topDowntimeCodes[0].length > 0;
+  }
+
 }
 

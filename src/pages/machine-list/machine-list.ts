@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 
 import {
-  ActionSheet,
-  ActionSheetController,
   Config,
   NavController,
   NavParams
@@ -14,26 +12,15 @@ import { DowntimeData } from '../../providers/downtime-data';
 import { MachineDetailPage } from '../machine-detail/machine-detail';
 import { FactoryDetailPage } from '../factory-detail/factory-detail';
 
-// TODO remove
-export interface ActionSheetButton {
-  text?: string;
-  role?: string;
-  icon?: string;
-  cssClass?: string;
-  handler?: () => boolean|void;
-};
-
 @Component({
   selector: 'page-machine-list',
   templateUrl: 'machine-list.html'
 })
 export class MachineListPage {
-  actionSheet: ActionSheet;
   machines: any[] = [];
   title: string;
 
   constructor(
-    public actionSheetCtrl: ActionSheetController,
     public navCtrl: NavController,
     public navParams: NavParams,
     public downtimeData: DowntimeData,

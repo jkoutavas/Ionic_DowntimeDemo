@@ -46,8 +46,6 @@
   "factories": [{
     "name": "Marietta Service Center",
     "profilePic": "assets/img/factories/marietta.png",
-    "email": "burt@example.com",
-    "phone": "+1-541-754-3010",
     "id": 1,
     "schedules": [{
       "shiftHours": [[6,7,8,9,10,11,12,13],[14,15,16,17,18,19,20,21],[22,23,0,1,2,3,4,5]],
@@ -56,8 +54,6 @@
   }, {
     "name": "Chicago Service Center",
     "profilePic": "assets/img/factories/chicago.png",
-    "email": "charlie@example.com",
-    "phone": "+1-541-754-3010",
     "id": 2,
     "schedules": [{
       "shiftHours": [[6,7,8,9,10,11,12,13],[14,15,16,17,18,19,20,21],[22,23,0,1,2,3,4,5]],
@@ -66,8 +62,6 @@
   }, {
     "name": "Houston Service Center",
     "profilePic": "assets/img/factories/houston.png",
-    "email": "donald@example.com",
-    "phone": "+1-541-754-3010",
     "id": 3,
     "schedules": [{
       "shiftHours": [[5,6,7,8,9,10,11,12],[13,14,15,16,17,18,19,20]],

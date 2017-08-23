@@ -32,4 +32,8 @@
     </ol>
   </div>
 
+  <div *ngIf="hasDowntimeCodes">
+    <top5-graph [topDowntimeCodes]="topDowntimeCodes"></top5-graph>
+  </div>
+
 </ion-content>

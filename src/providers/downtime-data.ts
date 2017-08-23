@@ -195,4 +195,39 @@ export class DowntimeData {
   get endDate() : Date {
     return new Date(this.data.downtimeEvents[this.eventIdx].endTime);
   }
+
+  gatherDowntimeCodesForMachines(machineIds:any[], time:Date, count:number) : [string[], number[]] {
+    const events = this.data.downtimeEvents.filter(function(event:any){
+      return machineIds.includes(event.machineId) 
+        && (time==null || event.startTime < time)
+        && event.codeId != 15864 /* scheduled downtime */ 
+        && event.codeId != 16024 /*end of shift*/;
+    });
+    let reasons: { [id: number] : number; } = {}
+    events.forEach((event: any) => {
+      if( event.codeId ) {
+        if( reasons[event.codeId] === undefined ) {
+          reasons[event.codeId] = 1;
+        } else {
+          reasons[event.codeId]++;
+        }
+      }
+    });
+    let downtimeCodes = Object.keys(reasons).map(function(key:any) {
+      return [key, reasons[key]];
+    });
+    downtimeCodes.sort(function(first, second) {
+      return second[1] - first[1];
+    });
+    
+    let categories: string[] = [];
+    let totals: number[] = [];
+    downtimeCodes.forEach((pair: any[]) => {
+      const code = this.data.downtimeCodes.find((d: any) => d.codeId == pair[0]);  
+      categories.push(code.description);
+      totals.push(pair[1]); 
+    });
+
+    return [categories.slice(0,count), totals.slice(0,count)];
+  }
 }

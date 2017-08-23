@@ -64,8 +64,4 @@ export class AccountPage {
     this.userData.logout();
     this.nav.setRoot('LoginPage');
   }
-
-  support() {
-    this.nav.push('SupportPage');
-  }
 }

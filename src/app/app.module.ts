@@ -23,7 +23,6 @@ import { FactoryDetailPage } from '../pages/factory-detail/factory-detail';
 import { FactoryListPage } from '../pages/factory-list/factory-list';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
-import { SupportPage } from '../pages/support/support';
 
 import { DowntimeData } from '../providers/downtime-data';
 import { UserData } from '../providers/user-data';
@@ -57,7 +56,6 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
     FactoryListPage,
     TabsPage,
     TutorialPage,
-    SupportPage,
     HealthGaugeComponent,
     ClockComponent,
     EventsShuttleComponent,
@@ -80,7 +78,6 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
         { component: MapPage, name: 'Map', segment: 'map' },
         { component: AboutPage, name: 'About', segment: 'about' },
         { component: TutorialPage, name: 'Tutorial', segment: 'tutorial' },
-        { component: SupportPage, name: 'SupportPage', segment: 'support' },
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
         { component: AccountPage, name: 'AccountPage', segment: 'account' },
         { component: SignupPage, name: 'SignupPage', segment: 'signup' }
@@ -102,8 +99,7 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
     FactoryDetailPage,
     FactoryListPage,
     TabsPage,
-    TutorialPage,
-    SupportPage
+    TutorialPage
    ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

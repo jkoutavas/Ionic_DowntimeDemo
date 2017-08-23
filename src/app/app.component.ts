@@ -14,7 +14,6 @@ import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { MachineListPage } from '../pages/machine-list/machine-list';
 import { FactoryListPage } from '../pages/factory-list/factory-list';
-import { SupportPage } from '../pages/support/support';
 
 import { DowntimeData } from '../providers/downtime-data';
 import { UserData } from '../providers/user-data';
@@ -52,12 +51,10 @@ export class DemoApp {
   ];
   loggedInPages: PageInterface[] = [
     { title: 'Account', name: 'AccountPage', component: AccountPage, icon: 'person' },
-    { title: 'Support', name: 'SupportPage', component: SupportPage, icon: 'help' },
     { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }
   ];
   loggedOutPages: PageInterface[] = [
     { title: 'Login', name: 'LoginPage', component: LoginPage, icon: 'log-in' },
-    { title: 'Support', name: 'SupportPage', component: SupportPage, icon: 'help' },
     { title: 'Signup', name: 'SignupPage', component: SignupPage, icon: 'person-add' }
   ];
   rootPage: any;

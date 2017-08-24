@@ -1,16 +1,12 @@
 import { Component } from '@angular/core';
 
-import {
-  Config,
-  NavController,
-  NavParams
-} from 'ionic-angular';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { DowntimeData } from '../../providers/downtime-data';
 
 import { MachineDetailPage } from '../machine-detail/machine-detail';
 import { FactoryDetailPage } from '../factory-detail/factory-detail';
+
 
 @Component({
   selector: 'page-machine-list',
@@ -21,11 +17,9 @@ export class MachineListPage {
   title: string;
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public downtimeData: DowntimeData,
-    public config: Config,
-    public inAppBrowser: InAppBrowser
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private downtimeData: DowntimeData
   ) {
     
   }

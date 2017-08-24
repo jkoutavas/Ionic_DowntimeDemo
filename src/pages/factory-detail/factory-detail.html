@@ -1,15 +1,15 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{factory?.name}}</ion-title>
+    <ion-title>{{factory.name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="factory-detail">
-  <div text-center *ngIf="factory">
+  <div text-center>
     <img [src]="factory.profilePic" [alt]="factory.name"><br>
   </div>
 
-  <div *ngIf="factory">
+  <div>
     <h3>Machines:</h3>
     <ol>
       <li *ngFor="let machine of factory.machines">

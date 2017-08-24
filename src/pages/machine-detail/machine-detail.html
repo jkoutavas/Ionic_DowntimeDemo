@@ -5,15 +5,15 @@
 </ion-header>
 
 <ion-content padding class="machine-detail">
-  <div text-center *ngIf="machine">
+  <div text-center>
     <img [src]="machine.profilePic" [alt]="machine.name"><br>
   </div>
 
-  <h3 text-center *ngIf="machine">
+  <h3 text-center>
     shifts: {{schedule.shiftHours.length}} / hours: 8 / days: {{schedule.shiftDays.length}}
   </h3>
 
-  <div text-center *ngIf="machine">
+  <div text-center>
     <ion-icon *ngIf="machine.downtimeEventId==0; else downTemplate" class="thumbs-up" name="thumbs-up"></ion-icon>
     <ng-template #downTemplate>
       <ion-icon class="thumbs-down" name="thumbs-down">
@@ -29,7 +29,7 @@
     </ng-template>
   </div>
   
-  <div text-center *ngIf="machine">
+  <div text-center>
     <machine-status [machine]="machine"></machine-status>
   </div>
 

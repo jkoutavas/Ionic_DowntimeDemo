@@ -25,7 +25,7 @@ export class FactoryListPage {
     public inAppBrowser: InAppBrowser
   ) {}
 
-  ionViewDidLoad() {
+  ngOnInit() {
     this.factories = this.downtimeData.getFactories();
   }
 

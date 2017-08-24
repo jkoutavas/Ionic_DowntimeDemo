@@ -30,7 +30,7 @@ export class MachineListPage {
     
   }
 
-  ionViewDidLoad() {
+  ngOnInit() {
     if( !this.navParams.data.machines ) {
       this.machines = this.downtimeData.getMachines();
     } else {

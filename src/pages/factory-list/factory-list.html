@@ -3,7 +3,15 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Factories</ion-title>
+
+   <ion-title>Factories</ion-title>
+
+    <ion-buttons end>
+      <button ion-button (click)="presentPopover($event)">
+        Reports
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 

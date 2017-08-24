@@ -21,6 +21,7 @@ import { MachineListPage } from '../pages/machine-list/machine-list';
 import { SignupPage } from '../pages/signup/signup';
 import { FactoryDetailPage } from '../pages/factory-detail/factory-detail';
 import { FactoryListPage } from '../pages/factory-list/factory-list';
+import { ReportListPage } from '../pages/report-list/report-list';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 
@@ -34,6 +35,7 @@ import { EventsShuttleComponent } from '../components/events-shuttle/events-shut
 import { HealthGaugeComponent } from '../components/health-gauge/health-gauge';
 import { Top5GraphComponent } from '../components/top5-graph/top5-graph';
 import { MachineStatusComponent } from '../components/machine-status/machine-status';
+import { ReportsPopoverComponent } from '../components/reports-popover/reports-popover';
 
 declare var require : any; // need for the ChartModule import
 
@@ -54,6 +56,8 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
     SignupPage,
     FactoryDetailPage,
     FactoryListPage,
+    ReportsPopoverComponent,
+    ReportListPage,
     TabsPage,
     TutorialPage,
     HealthGaugeComponent,
@@ -75,6 +79,7 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
         { component: MachineDetailPage, name: 'MachineDetail', segment: 'machineDetail/:machineId' },
         { component: FactoryListPage, name: 'FactoryList', segment: 'factoryList' },
         { component: FactoryDetailPage, name: 'FactoryDetail', segment: 'factoryDetail/:factoryId' },
+        { component: ReportListPage, name: 'ReportList', segment: 'reportList' },
         { component: MapPage, name: 'Map', segment: 'map' },
         { component: AboutPage, name: 'About', segment: 'about' },
         { component: TutorialPage, name: 'Tutorial', segment: 'tutorial' },
@@ -98,6 +103,8 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
     SignupPage,
     FactoryDetailPage,
     FactoryListPage,
+    ReportsPopoverComponent,
+    ReportListPage,
     TabsPage,
     TutorialPage
    ],

@@ -14,6 +14,7 @@ import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { MachineListPage } from '../pages/machine-list/machine-list';
 import { FactoryListPage } from '../pages/factory-list/factory-list';
+import { ReportListPage } from '../pages/report-list/report-list';
 
 import { DowntimeData } from '../providers/downtime-data';
 import { UserData } from '../providers/user-data';
@@ -45,9 +46,10 @@ export class DemoApp {
   // the login page disables the left menu
   appPages: PageInterface[] = [
     { title: 'Map', name: 'TabsPage', component: TabsPage, tabComponent: MapPage, index: 0, icon: 'map' },
-    { title: 'Factories', name: 'TabsPage', component: TabsPage, tabComponent: FactoryListPage, index: 1, icon: 'contacts' },
-    { title: 'Machines', name: 'TabsPage', component: TabsPage, tabComponent: MachineListPage, index: 2, icon: 'calendar' },
-    { title: 'About', name: 'TabsPage', component: TabsPage, tabComponent: AboutPage, index: 3, icon: 'information-circle' }
+    { title: 'Factories', name: 'TabsPage', component: TabsPage, tabComponent: FactoryListPage, index: 1, icon: 'locate' },
+    { title: 'Machines', name: 'TabsPage', component: TabsPage, tabComponent: MachineListPage, index: 2, icon: 'construct' },
+    { title: 'Reports', name: 'TabsPage', component: TabsPage, tabComponent: ReportListPage, index: 3, icon: 'pulse' },
+    { title: 'About', name: 'TabsPage', component: TabsPage, tabComponent: AboutPage, index: 4, icon: 'information-circle' }
   ];
   loggedInPages: PageInterface[] = [
     { title: 'Account', name: 'AccountPage', component: AccountPage, icon: 'person' },

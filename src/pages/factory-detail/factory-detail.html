@@ -1,6 +1,13 @@
 <ion-header>
   <ion-navbar>
     <ion-title>{{factory.name}}</ion-title>
+
+    <ion-buttons end>
+        <button ion-button (click)="presentPopover($event)">
+          Reports
+        </button>
+      </ion-buttons>
+  
   </ion-navbar>
 </ion-header>
 

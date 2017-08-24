@@ -1,0 +1,18 @@
+page-report-list {
+
+    .button-custom,
+    .button-custom .icon:before{
+      font-size: 34px !important;
+      border-style: none;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      background-color: #ed4949;
+      color: white;
+    }
+    .button-custom {
+        margin: -5px 0 -5px -5px!important;
+    }
+    
+}

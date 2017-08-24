@@ -28,7 +28,7 @@ export class MachineDetailPage {
   ngOnInit() {
     let me = this;
     this.sub = this.downtimeData.getClock().subscribe(time => {
-      me.topDowntimeCodes = this.downtimeData.gatherDowntimeCodesForMachines([this.machine.id], time, 5);
+      me.topDowntimeCodes = this.downtimeData.gatherDowntimeCodesForMachines([this.machine.id], time.getTime(), 5);
     });
   }
 

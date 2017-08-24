@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 
 import { DowntimeData } from '../../providers/downtime-data';
+
+import { ReportListPage } from '../report-list/report-list';
+import { ReportsPopoverComponent } from "../../components/reports-popover/reports-popover";
 
 @IonicPage({
   segment: 'factory/:factoryId'
@@ -17,7 +20,12 @@ export class FactoryDetailPage {
 
   topDowntimeCodes: [string[], number[]];
 
-  constructor(public dataProvider: DowntimeData, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    private dataProvider: DowntimeData, 
+    private navCtrl: NavController, 
+    private navParams: NavParams,
+    private popoverCtrl: PopoverController
+  ) {
     for (const factory of this.dataProvider.getFactories()) {
       if (factory && factory.id == this.navParams.data.factoryId) {
         this.factory = factory;
@@ -32,7 +40,7 @@ export class FactoryDetailPage {
   ngOnInit() {
     let me = this;
     this.sub = this.dataProvider.getClock().subscribe(time => {
-      me.topDowntimeCodes = this.dataProvider.gatherDowntimeCodesForMachines(this.machineIds, time, 5);
+      me.topDowntimeCodes = this.dataProvider.gatherDowntimeCodesForMachines(this.machineIds, time.getTime(), 5);
     });
   }
 
@@ -46,5 +54,19 @@ export class FactoryDetailPage {
 
   get hasDowntimeCodes() : boolean {
     return this.topDowntimeCodes != null && this.topDowntimeCodes[0].length > 0;
+  }
+
+  presentPopover(ev:any) {
+    let popover = this.popoverCtrl.create(ReportsPopoverComponent, {
+    });
+    popover.present({
+      ev: ev
+    });
+
+    popover.onDidDismiss((popoverData) => {
+      if( popoverData != null ) {
+        this.navCtrl.push(ReportListPage, { title: this.factory.name+": "+popoverData.name});
+      }
+    })
   }
 }

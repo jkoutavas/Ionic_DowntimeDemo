@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { DowntimeStatisticsType } from '../../providers/downtime-data';
+import { DowntimeReasonsType } from '../../providers/downtime-data';
 
 /**
  * Generated class for the Top5GraphComponent component.
@@ -15,7 +15,7 @@ import { DowntimeStatisticsType } from '../../providers/downtime-data';
 export class Top5GraphComponent {
   
   @Input()
-  set downtimeCodes(stats:DowntimeStatisticsType) {
+  set downtimeCodes(stats:DowntimeReasonsType) {
     if( this.chart ) {
       this.chart.xAxis[0].categories = stats.descriptions.slice(0,5);
       this.chart.series[0].setData(stats.totals.slice(0,5), true, true);

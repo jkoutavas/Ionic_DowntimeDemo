@@ -9,7 +9,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
-export type DowntimeStatisticsType = {
+export type DowntimeReasonsType = {
   descriptions:string[],
   totals:number[]
 }
@@ -205,14 +205,9 @@ export class DowntimeData {
     return event.codeId == 15684 /* scheduled downtime */  || event.codeId == 16024 /*end of shift*/;
   }
 
- 
-
-  gatherDowntimeStatistics(machineIds:any[], time:number) : DowntimeStatisticsType {
+  gatherDowntimeReasons(machineIds:any[], time:number) : DowntimeReasonsType {
     const events = this.data.downtimeEvents.filter(function(event:any){
-      return (machineIds.length==0 || machineIds.includes(event.machineId))
-        && (time==0 || event.startTime < time)
-;
-//        && !this.isScheduledDowntimeEvent(event);
+      return (machineIds.length==0 || machineIds.includes(event.machineId)) && (time==0 || event.startTime < time);
     });
     let reasons: { [id: number] : number; } = {}
     events.forEach((event: any) => {

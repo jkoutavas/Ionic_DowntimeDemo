@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { DowntimeData } from '../../providers/downtime-data';
+import { DowntimeData, DowntimeStatisticsType } from '../../providers/downtime-data';
 
 @IonicPage({
   segment: 'factory/:factoryId'
@@ -15,7 +15,7 @@ export class FactoryDetailPage {
   private machineIds: number[] = [];
   private sub: any;
 
-  downtimeCodes: [string[], number[]];
+  downtimeCodes: DowntimeStatisticsType;
 
   constructor(
     private dataProvider: DowntimeData, 
@@ -36,7 +36,7 @@ export class FactoryDetailPage {
   ngOnInit() {
     let me = this;
     this.sub = this.dataProvider.getClock().subscribe(time => {
-      me.downtimeCodes = this.dataProvider.gatherDowntimeCodesForMachines(this.machineIds, time.getTime());
+      me.downtimeCodes = this.dataProvider.gatherDowntimeStatistics(this.machineIds, time.getTime());
     });
   }
 
@@ -49,6 +49,6 @@ export class FactoryDetailPage {
   }
 
   get hasDowntimeCodes() : boolean {
-    return this.downtimeCodes != null && this.downtimeCodes[0].length > 0;
+    return this.downtimeCodes != null && this.downtimeCodes.descriptions.length > 0;
   }
 }

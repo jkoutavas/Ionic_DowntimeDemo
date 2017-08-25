@@ -9,6 +9,11 @@ import { Observable, Observer } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
+export type DowntimeStatisticsType = {
+  descriptions:string[],
+  totals:number[]
+}
+
 @Injectable()
 export class DowntimeData {
   private data: any;
@@ -200,7 +205,9 @@ export class DowntimeData {
     return event.codeId == 15684 /* scheduled downtime */  || event.codeId == 16024 /*end of shift*/;
   }
 
-  gatherDowntimeCodesForMachines(machineIds:any[], time:number) : [string[], number[]] {
+ 
+
+  gatherDowntimeStatistics(machineIds:any[], time:number) : DowntimeStatisticsType {
     const events = this.data.downtimeEvents.filter(function(event:any){
       return (machineIds.length==0 || machineIds.includes(event.machineId))
         && (time==0 || event.startTime < time)
@@ -224,14 +231,14 @@ export class DowntimeData {
       return second[1] - first[1];
     });
     
-    let categories: string[] = [];
+    let descriptions: string[] = [];
     let totals: number[] = [];
     downtimeCodes.forEach((pair: any[]) => {
       const code = this.data.downtimeCodes.find((d: any) => d.codeId == pair[0]);  
-      categories.push(code.description);
+      descriptions.push(code.description);
       totals.push(pair[1]); 
     });
 
-    return [categories, totals];
+    return {descriptions:descriptions, totals:totals};
   }
 }

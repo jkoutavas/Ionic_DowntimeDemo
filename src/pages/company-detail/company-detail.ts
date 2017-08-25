@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
 
-import { DowntimeData } from '../../providers/downtime-data';
+import { DowntimeData, DowntimeStatisticsType } from '../../providers/downtime-data';
 
 /**
  * Generated class for the CompanyDetailPage page.
@@ -17,7 +17,7 @@ import { DowntimeData } from '../../providers/downtime-data';
 })
 export class CompanyDetailPage {
   title: string = "";
-  downtimeCodes: [string[], number[]];
+  downtimeCodes: DowntimeStatisticsType;
 
   constructor(private downtimeData: DowntimeData) {
   }
@@ -27,7 +27,7 @@ export class CompanyDetailPage {
   }
 
   ionViewDidLoad() {
-    this.downtimeCodes = this.downtimeData.gatherDowntimeCodesForMachines([], 0);
+    this.downtimeCodes = this.downtimeData.gatherDowntimeStatistics([], 0);
   }
 
 }

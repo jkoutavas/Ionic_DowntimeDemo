@@ -13,8 +13,10 @@ import { Component, Input } from '@angular/core';
 export class Top5GraphComponent {
   
   @Input()
-  set topDowntimeCodes(codes:[string[],number[]]) {
+  set downtimeCodes(codes:[string[],number[]]) {
     if( this.chart ) {
+      codes[0].slice(0,5);
+      codes[1].slice(0,5);
       this.chart.xAxis[0].categories = codes[0];
       this.chart.series[0].setData(codes[1], true, true);
     }

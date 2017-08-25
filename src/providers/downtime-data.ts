@@ -196,13 +196,16 @@ export class DowntimeData {
     return new Date(this.data.downtimeEvents[this.eventIdx].endTime);
   }
 
-  gatherDowntimeCodesForMachines(machineIds:any[], time:number, count:number) : [string[], number[]] {
+  isScheduledDowntimeEvent(event:any) {
+    return event.codeId == 15684 /* scheduled downtime */  || event.codeId == 16024 /*end of shift*/;
+  }
+
+  gatherDowntimeCodesForMachines(machineIds:any[], time:number) : [string[], number[]] {
     const events = this.data.downtimeEvents.filter(function(event:any){
       return (machineIds.length==0 || machineIds.includes(event.machineId))
         && (time==0 || event.startTime < time)
 ;
-//        && event.codeId != 15864 /* scheduled downtime */ 
-//        && event.codeId != 16024 /*end of shift*/;
+//        && !this.isScheduledDowntimeEvent(event);
     });
     let reasons: { [id: number] : number; } = {}
     events.forEach((event: any) => {
@@ -229,6 +232,6 @@ export class DowntimeData {
       totals.push(pair[1]); 
     });
 
-    return [categories.slice(0,count), totals.slice(0,count)];
+    return [categories, totals];
   }
 }

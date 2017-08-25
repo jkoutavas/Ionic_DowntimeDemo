@@ -17,7 +17,7 @@ import { DowntimeData } from '../../providers/downtime-data';
 })
 export class CompanyDetailPage {
   title: string = "";
-  topDowntimeCodes: [string[], number[]];
+  downtimeCodes: [string[], number[]];
 
   constructor(private downtimeData: DowntimeData) {
   }
@@ -27,7 +27,7 @@ export class CompanyDetailPage {
   }
 
   ionViewDidLoad() {
-    this.topDowntimeCodes = this.downtimeData.gatherDowntimeCodesForMachines([], 0, 5);
+    this.downtimeCodes = this.downtimeData.gatherDowntimeCodesForMachines([], 0);
   }
 
 }

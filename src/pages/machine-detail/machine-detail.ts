@@ -14,7 +14,7 @@ export class MachineDetailPage {
   private machine: any;
   private sub: any;
 
-  topDowntimeCodes: [string[], number[]];
+  downtimeCodes: [string[], number[]];
   
   constructor(public downtimeData: DowntimeData, public navCtrl: NavController, public navParams: NavParams) {
     for (const machine of this.downtimeData.getMachines()) {
@@ -28,7 +28,7 @@ export class MachineDetailPage {
   ngOnInit() {
     let me = this;
     this.sub = this.downtimeData.getClock().subscribe(time => {
-      me.topDowntimeCodes = this.downtimeData.gatherDowntimeCodesForMachines([this.machine.id], time.getTime(), 5);
+      me.downtimeCodes = me.downtimeData.gatherDowntimeCodesForMachines([this.machine.id], time.getTime());
     });
   }
 
@@ -51,7 +51,7 @@ export class MachineDetailPage {
   }
 
   get hasDowntimeCodes() : boolean {
-    return this.topDowntimeCodes != null && this.topDowntimeCodes[0].length > 0;
+    return this.downtimeCodes != null && this.downtimeCodes[0].length > 0;
   }
 }
 

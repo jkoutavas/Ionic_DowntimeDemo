@@ -15,7 +15,7 @@ export class FactoryDetailPage {
   private machineIds: number[] = [];
   private sub: any;
 
-  topDowntimeCodes: [string[], number[]];
+  downtimeCodes: [string[], number[]];
 
   constructor(
     private dataProvider: DowntimeData, 
@@ -36,7 +36,7 @@ export class FactoryDetailPage {
   ngOnInit() {
     let me = this;
     this.sub = this.dataProvider.getClock().subscribe(time => {
-      me.topDowntimeCodes = this.dataProvider.gatherDowntimeCodesForMachines(this.machineIds, time.getTime(), 5);
+      me.downtimeCodes = this.dataProvider.gatherDowntimeCodesForMachines(this.machineIds, time.getTime());
     });
   }
 
@@ -49,6 +49,6 @@ export class FactoryDetailPage {
   }
 
   get hasDowntimeCodes() : boolean {
-    return this.topDowntimeCodes != null && this.topDowntimeCodes[0].length > 0;
+    return this.downtimeCodes != null && this.downtimeCodes[0].length > 0;
   }
 }

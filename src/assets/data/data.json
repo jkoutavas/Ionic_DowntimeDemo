@@ -5,6 +5,7 @@
     "id": 1,
     "factoryId": 1,
     "schedule": 0,
+    "targetWeight": 7400,
     "downtimeEventId": 0
   }, {
     "name": "Red Bud 2",
@@ -12,6 +13,7 @@
     "id": 2,
     "factoryId": 1,
     "schedule": 0,
+    "targetWeight": 6184,
     "downtimeEventId": 0
   }, {
     "name": "Red Bud 3",
@@ -19,6 +21,7 @@
     "id": 3,
     "factoryId": 2,
     "schedule": 0,
+    "targetWeight": 6800,
     "downtimeEventId": 0
     }, {
     "name": "Red Bud 4",
@@ -26,6 +29,7 @@
     "id": 4,
     "factoryId": 2,
     "schedule": 0,
+    "targetWeight": 7200,
     "downtimeEventId": 0
   }, {
     "name": "Red Bud 5",
@@ -33,6 +37,7 @@
     "id": 5,
     "factoryId": 2,
     "schedule": 0,
+    "targetWeight": 7200,
     "downtimeEventId": 0
   }, {
     "name": "Red Bud 6",
@@ -40,6 +45,7 @@
     "id": 6,
     "factoryId": 3,
     "schedule": 0,
+    "targetWeight": 7200,
     "downtimeEventId": 0
    }],
 

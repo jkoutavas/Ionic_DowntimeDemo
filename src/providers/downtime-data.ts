@@ -205,9 +205,9 @@ export class DowntimeData {
     return event.codeId == 15684 /* scheduled downtime */  || event.codeId == 16024 /*end of shift*/;
   }
 
-  gatherDowntimeReasons(machineIds:any[], time:number) : DowntimeReasonsType {
+  gatherDowntimeReasons(machineIds:any[], endTime:number) : DowntimeReasonsType {
     const events = this.data.downtimeEvents.filter(function(event:any){
-      return (machineIds.length==0 || machineIds.includes(event.machineId)) && (time==0 || event.startTime < time);
+      return (machineIds.length==0 || machineIds.includes(event.machineId)) && event.startTime < endTime;
     });
     let reasons: { [id: number] : number; } = {}
     events.forEach((event: any) => {

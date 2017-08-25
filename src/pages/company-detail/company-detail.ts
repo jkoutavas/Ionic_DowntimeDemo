@@ -18,16 +18,21 @@ import { DowntimeData, DowntimeReasonsType } from '../../providers/downtime-data
 export class CompanyDetailPage {
   title: string = "";
   downtimeCodes: DowntimeReasonsType;
+  private sub: any;
 
   constructor(private downtimeData: DowntimeData) {
   }
 
   ngOnInit() {
     this.title = this.downtimeData.getCompany().name;
+    let me = this;
+    this.sub = this.downtimeData.getClock().subscribe(time => {
+      me.downtimeCodes = this.downtimeData.gatherDowntimeReasons([], time.getTime());
+    });
   }
 
-  ionViewDidLoad() {
-    this.downtimeCodes = this.downtimeData.gatherDowntimeReasons([], 0);
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
 }

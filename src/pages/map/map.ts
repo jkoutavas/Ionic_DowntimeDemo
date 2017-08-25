@@ -31,11 +31,12 @@ export class MapPage {
       });
 
       mapData.forEach((markerData: any) => {
+        const factory = this.data.getFactories().find((f: any) => f.id == markerData.factoryId);
+
         let infoWindow = new google.maps.InfoWindow({
-          content: `<h5>${markerData.name}</h5>`
+          content: `<h5>${factory.name}</h5>`
         });
 
-        const factory = this.data.getFactories().find((f: any) => f.id == markerData.factoryId);
         const marker = new google.maps.Marker({
           position: markerData,
           map: map,

@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 
 import { Events, MenuController, Nav, Platform } from 'ionic-angular';
-import { SplashScreen } from '@ionic-native/splash-screen';
+//import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Storage } from '@ionic/storage';
 
@@ -68,7 +68,7 @@ export class DemoApp {
     public platform: Platform,
     public downtimeData: DowntimeData,
     public storage: Storage,
-    public splashScreen: SplashScreen
+//    public splashScreen: SplashScreen
   ) {
 
     this.maxHealth = this.downtimeData.overallHealthMax;
@@ -151,7 +151,7 @@ export class DemoApp {
   platformReady() {
     // Call any initial plugins when ready
     this.platform.ready().then(() => {
-      this.splashScreen.hide();
+//      this.splashScreen.hide();
     });
   }
 

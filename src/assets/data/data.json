@@ -1,4 +1,7 @@
 {
+  "company": {
+    "name": "Pacesetter Steel"
+  },
   "machines": [{
     "name": "Red Bud 1",
     "profilePic": "assets/img/machines/redbud.png",

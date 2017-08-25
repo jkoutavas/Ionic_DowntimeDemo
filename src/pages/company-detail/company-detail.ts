@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 
 import { DowntimeData } from '../../providers/downtime-data';
 
 /**
- * Generated class for the ReportListPage page.
+ * Generated class for the CompanyDetailPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
@@ -12,21 +12,18 @@ import { DowntimeData } from '../../providers/downtime-data';
 
 @IonicPage()
 @Component({
-  selector: 'page-report-list',
-  templateUrl: 'report-list.html',
+  selector: 'page-company-detail',
+  templateUrl: 'company-detail.html',
 })
-export class ReportListPage {
+export class CompanyDetailPage {
   title: string = "";
   topDowntimeCodes: [string[], number[]];
 
-  constructor(
-    private navParams: NavParams,
-    private downtimeData: DowntimeData
-  ) {
+  constructor(private downtimeData: DowntimeData) {
   }
 
   ngOnInit() {
-    this.title = this.navParams.data.title;
+    this.title = this.downtimeData.getCompany().name;
   }
 
   ionViewDidLoad() {

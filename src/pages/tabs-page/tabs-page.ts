@@ -6,7 +6,7 @@ import { AboutPage } from '../about/about';
 import { MapPage } from '../map/map';
 import { MachineListPage } from '../machine-list/machine-list';
 import { FactoryListPage } from '../factory-list/factory-list';
-import { ReportListPage } from '../report-list/report-list';
+import { CompanyDetailPage } from '../company-detail/company-detail';
 
 @Component({
   templateUrl: 'tabs-page.html'
@@ -14,9 +14,9 @@ import { ReportListPage } from '../report-list/report-list';
 export class TabsPage {
   // set the root pages for each tab
   tab1Root: any = MapPage;
-  tab2Root: any = FactoryListPage;
-  tab3Root: any = MachineListPage;
-  tab4Root: any = ReportListPage;
+  tab2Root: any = CompanyDetailPage;
+  tab3Root: any = FactoryListPage;
+  tab4Root: any = MachineListPage;
   tab5Root: any = AboutPage;
   mySelectedIndex: number;
 

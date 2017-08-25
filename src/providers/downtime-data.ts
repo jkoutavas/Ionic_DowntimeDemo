@@ -86,7 +86,7 @@ export class DowntimeData {
       }
     }
 
-    this.eventIdx = 0;
+    this.eventIdx = 1407; // pick something mid the event range
 
     return this.data;
   }
@@ -95,8 +95,8 @@ export class DowntimeData {
     return this.data.downtimeEvents.length;
   }
 
-  getData() {
-    return Observable.of(this.data);
+  getCompany() {
+    return this.data.company;
   }
 
   getFactories() {

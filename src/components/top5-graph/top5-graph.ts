@@ -29,7 +29,7 @@ export class Top5GraphComponent {
         type: 'bar'
       },
       title: {
-        text: 'Top Five Downtime Codes'
+        text: 'Top Five Downtime Reasons'
       },
       xAxis: {
         categories: [],

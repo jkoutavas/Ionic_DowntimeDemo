@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { DowntimeData, DowntimeReasonsType } from '../../providers/downtime-data';
+import { DowntimeData, DowntimeReasonsType, DowntimeTrendsType } from '../../providers/downtime-data';
 
 @IonicPage({
   segment: 'factory/:factoryId'
@@ -15,7 +15,8 @@ export class FactoryDetailPage {
   private machineIds: number[] = [];
   private sub: any;
 
-  downtimeCodes: DowntimeReasonsType;
+  downtimeReasons: DowntimeReasonsType;
+  downtimeTrends: DowntimeTrendsType;
 
   constructor(
     private dataProvider: DowntimeData, 
@@ -36,7 +37,8 @@ export class FactoryDetailPage {
   ngOnInit() {
     let me = this;
     this.sub = this.dataProvider.getClock().subscribe(time => {
-      me.downtimeCodes = this.dataProvider.gatherDowntimeReasons(this.machineIds, time.getTime());
+      me.downtimeReasons = this.dataProvider.gatherDowntimeReasons(this.machineIds, time.getTime());
+      me.downtimeTrends = this.dataProvider.gatherDowntimeTrends(this.machineIds, time.getTime(), 7, 1);
     });
   }
 
@@ -48,7 +50,7 @@ export class FactoryDetailPage {
     this.navCtrl.push('MachineDetailPage', { machineId: machine.id });
   }
 
-  get hasDowntimeCodes() : boolean {
-    return this.downtimeCodes != null && this.downtimeCodes.descriptions.length > 0;
+  get hasDowntimeReasons() : boolean {
+    return this.downtimeReasons != null && this.downtimeReasons.descriptions.length > 0;
   }
 }

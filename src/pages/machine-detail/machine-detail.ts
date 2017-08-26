@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { DowntimeData, DowntimeReasonsType } from '../../providers/downtime-data';
+import { DowntimeData, DowntimeReasonsType, DowntimeTrendsType } from '../../providers/downtime-data';
 
 @IonicPage({
   segment: 'machine/:machineId'
@@ -15,7 +15,8 @@ export class MachineDetailPage {
   private sub: any;
 
   downtimeCodes: DowntimeReasonsType;
-  
+  downtimeTrends: DowntimeTrendsType;
+
   constructor(public downtimeData: DowntimeData, public navCtrl: NavController, public navParams: NavParams) {
     for (const machine of this.downtimeData.getMachines()) {
       if (machine && machine.id == this.navParams.data.machineId) {
@@ -29,6 +30,7 @@ export class MachineDetailPage {
     let me = this;
     this.sub = this.downtimeData.getClock().subscribe(time => {
       me.downtimeCodes = me.downtimeData.gatherDowntimeReasons([this.machine.id], time.getTime());
+      me.downtimeTrends = this.downtimeData.gatherDowntimeTrends([this.machine.id], time.getTime(), 7, 1);
     });
   }
 

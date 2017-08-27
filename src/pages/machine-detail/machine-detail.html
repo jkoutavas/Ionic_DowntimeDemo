@@ -33,10 +33,20 @@
     <machine-status [machine]="machine"></machine-status>
   </div>
 
-  <div *ngIf="hasDowntimeCodes">
-    <top5-graph [downtimeCodes]="downtimeCodes"></top5-graph>
-  </div>
+  <ion-card>
+    <ion-card-content>
+      <div class = "row" class="col-md-7" style="height:420px">
+        <top5-graph [downtimeCodes]="downtimeCodes"></top5-graph>
+      </div>
+    </ion-card-content>
+  </ion-card>
 
-  <trend-graph [downtimeTrends]="downtimeTrends"></trend-graph>
+  <ion-card>
+    <ion-card-content class="card padding">
+      <div class = "row" class="col-md-7" style="height:420px">
+        <trend-graph [downtimeTrends]="downtimeTrends"></trend-graph>
+      </div>
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>

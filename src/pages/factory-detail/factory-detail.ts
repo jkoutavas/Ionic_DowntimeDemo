@@ -49,8 +49,4 @@ export class FactoryDetailPage {
   goToMachineDetail(machine: any) {
     this.navCtrl.push('MachineDetailPage', { machineId: machine.id });
   }
-
-  get hasDowntimeReasons() : boolean {
-    return this.downtimeReasons != null && this.downtimeReasons.descriptions.length > 0;
-  }
 }

@@ -9,26 +9,38 @@
     <img [src]="factory.profilePic" [alt]="factory.name"><br>
   </div>
 
-  <div>
+  <ion-card-content>
     <h3>Machines:</h3>
     <ol>
       <li *ngFor="let machine of factory.machines">
         <div>{{machine.name}}</div>
       </li>
     </ol>
+  </ion-card-content>
 
+  <ion-card-content>
     <h3>Schedules:</h3>
     <ol>
       <li *ngFor="let sched of factory.schedules">
         <div>shifts: {{sched.shiftHours.length}} / hours: 8 / days: {{sched.shiftDays.length}}</div>
       </li>
     </ol>
-  </div>
+  </ion-card-content>
 
-  <div *ngIf="hasDowntimeReasons">
-    <top5-graph [downtimeCodes]="downtimeReasons"></top5-graph>
-  </div>
+  <ion-card>
+    <ion-card-content>
+      <div class = "row" class="col-md-7" style="height:420px">
+        <top5-graph [downtimeCodes]="downtimeReasons"></top5-graph>
+      </div>
+    </ion-card-content>
+  </ion-card>
 
-  <trend-graph [downtimeTrends]="downtimeTrends"></trend-graph>
+  <ion-card>
+    <ion-card-content class="card padding">
+      <div class = "row" class="col-md-7" style="height:420px">
+        <trend-graph [downtimeTrends]="downtimeTrends"></trend-graph>
+      </div>
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>

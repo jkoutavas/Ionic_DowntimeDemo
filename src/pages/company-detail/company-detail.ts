@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
 
-import { DowntimeData, DowntimeReasonsType } from '../../providers/downtime-data';
+import { DowntimeData, DowntimeReasonsType, DowntimeTrendsType } from '../../providers/downtime-data';
 
 /**
  * Generated class for the CompanyDetailPage page.
@@ -17,7 +17,10 @@ import { DowntimeData, DowntimeReasonsType } from '../../providers/downtime-data
 })
 export class CompanyDetailPage {
   title: string = "";
-  downtimeCodes: DowntimeReasonsType;
+
+  downtimeReasons: DowntimeReasonsType;
+  downtimeTrends: DowntimeTrendsType;
+
   private sub: any;
 
   constructor(private downtimeData: DowntimeData) {
@@ -27,7 +30,8 @@ export class CompanyDetailPage {
     this.title = this.downtimeData.getCompany().name;
     let me = this;
     this.sub = this.downtimeData.getClock().subscribe(time => {
-      me.downtimeCodes = this.downtimeData.gatherDowntimeReasons([], time.getTime());
+      me.downtimeReasons = this.downtimeData.gatherDowntimeReasons([], time.getTime());
+      me.downtimeTrends = this.downtimeData.gatherDowntimeTrends([], time.getTime(), 7, 1);
     });
   }
 

@@ -14,5 +14,21 @@
   </ion-header>
 
 <ion-content padding>
-  <top5-graph [downtimeCodes]="downtimeCodes"></top5-graph>
+
+    <ion-card>
+      <ion-card-content>
+        <div class = "row" class="col-md-7" style="height:420px">
+          <top5-graph [downtimeCodes]="downtimeReasons"></top5-graph>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card>
+      <ion-card-content class="card padding">
+        <div class = "row" class="col-md-7" style="height:420px">
+          <trend-graph [downtimeTrends]="downtimeTrends"></trend-graph>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
 </ion-content>

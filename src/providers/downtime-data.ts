@@ -6,8 +6,21 @@ import { UserData } from './user-data';
 
 import { Observable, Observer } from 'rxjs/Rx';
 
+const moment = require('../../node_modules/moment/moment.js');
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
+
+export type DowntimeReasonsType = {
+  descriptions:string[],
+  totals:number[]
+}
+
+export type DowntimeTrendsType = {
+  scheduled:number[],
+  unplanned:number[],
+  startDateUTC:Date
+}
 
 @Injectable()
 export class DowntimeData {
@@ -73,6 +86,13 @@ export class DowntimeData {
     this.data.downtimeEvents = [];
     for( let i=0; i<events.length-1; ++i ) {
       const thisEvent = events[i];
+      const e = moment(events[i].endTime);
+      const s = moment(events[i].startTime);
+      const diff = e.diff(s,'minutes');
+      if( diff > 23*60 ) {
+        console.log("!!!!event "+i+" is "+diff+" hours!!!!!");
+        continue;
+      }
       this.data.downtimeEvents.push(thisEvent);
       const nextEvent = events[i+1];
       if( thisEvent.machineId == nextEvent.machineId ) {
@@ -86,7 +106,7 @@ export class DowntimeData {
       }
     }
 
-    this.eventIdx = 0;
+    this.eventIdx = 1407; // pick something mid the event range
 
     return this.data;
   }
@@ -95,8 +115,8 @@ export class DowntimeData {
     return this.data.downtimeEvents.length;
   }
 
-  getData() {
-    return Observable.of(this.data);
+  getCompany() {
+    return this.data.company;
   }
 
   getFactories() {
@@ -196,13 +216,16 @@ export class DowntimeData {
     return new Date(this.data.downtimeEvents[this.eventIdx].endTime);
   }
 
-  gatherDowntimeCodesForMachines(machineIds:any[], time:number, count:number) : [string[], number[]] {
+  isScheduledDowntimeEvent(event:any) : boolean {
+    return event.codeId == 15864 /* scheduled downtime */  || event.codeId == 16024 /*end of shift*/;
+  }
+
+  gatherDowntimeReasons(machineIds:any[], endTime:number, days:number) : DowntimeReasonsType {
+    const startMoment = moment(endTime);
+    startMoment.add(-days,'days').startOf('day');
+    let startTime = startMoment.valueOf();
     const events = this.data.downtimeEvents.filter(function(event:any){
-      return (machineIds.length==0 || machineIds.includes(event.machineId))
-        && (time==0 || event.startTime < time)
-;
-//        && event.codeId != 15864 /* scheduled downtime */ 
-//        && event.codeId != 16024 /*end of shift*/;
+      return (machineIds.length==0 || machineIds.includes(event.machineId)) && event.startTime >= startTime && event.endTime < endTime;
     });
     let reasons: { [id: number] : number; } = {}
     events.forEach((event: any) => {
@@ -221,14 +244,49 @@ export class DowntimeData {
       return second[1] - first[1];
     });
     
-    let categories: string[] = [];
+    let descriptions: string[] = [];
     let totals: number[] = [];
     downtimeCodes.forEach((pair: any[]) => {
       const code = this.data.downtimeCodes.find((d: any) => d.codeId == pair[0]);  
-      categories.push(code.description);
+      descriptions.push(code.description);
       totals.push(pair[1]); 
     });
 
-    return [categories.slice(0,count), totals.slice(0,count)];
+    return {descriptions:descriptions, totals:totals};
   }
+
+  gatherDowntimeTrends(machineIds:any[], endTime:number, days:number, dayIncrement:number) : DowntimeTrendsType {
+    const startMoment = moment(endTime);
+    startMoment.add(-days,'days').startOf('day');
+    let startTime = startMoment.valueOf();
+    
+    const events = this.data.downtimeEvents.filter(function(event:any){
+      return (machineIds.length==0 || machineIds.includes(event.machineId)) && event.startTime >= startTime && event.endTime < endTime;
+    });
+  
+    let scheduled:number[] = Array(days).fill(0);
+    let unplanned:number[] = Array(days).fill(0);
+
+    let current = moment(startTime).endOf('day').valueOf();
+    let i = 0;
+    events.forEach((event: any) => {
+      if( event.codeId ) {
+        if( event.startTime > current ) {
+          i++;
+          current += 86400000*dayIncrement;
+        }
+        const e = moment(event.endTime);
+        const s = moment(event.startTime);
+        const minutes = e.diff(s,'minutes');
+        if( this.isScheduledDowntimeEvent(event) == true ) {
+          scheduled[i] = scheduled[i] + minutes/60;
+        } else {
+          unplanned[i] = unplanned[i] + minutes/60;
+        }
+      }
+    }); 
+      
+    return {scheduled:scheduled, unplanned:unplanned, startDateUTC:startMoment.utc()};
+  }
+
 }

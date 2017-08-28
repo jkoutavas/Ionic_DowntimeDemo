@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { DowntimeReasonsType } from '../../providers/downtime-data';
+
 /**
  * Generated class for the Top5GraphComponent component.
  *
@@ -13,10 +15,10 @@ import { Component, Input } from '@angular/core';
 export class Top5GraphComponent {
   
   @Input()
-  set topDowntimeCodes(codes:[string[],number[]]) {
+  set downtimeCodes(stats:DowntimeReasonsType) {
     if( this.chart ) {
-      this.chart.xAxis[0].categories = codes[0];
-      this.chart.series[0].setData(codes[1], true, true);
+      this.chart.xAxis[0].categories = stats.descriptions.slice(0,5);
+      this.chart.series[0].setData(stats.totals.slice(0,5), true, true);
     }
   }
   
@@ -29,7 +31,7 @@ export class Top5GraphComponent {
         type: 'bar'
       },
       title: {
-        text: 'Top Five Downtime Codes'
+        text: 'Top Five Downtime Reasons'
       },
       xAxis: {
         categories: [],

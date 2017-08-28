@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 
 import { Events, MenuController, Nav, Platform } from 'ionic-angular';
-import { SplashScreen } from '@ionic-native/splash-screen';
+//import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Storage } from '@ionic/storage';
 
@@ -14,7 +14,7 @@ import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { MachineListPage } from '../pages/machine-list/machine-list';
 import { FactoryListPage } from '../pages/factory-list/factory-list';
-import { ReportListPage } from '../pages/report-list/report-list';
+import { CompanyDetailPage } from '../pages/company-detail/company-detail';
 
 import { DowntimeData } from '../providers/downtime-data';
 import { UserData } from '../providers/user-data';
@@ -46,9 +46,9 @@ export class DemoApp {
   // the login page disables the left menu
   appPages: PageInterface[] = [
     { title: 'Map', name: 'TabsPage', component: TabsPage, tabComponent: MapPage, index: 0, icon: 'map' },
-    { title: 'Factories', name: 'TabsPage', component: TabsPage, tabComponent: FactoryListPage, index: 1, icon: 'locate' },
-    { title: 'Machines', name: 'TabsPage', component: TabsPage, tabComponent: MachineListPage, index: 2, icon: 'construct' },
-    { title: 'Reports', name: 'TabsPage', component: TabsPage, tabComponent: ReportListPage, index: 3, icon: 'pulse' },
+    { title: 'Company', name: 'TabsPage', component: TabsPage, tabComponent: CompanyDetailPage, index: 1, icon: 'pulse' },
+    { title: 'Factories', name: 'TabsPage', component: TabsPage, tabComponent: FactoryListPage, index: 2, icon: 'locate' },
+    { title: 'Machines', name: 'TabsPage', component: TabsPage, tabComponent: MachineListPage, index: 3, icon: 'construct' },
     { title: 'About', name: 'TabsPage', component: TabsPage, tabComponent: AboutPage, index: 4, icon: 'information-circle' }
   ];
   loggedInPages: PageInterface[] = [
@@ -68,7 +68,7 @@ export class DemoApp {
     public platform: Platform,
     public downtimeData: DowntimeData,
     public storage: Storage,
-    public splashScreen: SplashScreen
+//    public splashScreen: SplashScreen
   ) {
 
     this.maxHealth = this.downtimeData.overallHealthMax;
@@ -151,7 +151,7 @@ export class DemoApp {
   platformReady() {
     // Call any initial plugins when ready
     this.platform.ready().then(() => {
-      this.splashScreen.hide();
+//      this.splashScreen.hide();
     });
   }
 

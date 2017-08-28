@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { DowntimeData } from '../../providers/downtime-data';
+import { DowntimeData, DowntimeReasonsType, DowntimeTrendsType } from '../../providers/downtime-data';
 
 @IonicPage({
   segment: 'machine/:machineId'
@@ -14,8 +14,9 @@ export class MachineDetailPage {
   private machine: any;
   private sub: any;
 
-  topDowntimeCodes: [string[], number[]];
-  
+  downtimeCodes: DowntimeReasonsType;
+  downtimeTrends: DowntimeTrendsType;
+
   constructor(public downtimeData: DowntimeData, public navCtrl: NavController, public navParams: NavParams) {
     for (const machine of this.downtimeData.getMachines()) {
       if (machine && machine.id == this.navParams.data.machineId) {
@@ -28,7 +29,8 @@ export class MachineDetailPage {
   ngOnInit() {
     let me = this;
     this.sub = this.downtimeData.getClock().subscribe(time => {
-      me.topDowntimeCodes = this.downtimeData.gatherDowntimeCodesForMachines([this.machine.id], time.getTime(), 5);
+      me.downtimeCodes = me.downtimeData.gatherDowntimeReasons([this.machine.id], time.getTime(), 7);
+      me.downtimeTrends = this.downtimeData.gatherDowntimeTrends([this.machine.id], time.getTime(), 7, 1);
     });
   }
 
@@ -48,10 +50,6 @@ export class MachineDetailPage {
   get downtime(): any {
     const e = this.downtimeData.getDowntimeEvents().find((e: any) => e.id == this.machine.downtimeEventId);
     return this.downtimeData.getDowntimeCodes().find((d: any) => d.codeId == e.codeId);
-  }
-
-  get hasDowntimeCodes() : boolean {
-    return this.topDowntimeCodes != null && this.topDowntimeCodes[0].length > 0;
   }
 }
 

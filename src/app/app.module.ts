@@ -21,7 +21,7 @@ import { MachineListPage } from '../pages/machine-list/machine-list';
 import { SignupPage } from '../pages/signup/signup';
 import { FactoryDetailPage } from '../pages/factory-detail/factory-detail';
 import { FactoryListPage } from '../pages/factory-list/factory-list';
-import { ReportListPage } from '../pages/report-list/report-list';
+import { CompanyDetailPage } from '../pages/company-detail/company-detail';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 
@@ -34,8 +34,9 @@ import { ClockComponent } from '../components/clock/clock';
 import { EventsShuttleComponent } from '../components/events-shuttle/events-shuttle';
 import { HealthGaugeComponent } from '../components/health-gauge/health-gauge';
 import { Top5GraphComponent } from '../components/top5-graph/top5-graph';
+import { TrendGraphComponent } from '../components/trend-graph/trend-graph';
 import { MachineStatusComponent } from '../components/machine-status/machine-status';
-import { ReportsPopoverComponent } from '../components/reports-popover/reports-popover';
+import { ReportCriteriaComponent } from '../components/report-criteria/report-criteria';
 
 declare var require : any; // need for the ChartModule import
 
@@ -56,15 +57,16 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
     SignupPage,
     FactoryDetailPage,
     FactoryListPage,
-    ReportsPopoverComponent,
-    ReportListPage,
+    CompanyDetailPage,
     TabsPage,
     TutorialPage,
     HealthGaugeComponent,
     ClockComponent,
     EventsShuttleComponent,
     Top5GraphComponent,
-    MachineStatusComponent
+    TrendGraphComponent,
+    MachineStatusComponent,
+    ReportCriteriaComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,7 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
         { component: MachineDetailPage, name: 'MachineDetail', segment: 'machineDetail/:machineId' },
         { component: FactoryListPage, name: 'FactoryList', segment: 'factoryList' },
         { component: FactoryDetailPage, name: 'FactoryDetail', segment: 'factoryDetail/:factoryId' },
-        { component: ReportListPage, name: 'ReportList', segment: 'reportList' },
+        { component: CompanyDetailPage, name: 'CompanyDetail', segment: 'CompanyDetail' },
         { component: MapPage, name: 'Map', segment: 'map' },
         { component: AboutPage, name: 'About', segment: 'about' },
         { component: TutorialPage, name: 'Tutorial', segment: 'tutorial' },
@@ -103,8 +105,7 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
     SignupPage,
     FactoryDetailPage,
     FactoryListPage,
-    ReportsPopoverComponent,
-    ReportListPage,
+    CompanyDetailPage,
     TabsPage,
     TutorialPage
    ],

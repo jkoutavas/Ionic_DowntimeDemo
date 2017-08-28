@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { DowntimeData } from '../../providers/downtime-data';
-
-import { ReportListPage } from '../report-list/report-list';
-import { ReportsPopoverComponent } from "../../components/reports-popover/reports-popover";
+import { DowntimeData, DowntimeReasonsType, DowntimeTrendsType } from '../../providers/downtime-data';
 
 @IonicPage({
   segment: 'factory/:factoryId'
@@ -18,13 +15,13 @@ export class FactoryDetailPage {
   private machineIds: number[] = [];
   private sub: any;
 
-  topDowntimeCodes: [string[], number[]];
+  downtimeReasons: DowntimeReasonsType;
+  downtimeTrends: DowntimeTrendsType;
 
   constructor(
     private dataProvider: DowntimeData, 
     private navCtrl: NavController, 
-    private navParams: NavParams,
-    private popoverCtrl: PopoverController
+    private navParams: NavParams
   ) {
     for (const factory of this.dataProvider.getFactories()) {
       if (factory && factory.id == this.navParams.data.factoryId) {
@@ -40,7 +37,8 @@ export class FactoryDetailPage {
   ngOnInit() {
     let me = this;
     this.sub = this.dataProvider.getClock().subscribe(time => {
-      me.topDowntimeCodes = this.dataProvider.gatherDowntimeCodesForMachines(this.machineIds, time.getTime(), 5);
+      me.downtimeReasons = this.dataProvider.gatherDowntimeReasons(this.machineIds, time.getTime(),7);
+      me.downtimeTrends = this.dataProvider.gatherDowntimeTrends(this.machineIds, time.getTime(), 7, 1);
     });
   }
 
@@ -50,23 +48,5 @@ export class FactoryDetailPage {
 
   goToMachineDetail(machine: any) {
     this.navCtrl.push('MachineDetailPage', { machineId: machine.id });
-  }
-
-  get hasDowntimeCodes() : boolean {
-    return this.topDowntimeCodes != null && this.topDowntimeCodes[0].length > 0;
-  }
-
-  presentPopover(ev:any) {
-    let popover = this.popoverCtrl.create(ReportsPopoverComponent, {
-    });
-    popover.present({
-      ev: ev
-    });
-
-    popover.onDidDismiss((popoverData) => {
-      if( popoverData != null ) {
-        this.navCtrl.push(ReportListPage, { title: this.factory.name+": "+popoverData.name});
-      }
-    })
   }
 }

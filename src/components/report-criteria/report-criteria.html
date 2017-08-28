@@ -1,45 +1,9 @@
 <!-- Generated template for the ReportCriteriaComponent component -->
-<ion-row radio-group>
-  <ion-col>
-      <ion-item>
-        <ion-label>Day</ion-label>
-        <ion-radio value="day"></ion-radio>
-      </ion-item>
-    </ion-col>
-
-  <ion-col>
+<ion-row radio-group (ionChange)='valueChanged($event)'>
+  <ion-col *ngFor='let crit of criteria; let i=index'>
     <ion-item>
-      <ion-label>Week</ion-label>
-      <ion-radio value="week" checked>></ion-radio>
+      <ion-label>{{crit.label}}</ion-label>
+      <ion-radio value='{{crit.value}}' [checked]='selectedCriteria == crit.value'></ion-radio>
     </ion-item>
   </ion-col>
-
-  <ion-col>
-    <ion-item>
-      <ion-label>Month</ion-label>
-      <ion-radio value="month"></ion-radio>
-    </ion-item>
-  </ion-col>
-
-  <ion-col>
-      <ion-item>
-        <ion-label>Previous Day</ion-label>
-        <ion-radio value="prev-day"></ion-radio>
-      </ion-item>
-    </ion-col>
-    
-  <ion-col>
-    <ion-item>
-      <ion-label>Previous week</ion-label>
-      <ion-radio value="prev-week"></ion-radio>
-    </ion-item>
-  </ion-col>
-
-  <ion-col>
-    <ion-item>
-      <ion-label>Previous month</ion-label>
-      <ion-radio value="prev-month"></ion-radio>
-    </ion-item>
-  </ion-col>
-      
 </ion-row>

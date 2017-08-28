@@ -26,13 +26,18 @@ export class CompanyDetailPage {
   constructor(private downtimeData: DowntimeData) {
   }
 
-  ngOnInit() {
+  ionViewDidLoad() {
     this.title = this.downtimeData.getCompany().name;
+    this.updateGraphs();
     let me = this;
-    this.sub = this.downtimeData.getClock().subscribe(time => {
-      me.downtimeReasons = this.downtimeData.gatherDowntimeReasons([], time.getTime(), 7);
-      me.downtimeTrends = this.downtimeData.gatherDowntimeTrends([], time.getTime(), 7, 1);
+    this.sub = this.downtimeData.overallHealth.subscribe(_ => {
+      me.updateGraphs();
     });
+  }
+
+  updateGraphs() {
+    this.downtimeReasons = this.downtimeData.gatherDowntimeReasons([], this.downtimeData.selectedReportCriteria);
+    this.downtimeTrends = this.downtimeData.gatherDowntimeTrends([], this.downtimeData.selectedReportCriteria);
   }
 
   ngOnDestroy() {

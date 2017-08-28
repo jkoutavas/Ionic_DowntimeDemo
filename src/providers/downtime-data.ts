@@ -22,6 +22,22 @@ export type DowntimeTrendsType = {
   startDateUTC:Date
 }
 
+export enum CriteriaEnum {
+  Day = 0,
+  Week,
+  Month,
+  PrevDay,
+  PrevWeek,
+  PrevMonth
+}
+
+type DayRangeType = {
+  startTime:number,
+  endTime:number, 
+  days:number, 
+  dayIncrement:number
+}
+
 @Injectable()
 export class DowntimeData {
   private data: any;
@@ -40,6 +56,30 @@ export class DowntimeData {
   private ticks: number = 1;
   private _eventIdx: number = 0;
  
+  public reportCriteria: any[] = [
+    {
+      'label': 'Day',
+      'value': CriteriaEnum.Day
+    } , {
+      'label': 'Week',
+      'value': CriteriaEnum.Week
+    } , {
+      'label': 'Month',
+      'value': CriteriaEnum.Month
+    } , {
+      'label': 'Previous Day',
+      'value': CriteriaEnum.PrevDay
+    } , {
+      'label': 'Previous Week',
+      'value': CriteriaEnum.PrevWeek
+    } , {
+      'label': 'Previous Month',
+      'value': CriteriaEnum.PrevMonth
+    }
+  ];
+  
+  public selectedReportCriteria: CriteriaEnum = CriteriaEnum.Week;
+  
   constructor(public http: Http, public user: UserData) {
     this.clock = Observable.interval(1000).map(_ => this.incrementDate()).share();
     this.overallHealth = new Observable((observer: Observer<number>) => {
@@ -106,7 +146,7 @@ export class DowntimeData {
       }
     }
 
-    this.eventIdx = 1407; // pick something mid the event range
+    this.eventIdx = 1017; // pick something mid the event range
 
     return this.data;
   }
@@ -220,12 +260,61 @@ export class DowntimeData {
     return event.codeId == 15864 /* scheduled downtime */  || event.codeId == 16024 /*end of shift*/;
   }
 
-  gatherDowntimeReasons(machineIds:any[], endTime:number, days:number) : DowntimeReasonsType {
-    const startMoment = moment(endTime);
-    startMoment.add(-days,'days').startOf('day');
-    let startTime = startMoment.valueOf();
+
+  getDayRange(criteria:CriteriaEnum): DayRangeType {
+    let endTime = this.currentDate.getTime();
+    let endMoment = moment(endTime);
+    endMoment.endOf('day');
+    let startMoment = moment(endMoment);
+
+    let dayIncrement = 1;
+    switch( criteria ) {
+      case CriteriaEnum.Day:
+        startMoment.startOf('day');
+      break;
+      
+      case CriteriaEnum.Week:
+        startMoment.startOf('week');
+      break;
+      
+      case CriteriaEnum.Month:
+        startMoment.startOf('week');
+        dayIncrement = 7;
+      break;
+
+      case CriteriaEnum.PrevDay:
+        startMoment.startOf('day');
+        endMoment.add(-1,'days');
+        startMoment.add(-1,'days');
+      break;
+
+      case CriteriaEnum.PrevWeek:
+        endMoment.add(-1,'weeks').endOf('week');
+        startMoment = moment(endMoment);
+        startMoment.startOf('week');
+      break;
+
+      case CriteriaEnum.PrevMonth:
+        endMoment.add(-1,'months').endOf('month');
+        startMoment = moment(endMoment);
+        startMoment.startOf('month');
+        dayIncrement = 7;
+      break;
+    }
+    //console.log("from "+startMoment+" to "+endMoment);
+
+    return {
+      startTime:startMoment.valueOf(), 
+      endTime:endMoment.valueOf(), 
+      days:endMoment.diff(startMoment,'days'), 
+      dayIncrement:dayIncrement
+    };
+  }
+
+  gatherDowntimeReasons(machineIds:any[], criteria:CriteriaEnum) : DowntimeReasonsType {
+    const dayRange:DayRangeType = this.getDayRange(criteria);
     const events = this.data.downtimeEvents.filter(function(event:any){
-      return (machineIds.length==0 || machineIds.includes(event.machineId)) && event.startTime >= startTime && event.endTime < endTime;
+      return (machineIds.length==0 || machineIds.includes(event.machineId)) && event.startTime >= dayRange.startTime && event.endTime < dayRange.endTime;
     });
     let reasons: { [id: number] : number; } = {}
     events.forEach((event: any) => {
@@ -255,25 +344,22 @@ export class DowntimeData {
     return {descriptions:descriptions, totals:totals};
   }
 
-  gatherDowntimeTrends(machineIds:any[], endTime:number, days:number, dayIncrement:number) : DowntimeTrendsType {
-    const startMoment = moment(endTime);
-    startMoment.add(-days,'days').startOf('day');
-    let startTime = startMoment.valueOf();
-    
+  gatherDowntimeTrends(machineIds:any[], criteria:CriteriaEnum) : DowntimeTrendsType {
+    const dayRange:DayRangeType = this.getDayRange(criteria); 
     const events = this.data.downtimeEvents.filter(function(event:any){
-      return (machineIds.length==0 || machineIds.includes(event.machineId)) && event.startTime >= startTime && event.endTime < endTime;
+      return (machineIds.length==0 || machineIds.includes(event.machineId)) && event.startTime >= dayRange.startTime && event.endTime < dayRange.endTime;
     });
   
-    let scheduled:number[] = Array(days).fill(0);
-    let unplanned:number[] = Array(days).fill(0);
+    let scheduled:number[] = Array(dayRange.days).fill(0);
+    let unplanned:number[] = Array(dayRange.days).fill(0);
 
-    let current = moment(startTime).endOf('day').valueOf();
+    let current = moment(dayRange.startTime).endOf('day').valueOf();
     let i = 0;
     events.forEach((event: any) => {
       if( event.codeId ) {
         if( event.startTime > current ) {
           i++;
-          current += 86400000*dayIncrement;
+          current += 86400000*dayRange.dayIncrement;
         }
         const e = moment(event.endTime);
         const s = moment(event.startTime);
@@ -286,7 +372,7 @@ export class DowntimeData {
       }
     }); 
       
-    return {scheduled:scheduled, unplanned:unplanned, startDateUTC:startMoment.utc()};
+    return {scheduled:scheduled, unplanned:unplanned, startDateUTC:moment(dayRange.startTime).utc()};
   }
 
 }

@@ -26,12 +26,17 @@ export class MachineDetailPage {
     }
   }
 
-  ngOnInit() {
+  ionViewDidLoad() {
+    this.updateGraphs();
     let me = this;
-    this.sub = this.downtimeData.getClock().subscribe(time => {
-      me.downtimeCodes = me.downtimeData.gatherDowntimeReasons([this.machine.id], time.getTime(), 7);
-      me.downtimeTrends = this.downtimeData.gatherDowntimeTrends([this.machine.id], time.getTime(), 7, 1);
+    this.sub = this.downtimeData.overallHealth.subscribe(_ => {
+      me.updateGraphs();
     });
+  }
+
+  updateGraphs() {
+    this.downtimeCodes = this.downtimeData.gatherDowntimeReasons([this.machine.id], this.downtimeData.selectedReportCriteria);
+    this.downtimeTrends = this.downtimeData.gatherDowntimeTrends([this.machine.id], this.downtimeData.selectedReportCriteria);
   }
 
   ngOnDestroy() {

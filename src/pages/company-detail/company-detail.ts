@@ -22,6 +22,7 @@ export class CompanyDetailPage {
   downtimeTrends: DowntimeTrendsType;
 
   private sub: any;
+  private sub2: any;
 
   constructor(private downtimeData: DowntimeData) {
   }
@@ -29,13 +30,22 @@ export class CompanyDetailPage {
   ionViewDidLoad() {
     this.title = this.downtimeData.getCompany().name;
     this.sub = this.downtimeData.overallHealth.subscribe(_ => {
-      this.downtimeReasons = this.downtimeData.gatherDowntimeReasons([], this.downtimeData.selectedReportCriteria);
-      this.downtimeTrends = this.downtimeData.gatherDowntimeTrends([], this.downtimeData.selectedReportCriteria);
+      this.updateGraphs();
     });
+
+    this.sub2 = this.downtimeData.selectedReportCriteria.subscribe(_ => {
+      this.updateGraphs();
+     });
+  }
+
+  updateGraphs() {
+    this.downtimeReasons = this.downtimeData.gatherDowntimeReasons([], this.downtimeData.selectedReportCriteria.getValue());
+    this.downtimeTrends = this.downtimeData.gatherDowntimeTrends([], this.downtimeData.selectedReportCriteria.getValue());
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.sub2.unsubscribe();
   }
 
 }

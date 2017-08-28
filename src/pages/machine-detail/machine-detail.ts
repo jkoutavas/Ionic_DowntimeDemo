@@ -13,6 +13,7 @@ import { DowntimeData, DowntimeReasonsType, DowntimeTrendsType } from '../../pro
 export class MachineDetailPage {
   private machine: any;
   private sub: any;
+  private sub2: any;
 
   downtimeCodes: DowntimeReasonsType;
   downtimeTrends: DowntimeTrendsType;
@@ -28,13 +29,22 @@ export class MachineDetailPage {
 
   ionViewDidLoad() {
     this.sub = this.downtimeData.overallHealth.subscribe(_ => {
-      this.downtimeCodes = this.downtimeData.gatherDowntimeReasons([this.machine.id], this.downtimeData.selectedReportCriteria);
-      this.downtimeTrends = this.downtimeData.gatherDowntimeTrends([this.machine.id], this.downtimeData.selectedReportCriteria);
+      this.updateGraphs();
     });
+ 
+    this.sub2 = this.downtimeData.selectedReportCriteria.subscribe(_ => {
+      this.updateGraphs();
+     });
+  }
+
+  updateGraphs() {
+    this.downtimeCodes = this.downtimeData.gatherDowntimeReasons([this.machine.id], this.downtimeData.selectedReportCriteria.getValue());
+    this.downtimeTrends = this.downtimeData.gatherDowntimeTrends([this.machine.id], this.downtimeData.selectedReportCriteria.getValue());
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.sub2.unsubscribe();
   }
 
   goToMachineDetail(machine: any) {

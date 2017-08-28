@@ -76,8 +76,7 @@ export class DowntimeData {
     }
   ];
   
-  public selectedReportCriteria: CriteriaEnum = CriteriaEnum.Week;
-  public foo: BehaviorSubject<CriteriaEnum>;
+  public selectedReportCriteria: BehaviorSubject<CriteriaEnum> = new BehaviorSubject(CriteriaEnum.Week);
 
   constructor(public http: Http, public user: UserData) {
     this.clock = Observable.interval(1000).map(_ => this.incrementDate()).share();

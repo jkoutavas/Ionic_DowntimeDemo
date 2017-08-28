@@ -22,12 +22,12 @@ export class ReportCriteriaComponent {
   }
 
   get selectedCriteria(): CriteriaEnum {
-    return this.downtimeData.selectedReportCriteria;
+    return this.downtimeData.selectedReportCriteria.getValue();
   }
 
   valueChanged(value:CriteriaEnum)
   {
-    this.downtimeData.selectedReportCriteria = Number(value);
+    this.downtimeData.selectedReportCriteria.next(Number(value));
   }
 
 }

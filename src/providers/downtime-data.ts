@@ -4,7 +4,7 @@ import { Http } from '@angular/http';
 
 import { UserData } from './user-data';
 
-import { Observable, Observer } from 'rxjs/Rx';
+import { Observable, BehaviorSubject } from 'rxjs/Rx';
 
 const moment = require('../../node_modules/moment/moment.js');
 
@@ -48,9 +48,7 @@ export class DowntimeData {
   
   public overallHealthMax: number = 0;
 
-  public overallHealth: Observable<number>;
-  private overallHealthObserver: Observer<number>;
-  public _overallHealth: number = 0;
+  public overallHealth: BehaviorSubject<number>;
 
   private currentDate: Date = new Date();
   private ticks: number = 1;
@@ -79,12 +77,10 @@ export class DowntimeData {
   ];
   
   public selectedReportCriteria: CriteriaEnum = CriteriaEnum.Week;
-  
+  public foo: BehaviorSubject<CriteriaEnum>;
+
   constructor(public http: Http, public user: UserData) {
     this.clock = Observable.interval(1000).map(_ => this.incrementDate()).share();
-    this.overallHealth = new Observable((observer: Observer<number>) => {
-      this.overallHealthObserver = observer;
-    }).share();
   }
 
   load(): Promise<any> {
@@ -104,7 +100,7 @@ export class DowntimeData {
     this.data = data.json();
 
     this.overallHealthMax = this.data.machines.length;
-    this._overallHealth = this.overallHealthMax;
+    this.overallHealth = new BehaviorSubject(this.overallHealthMax);
     
     // loop through each machine and gather up some useful info
     this.data.machines.forEach((machine: any) => {
@@ -196,14 +192,14 @@ export class DowntimeData {
 
   updateMachines() {
     const currentTime = this.currentDate.getTime();
-    this._overallHealth = this.overallHealthMax;
+    let overallHealth = this.overallHealthMax;
     this.data.machines.forEach((machine: any) => {
       machine.downtimeEventId = 0;
       const events = this.data.downtimeEvents.filter((e: any) => e.machineId == machine.id);
       for( let e of events ) {
         if (currentTime >= e.startTime && currentTime < e.endTime) {
           if( e.id != 0 ) { // e.id==0 represents uptime event
-            this._overallHealth--;
+            overallHealth--;
           }
           machine.downtimeEventId = e.id;
           break;
@@ -220,9 +216,7 @@ export class DowntimeData {
       });
     });
     
-    if( this.overallHealthObserver ) {
-      this.overallHealthObserver.next(this._overallHealth);
-    }
+    this.overallHealth.next(overallHealth);
   }
 
   incrementDate(): Date {

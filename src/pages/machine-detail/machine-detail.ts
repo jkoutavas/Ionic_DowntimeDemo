@@ -27,16 +27,10 @@ export class MachineDetailPage {
   }
 
   ionViewDidLoad() {
-    this.updateGraphs();
-    let me = this;
     this.sub = this.downtimeData.overallHealth.subscribe(_ => {
-      me.updateGraphs();
+      this.downtimeCodes = this.downtimeData.gatherDowntimeReasons([this.machine.id], this.downtimeData.selectedReportCriteria);
+      this.downtimeTrends = this.downtimeData.gatherDowntimeTrends([this.machine.id], this.downtimeData.selectedReportCriteria);
     });
-  }
-
-  updateGraphs() {
-    this.downtimeCodes = this.downtimeData.gatherDowntimeReasons([this.machine.id], this.downtimeData.selectedReportCriteria);
-    this.downtimeTrends = this.downtimeData.gatherDowntimeTrends([this.machine.id], this.downtimeData.selectedReportCriteria);
   }
 
   ngOnDestroy() {

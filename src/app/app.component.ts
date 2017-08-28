@@ -72,7 +72,6 @@ export class DemoApp {
   ) {
 
     this.maxHealth = this.downtimeData.overallHealthMax;
-    this.currentHealth = this.downtimeData._overallHealth;
     this.downtimeData.overallHealth.subscribe((health: number) => {
       this.currentHealth = health;
     });

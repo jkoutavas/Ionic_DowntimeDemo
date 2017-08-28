@@ -35,16 +35,11 @@ export class FactoryDetailPage {
   }
 
   ionViewDidLoad() {
-    this.updateGraphs();
     let me = this;
     this.sub = this.dataProvider.overallHealth.subscribe(_ => {
-      me.updateGraphs();
+      this.downtimeReasons = me.dataProvider.gatherDowntimeReasons(me.machineIds, me.dataProvider.selectedReportCriteria);
+      this.downtimeTrends = me.dataProvider.gatherDowntimeTrends(me.machineIds, me.dataProvider.selectedReportCriteria);
     });
-  }
-
-  updateGraphs() {
-    this.downtimeReasons = this.dataProvider.gatherDowntimeReasons(this.machineIds, this.dataProvider.selectedReportCriteria);
-    this.downtimeTrends = this.dataProvider.gatherDowntimeTrends(this.machineIds, this.dataProvider.selectedReportCriteria);
   }
 
   ngOnDestroy() {

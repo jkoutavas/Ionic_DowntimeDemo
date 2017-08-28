@@ -28,16 +28,10 @@ export class CompanyDetailPage {
 
   ionViewDidLoad() {
     this.title = this.downtimeData.getCompany().name;
-    this.updateGraphs();
-    let me = this;
     this.sub = this.downtimeData.overallHealth.subscribe(_ => {
-      me.updateGraphs();
+      this.downtimeReasons = this.downtimeData.gatherDowntimeReasons([], this.downtimeData.selectedReportCriteria);
+      this.downtimeTrends = this.downtimeData.gatherDowntimeTrends([], this.downtimeData.selectedReportCriteria);
     });
-  }
-
-  updateGraphs() {
-    this.downtimeReasons = this.downtimeData.gatherDowntimeReasons([], this.downtimeData.selectedReportCriteria);
-    this.downtimeTrends = this.downtimeData.gatherDowntimeTrends([], this.downtimeData.selectedReportCriteria);
   }
 
   ngOnDestroy() {

@@ -29,7 +29,7 @@ export class MachineDetailPage {
   ngOnInit() {
     let me = this;
     this.sub = this.downtimeData.getClock().subscribe(time => {
-      me.downtimeCodes = me.downtimeData.gatherDowntimeReasons([this.machine.id], time.getTime());
+      me.downtimeCodes = me.downtimeData.gatherDowntimeReasons([this.machine.id], time.getTime(), 7);
       me.downtimeTrends = this.downtimeData.gatherDowntimeTrends([this.machine.id], time.getTime(), 7, 1);
     });
   }

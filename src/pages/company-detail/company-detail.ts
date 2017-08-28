@@ -30,7 +30,7 @@ export class CompanyDetailPage {
     this.title = this.downtimeData.getCompany().name;
     let me = this;
     this.sub = this.downtimeData.getClock().subscribe(time => {
-      me.downtimeReasons = this.downtimeData.gatherDowntimeReasons([], time.getTime());
+      me.downtimeReasons = this.downtimeData.gatherDowntimeReasons([], time.getTime(), 7);
       me.downtimeTrends = this.downtimeData.gatherDowntimeTrends([], time.getTime(), 7, 1);
     });
   }

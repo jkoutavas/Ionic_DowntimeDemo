@@ -220,9 +220,12 @@ export class DowntimeData {
     return event.codeId == 15864 /* scheduled downtime */  || event.codeId == 16024 /*end of shift*/;
   }
 
-  gatherDowntimeReasons(machineIds:any[], endTime:number) : DowntimeReasonsType {
+  gatherDowntimeReasons(machineIds:any[], endTime:number, days:number) : DowntimeReasonsType {
+    const startMoment = moment(endTime);
+    startMoment.add(-days,'days').startOf('day');
+    let startTime = startMoment.valueOf();
     const events = this.data.downtimeEvents.filter(function(event:any){
-      return (machineIds.length==0 || machineIds.includes(event.machineId)) && event.startTime < endTime;
+      return (machineIds.length==0 || machineIds.includes(event.machineId)) && event.startTime >= startTime && event.endTime < endTime;
     });
     let reasons: { [id: number] : number; } = {}
     events.forEach((event: any) => {
@@ -258,7 +261,7 @@ export class DowntimeData {
     let startTime = startMoment.valueOf();
     
     const events = this.data.downtimeEvents.filter(function(event:any){
-      return (machineIds.length==0 || machineIds.includes(event.machineId)) && event.startTime > startTime && event.endTime < endTime;
+      return (machineIds.length==0 || machineIds.includes(event.machineId)) && event.startTime >= startTime && event.endTime < endTime;
     });
   
     let scheduled:number[] = Array(days).fill(0);

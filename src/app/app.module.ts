@@ -36,6 +36,7 @@ import { HealthGaugeComponent } from '../components/health-gauge/health-gauge';
 import { Top5GraphComponent } from '../components/top5-graph/top5-graph';
 import { TrendGraphComponent } from '../components/trend-graph/trend-graph';
 import { MachineStatusComponent } from '../components/machine-status/machine-status';
+import { ReportCriteriaComponent } from '../components/report-criteria/report-criteria';
 
 declare var require : any; // need for the ChartModule import
 
@@ -64,7 +65,8 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
     EventsShuttleComponent,
     Top5GraphComponent,
     TrendGraphComponent,
-    MachineStatusComponent
+    MachineStatusComponent,
+    ReportCriteriaComponent
   ],
   imports: [
     BrowserModule,

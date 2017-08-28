@@ -37,7 +37,7 @@ export class FactoryDetailPage {
   ngOnInit() {
     let me = this;
     this.sub = this.dataProvider.getClock().subscribe(time => {
-      me.downtimeReasons = this.dataProvider.gatherDowntimeReasons(this.machineIds, time.getTime());
+      me.downtimeReasons = this.dataProvider.gatherDowntimeReasons(this.machineIds, time.getTime(),7);
       me.downtimeTrends = this.dataProvider.gatherDowntimeTrends(this.machineIds, time.getTime(), 7, 1);
     });
   }

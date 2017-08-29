@@ -82,7 +82,7 @@ export class HealthGaugeComponent {
         data: [Number(this.value)],
         dataLabels: {
           format: '<div style="text-align:center"><span style="font-size:18px;color:' +
-            ('black') + '">{y}/{series.name}</span><br/>'
+            ('black') + '">{y} of {series.name}</span><br/><span>machines up</span>'
         }
       }],
 

@@ -15,6 +15,7 @@ declare var google: any;
 export class MapPage {
 
   private markers:any[] = [];
+  private infoWindows:any[] = [];
 
   @ViewChild('mapCanvas') mapElement: ElementRef;
   constructor(public data: DowntimeData, public platform: Platform) {
@@ -47,8 +48,10 @@ export class MapPage {
         this.markers.push(marker);
 
         marker.addListener('click', () => {
+          this.closeAllInfoWindows();
           infoWindow.open(map, marker);
         });
+        this.infoWindows.push(infoWindow);
       });
 
       google.maps.event.addListenerOnce(map, 'idle', () => {
@@ -60,6 +63,12 @@ export class MapPage {
           marker.setIcon(this.getIcon(this.getHealthColor(marker.factory),"000000","000000"));
         });    
       });
+  }
+
+  closeAllInfoWindows() {
+    for(let window of this.infoWindows) {
+      window.close();
+    }
   }
 
   getHealthColor(factory:any) : string {

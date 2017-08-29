@@ -3,7 +3,7 @@
   <ion-col *ngFor='let crit of criteria; let i=index'>
     <ion-item>
       <ion-label>{{crit.label}}</ion-label>
-      <ion-radio value='{{crit.value}}' [checked]='selectedCriteria == crit.value'></ion-radio>
+      <ion-radio value='{{crit.value}}' [checked]='selectedCriteria == crit.value' [disabled]='crit.disabled==true'></ion-radio>
     </ion-item>
   </ion-col>
 </ion-row>

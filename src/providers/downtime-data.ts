@@ -19,7 +19,8 @@ export type DowntimeReasonsType = {
 export type DowntimeTrendsType = {
   scheduled:number[],
   unplanned:number[],
-  startDateUTC:Date
+  startDateUTC:number,
+  interval:number
 }
 
 export enum CriteriaEnum {
@@ -57,22 +58,28 @@ export class DowntimeData {
   public reportCriteria: any[] = [
     {
       'label': 'Day',
-      'value': CriteriaEnum.Day
+      'value': CriteriaEnum.Day,
+      'disabled': false
     } , {
       'label': 'Week',
-      'value': CriteriaEnum.Week
+      'value': CriteriaEnum.Week,
+      'disabled': false
     } , {
       'label': 'Month',
-      'value': CriteriaEnum.Month
+      'value': CriteriaEnum.Month,
+      'disabled': false
     } , {
       'label': 'Previous Day',
-      'value': CriteriaEnum.PrevDay
+      'value': CriteriaEnum.PrevDay,
+      'disabled': false
     } , {
       'label': 'Previous Week',
-      'value': CriteriaEnum.PrevWeek
+      'value': CriteriaEnum.PrevWeek,
+      'disabled': false
     } , {
       'label': 'Previous Month',
-      'value': CriteriaEnum.PrevMonth
+      'value': CriteriaEnum.PrevMonth,
+      'disabled': true
     }
   ];
   
@@ -271,7 +278,7 @@ export class DowntimeData {
       break;
       
       case CriteriaEnum.Month:
-        startMoment.startOf('week');
+        startMoment.startOf('month');
         dayIncrement = 7;
       break;
 
@@ -284,17 +291,16 @@ export class DowntimeData {
       case CriteriaEnum.PrevWeek:
         endMoment.add(-1,'weeks').endOf('week');
         startMoment = moment(endMoment);
-        startMoment.startOf('week');
+        startMoment.add(-1,'weeks').startOf('day');
       break;
 
       case CriteriaEnum.PrevMonth:
         endMoment.add(-1,'months').endOf('month');
         startMoment = moment(endMoment);
-        startMoment.startOf('month');
+        startMoment.add(-1,'months').startOf('month');
         dayIncrement = 7;
       break;
     }
-    //console.log("from "+startMoment+" to "+endMoment);
 
     return {
       startTime:startMoment.valueOf(), 
@@ -307,7 +313,9 @@ export class DowntimeData {
   gatherDowntimeReasons(machineIds:any[], criteria:CriteriaEnum) : DowntimeReasonsType {
     const dayRange:DayRangeType = this.getDayRange(criteria);
     const events = this.data.downtimeEvents.filter(function(event:any){
-      return (machineIds.length==0 || machineIds.includes(event.machineId)) && event.startTime >= dayRange.startTime && event.endTime < dayRange.endTime;
+      return (machineIds.length==0 || machineIds.includes(event.machineId)) && 
+        event.startTime >= dayRange.startTime && 
+        event.startTime < dayRange.endTime;
     });
     let reasons: { [id: number] : number; } = {}
     events.forEach((event: any) => {
@@ -340,32 +348,52 @@ export class DowntimeData {
   gatherDowntimeTrends(machineIds:any[], criteria:CriteriaEnum) : DowntimeTrendsType {
     const dayRange:DayRangeType = this.getDayRange(criteria); 
     const events = this.data.downtimeEvents.filter(function(event:any){
-      return (machineIds.length==0 || machineIds.includes(event.machineId)) && event.startTime >= dayRange.startTime && event.endTime < dayRange.endTime;
+      return (machineIds.length==0 || machineIds.includes(event.machineId)) && 
+        event.startTime >= dayRange.startTime && 
+        event.startTime < dayRange.endTime;
     });
   
-    let scheduled:number[] = Array(dayRange.days).fill(0);
-    let unplanned:number[] = Array(dayRange.days).fill(0);
+    let scheduled:number[] = Array(dayRange.days>1?dayRange.days:24).fill(0);
+    let unplanned:number[] = Array(dayRange.days>1?dayRange.days:24).fill(0);
 
-    let current = moment(dayRange.startTime).endOf('day').valueOf();
+    let current = moment(dayRange.startTime).endOf('day');
     let i = 0;
-    events.forEach((event: any) => {
+    let j = 0;
+    do {
+      const event = events[j];
       if( event.codeId ) {
-        if( event.startTime > current ) {
+        if( event.startTime > current.valueOf() ) {
           i++;
-          current += 86400000*dayRange.dayIncrement;
+          if( i == dayRange.days ) {
+            break;
+          }
+          if( dayRange.days > 1 ) {
+            current.add(1,'days');
+          } else {
+            current.add(1,'hour');
+          }
         }
         const e = moment(event.endTime);
         const s = moment(event.startTime);
         const minutes = e.diff(s,'minutes');
+        const hours = Math.round(minutes/60);
         if( this.isScheduledDowntimeEvent(event) == true ) {
-          scheduled[i] = scheduled[i] + minutes/60;
+          scheduled[i] = scheduled[i] + hours;
         } else {
-          unplanned[i] = unplanned[i] + minutes/60;
+          unplanned[i] = unplanned[i] + hours;
         }
       }
-    }); 
-      
-    return {scheduled:scheduled, unplanned:unplanned, startDateUTC:moment(dayRange.startTime).utc()};
+      j++;
+    } 
+    while( j < events.length ); 
+    
+    const start = moment(dayRange.startTime);
+    return {
+      scheduled:scheduled, 
+      unplanned:unplanned,
+      startDateUTC:Date.UTC(start.get('year'), start.get('month'), start.get('date')),
+      interval: (dayRange.days>1?24:1) * 3600 * 1000
+    };
   }
 
 }

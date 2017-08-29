@@ -359,33 +359,34 @@ export class DowntimeData {
     let current = moment(dayRange.startTime).endOf('day');
     let i = 0;
     let j = 0;
-    do {
+    while( j < events.length ) {
       const event = events[j];
-      if( event.codeId ) {
-        if( event.startTime > current.valueOf() ) {
-          i++;
-          if( i == dayRange.days ) {
-            break;
-          }
-          if( dayRange.days > 1 ) {
-            current.add(1,'days');
-          } else {
-            current.add(1,'hour');
-          }
+      if( event.codeId == 0 ) {
+        j++;
+        continue;
+      }
+      if( event.startTime > current.valueOf() ) {
+        i++;
+        if( i == dayRange.days ) {
+          break;
         }
-        const e = moment(event.endTime);
-        const s = moment(event.startTime);
-        const minutes = e.diff(s,'minutes');
-        const hours = Math.round(minutes/60);
-        if( this.isScheduledDowntimeEvent(event) == true ) {
-          scheduled[i] = scheduled[i] + hours;
+        if( dayRange.days > 1 ) {
+          current.add(1,'days');
         } else {
-          unplanned[i] = unplanned[i] + hours;
+          current.add(1,'hour');
         }
+      }
+      const e = moment(event.endTime);
+      const s = moment(event.startTime);
+      const minutes = e.diff(s,'minutes');
+      const hours = Math.round(minutes/60);
+      if( this.isScheduledDowntimeEvent(event) == true ) {
+        scheduled[i] = scheduled[i] + hours;
+      } else {
+        unplanned[i] = unplanned[i] + hours;
       }
       j++;
     } 
-    while( j < events.length ); 
     
     const start = moment(dayRange.startTime);
     return {

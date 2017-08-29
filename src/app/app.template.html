@@ -34,16 +34,6 @@
 
       <ion-list>
         <ion-list-header>
-          Account
-        </ion-list-header>
-        <button ion-item menuClose *ngFor="let p of loggedOutPages" (click)="openPage(p)">
-          <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
-          {{p.title}}
-        </button>
-      </ion-list>
-
-      <ion-list>
-        <ion-list-header>
           Tutorial
         </ion-list-header>
         <button ion-item menuClose (click)="openTutorial()">

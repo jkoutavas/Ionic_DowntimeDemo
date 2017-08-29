@@ -3,14 +3,18 @@ import { PopoverController } from 'ionic-angular';
 
 import { PopoverPage } from '../about-popover/about-popover';
 
+const { version: appVersion } = require('../../../package.json')
+
 @Component({
   selector: 'page-about',
   templateUrl: 'about.html'
 })
 export class AboutPage {
-  conferenceDate = '2047-05-17';
+  public appVersion:string;
 
-  constructor(public popoverCtrl: PopoverController) { }
+  constructor(public popoverCtrl: PopoverController) {
+    this.appVersion = appVersion;
+  }
 
   presentPopover(event: Event) {
     let popover = this.popoverCtrl.create(PopoverPage);

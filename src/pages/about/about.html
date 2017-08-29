@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>About Industrial Intelligence</ion-title>
+    <ion-title>About</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="presentPopover($event)">
         <ion-icon name="more"></ion-icon>
@@ -15,6 +15,7 @@
 <ion-content>
   <div class="about-header">
     <img src="assets/img/logo.png" alt="Industrial Intelligence logo">
+    <p>Industrial Intelligence Demo App, v{{appVersion}}</p>
   </div>
   <div padding class="about-info">
 
@@ -29,5 +30,6 @@
         fully understand WHY giving you actionable intelligence to increase productivity and Overall Equipment 
         Efficiency (OEE).
     </h2>
+
   </div>
 </ion-content>

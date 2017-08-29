@@ -18,11 +18,13 @@ export class TrendGraphComponent {
     if( this.chart ) {
       this.chart.series[0].update({
         pointStart: stats.startDateUTC,
-        data: stats.scheduled
-      }, false);
+        data: stats.scheduled,
+        pointInterval: stats.interval
+      }, true);
       this.chart.series[1].update({
         pointStart: stats.startDateUTC,
-        data: stats.unplanned
+        data: stats.unplanned,
+        pointInterval: stats.interval
       }, true);
     }
   }
@@ -42,16 +44,14 @@ export class TrendGraphComponent {
           text: 'Hours'
         }
       },
-      legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle'
-      },
       plotOptions: {
         series: {
           pointStart: Date.UTC(2017, 7, 1),
-          pointInterval: 24 * 3600 * 1000
+          pointInterval: 0
         }
+      },
+      tooltip: {
+        valueSuffix: ' hours'
       },
       credits: {
         enabled: false

@@ -1,12 +1,10 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { NavController } from 'ionic-angular';
 
 import { DowntimeData } from '../../providers/downtime-data';
-
-import { Platform } from 'ionic-angular';
-
+import { FactoryDetailPage } from '../factory-detail/factory-detail';
 
 declare var google: any;
-
 
 @Component({
   selector: 'page-map',
@@ -15,9 +13,13 @@ declare var google: any;
 export class MapPage {
 
   private markers:any[] = [];
+  private infoWindows:any[] = [];
 
   @ViewChild('mapCanvas') mapElement: ElementRef;
-  constructor(public data: DowntimeData, public platform: Platform) {
+  constructor(
+    private navCtrl: NavController,
+    private data: DowntimeData, 
+    private ngZone: NgZone) {
   }
 
   ionViewDidLoad() {
@@ -33,8 +35,18 @@ export class MapPage {
       mapData.forEach((markerData: any) => {
         const factory = this.data.getFactories().find((f: any) => f.id == markerData.factoryId);
 
+        (<any>window).ionicPageRef = {
+          zone: this.ngZone,
+          component: this
+        };
+
         let infoWindow = new google.maps.InfoWindow({
-          content: `<h5>${factory.name}</h5>`
+          content: `
+            <button class="btn" onClick='window.ionicPageRef.zone.run(function () { window.ionicPageRef.component.goToFactoryDetail(${factory.id}) })'>
+              ${factory.name}
+            </button>
+            <p>${factory.upMachines} of ${factory.machines.length} machines are up.</p>
+            `
         });
 
         const marker = new google.maps.Marker({
@@ -47,8 +59,10 @@ export class MapPage {
         this.markers.push(marker);
 
         marker.addListener('click', () => {
+          this.closeAllInfoWindows();
           infoWindow.open(map, marker);
         });
+        this.infoWindows.push(infoWindow);
       });
 
       google.maps.event.addListenerOnce(map, 'idle', () => {
@@ -60,6 +74,18 @@ export class MapPage {
           marker.setIcon(this.getIcon(this.getHealthColor(marker.factory),"000000","000000"));
         });    
       });
+  }
+
+  closeAllInfoWindows() {
+    for(let window of this.infoWindows) {
+      window.close();
+    }
+  }
+
+  goToFactoryDetail(id: any) { 
+    this.ngZone.run(() => {
+      this.navCtrl.push(FactoryDetailPage, { factoryId: id });
+    });
   }
 
   getHealthColor(factory:any) : string {

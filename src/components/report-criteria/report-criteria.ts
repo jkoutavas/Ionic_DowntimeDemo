@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { DowntimeData, CriteriaEnum } from '../../providers/downtime-data';
+
 /**
  * Generated class for the ReportCriteriaComponent component.
  *
@@ -12,11 +14,20 @@ import { Component } from '@angular/core';
 })
 export class ReportCriteriaComponent {
 
-  text: string;
+  constructor(private downtimeData: DowntimeData) {
+  }
 
-  constructor() {
-    console.log('Hello ReportCriteriaComponent Component');
-    this.text = 'Hello World';
+  get criteria(): any[] {
+    return this.downtimeData.reportCriteria;
+  }
+
+  get selectedCriteria(): CriteriaEnum {
+    return this.downtimeData.selectedReportCriteria.getValue();
+  }
+
+  valueChanged(value:CriteriaEnum)
+  {
+    this.downtimeData.selectedReportCriteria.next(Number(value));
   }
 
 }

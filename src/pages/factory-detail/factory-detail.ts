@@ -14,6 +14,7 @@ export class FactoryDetailPage {
   private factory: any;
   private machineIds: number[] = [];
   private sub: any;
+  private sub2: any;
 
   downtimeReasons: DowntimeReasonsType;
   downtimeTrends: DowntimeTrendsType;
@@ -34,16 +35,24 @@ export class FactoryDetailPage {
     }
   }
 
-  ngOnInit() {
-    let me = this;
-    this.sub = this.dataProvider.getClock().subscribe(time => {
-      me.downtimeReasons = this.dataProvider.gatherDowntimeReasons(this.machineIds, time.getTime(),7);
-      me.downtimeTrends = this.dataProvider.gatherDowntimeTrends(this.machineIds, time.getTime(), 7, 1);
-    });
+  ionViewDidLoad() {
+    this.sub = this.dataProvider.overallHealth.subscribe(_ => {
+      this.updateGraphs();
+     });
+  
+    this.sub2 = this.dataProvider.selectedReportCriteria.subscribe(_ => {
+      this.updateGraphs();
+     });
+  }
+
+  updateGraphs() {
+    this.downtimeReasons = this.dataProvider.gatherDowntimeReasons(this.machineIds, this.dataProvider.selectedReportCriteria.getValue());
+    this.downtimeTrends = this.dataProvider.gatherDowntimeTrends(this.machineIds, this.dataProvider.selectedReportCriteria.getValue());
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.sub2.unsubscribe();
   }
 
   goToMachineDetail(machine: any) {

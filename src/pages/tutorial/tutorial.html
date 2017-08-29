@@ -10,30 +10,43 @@
   <ion-slides #slides (ionSlideWillChange)="onSlideChangeStart($event)" pager>
 
     <ion-slide>
-      <img src="assets/img/ica-slidebox-img-1.png" class="slide-image"/>
-      <h2 class="slide-title">
-        Welcome to <b>ICA</b>
+      <img src="assets/img/logo.svg" class="slide-image" style="width:200%; height:200%"/>
+      <h1 class="slide-title">
+        Welcome to the <b>Industrial Intelligence</b> downtime demo app
+      </h1>
+      <br>
+      <h2>
+        Our <b>downtime demo app</b> gives a practical preview of our IIoT-based downtime tracking services 
+        in action.
       </h2>
-      <p>
-        The <b>ionic conference app</b> is a practical preview of the ionic framework in action, and a demonstration of proper code use.
-      </p>
     </ion-slide>
 
     <ion-slide>
       <img src="assets/img/ica-slidebox-img-2.png" class="slide-image"/>
-      <h2 class="slide-title" >What is Ionic?</h2>
-      <p><b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web technologies like HTML, CSS, and JavaScript.</p>
+      <h1 class="slide-title" >What is downtime tracking?</h1>
+      <br>
+      <p>
+        <b>Downtime</b> is often associated with just equipment failures, however any unplanned event that 
+        causes your line to stop is downtime and knowing the exact reasons in real-time is key to keeping 
+        the line producing.
+      </p>
     </ion-slide>
 
     <ion-slide>
       <img src="assets/img/ica-slidebox-img-3.png" class="slide-image"/>
-      <h2 class="slide-title">What is Ionic Platform?</h2>
-      <p>The <b>Ionic Platform</b> is a cloud platform for managing and scaling Ionic apps with integrated services like push notifications, native builds, user auth, and live updating.</p>
+      <h1 class="slide-title">What's in this demo app?'</h1>
+      <br>
+      <p>
+        We've pulled some data from Pacesetter Steel's three Service Centers and populated each site with 
+        some steel blanking machines referred to as "Red Buds". We then give you the tools to quickly summize 
+        the current state of the system, from machine level, to service center level, all the way out to the 
+        company as a whole.
+      </p>
     </ion-slide>
 
     <ion-slide>
       <img src="assets/img/ica-slidebox-img-4.png" class="slide-image"/>
-      <h2 class="slide-title">Ready to Play?</h2>
+      <h1 class="slide-title">Ready to Explore?</h1>
       <button ion-button icon-end large clear (click)="startApp()">
         Continue
         <ion-icon name="arrow-forward"></ion-icon>

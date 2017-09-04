@@ -148,6 +148,11 @@ export class DowntimeData {
       }
     }
 
+    // clean-up titles on downtime codes 
+    this.data.downtimeCodes.forEach((code: any) => {
+      code.description = this.titleCase(code.description);
+    });
+
     this.eventIdx = 1017; // pick something mid the event range
 
     return this.data;
@@ -397,4 +402,9 @@ export class DowntimeData {
     };
   }
 
+  titleCase(str:string) {
+    return str.toLowerCase().split(' ').map(function(word) {
+      return (word.charAt(0).toUpperCase() + word.slice(1));
+    }).join(' ');
+  }
 }

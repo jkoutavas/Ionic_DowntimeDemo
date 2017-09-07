@@ -14,6 +14,7 @@ import { DemoApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
 import { PopoverPage } from '../pages/about-popover/about-popover';
 import { AccountPage } from '../pages/account/account';
+import { DowntimeDetailPage } from '../pages/downtime-detail/downtime-detail';
 import { LoginPage } from '../pages/login/login';
 import { MapPage } from '../pages/map/map';
 import { MachineDetailPage } from '../pages/machine-detail/machine-detail';
@@ -58,6 +59,7 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
     FactoryDetailPage,
     FactoryListPage,
     CompanyDetailPage,
+    DowntimeDetailPage,
     TabsPage,
     TutorialPage,
     HealthGaugeComponent,
@@ -106,6 +108,7 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
     FactoryDetailPage,
     FactoryListPage,
     CompanyDetailPage,
+    DowntimeDetailPage,
     TabsPage,
     TutorialPage
    ],

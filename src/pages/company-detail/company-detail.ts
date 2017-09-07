@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
+
+import { DowntimeDetailPage } from '../../pages/downtime-detail/downtime-detail';
 
 import { DowntimeData, DowntimeReasonsType, DowntimeTrendsType } from '../../providers/downtime-data';
 
@@ -24,7 +26,7 @@ export class CompanyDetailPage {
   private sub: any;
   private sub2: any;
 
-  constructor(private downtimeData: DowntimeData) {
+  constructor(private downtimeData: DowntimeData, private navCtrl: NavController) {
   }
 
   ionViewDidLoad() {
@@ -48,4 +50,7 @@ export class CompanyDetailPage {
     this.sub2.unsubscribe();
   }
 
+  clickCallback() {
+    this.navCtrl.push(DowntimeDetailPage);
+  }
 }

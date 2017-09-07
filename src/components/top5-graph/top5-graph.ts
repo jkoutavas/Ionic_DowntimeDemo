@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { DowntimeReasonsType } from '../../providers/downtime-data';
 
@@ -21,6 +21,8 @@ export class Top5GraphComponent {
       this.chart.series[0].setData(stats.totals.slice(0,5), true, true);
     }
   }
+
+  @Output() clickCallback = new EventEmitter<any>();
   
   private options: Object;
   private chart: any = null;
@@ -56,6 +58,7 @@ export class Top5GraphComponent {
         enabled: false
       },
       series: [{
+        cursor: 'pointer',
         name: "Downtime",
         data: []
       }]

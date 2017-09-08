@@ -132,8 +132,10 @@ export class DowntimeData {
       const s = moment(events[i].startTime);
       const diff = e.diff(s,'minutes');
       if( diff > 23*60 ) {
-        console.log("!!!!event "+i+" is "+diff+" hours!!!!!");
+        console.log("!!!!event "+i+" durtion is "+Math.round(diff/60)+" hours!!!!");
         continue;
+      } else if( events[i].endTime < events[i].startTime ) {
+        console.log("!!!!event "+i+" duration is negative!!!!");
       }
       this.data.downtimeEvents.push(thisEvent);
       const nextEvent = events[i+1];

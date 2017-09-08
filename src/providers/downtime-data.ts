@@ -32,7 +32,7 @@ export enum CriteriaEnum {
   PrevMonth
 }
 
-type DayRangeType = {
+export type DayRangeType = {
   startTime:number,
   endTime:number, 
   days:number, 
@@ -320,7 +320,8 @@ export class DowntimeData {
     return this.data.downtimeEvents.filter(function(event:any){
       return (machineIds.length==0 || machineIds.includes(event.machineId)) && 
         event.startTime >= dayRange.startTime && 
-        event.startTime < dayRange.endTime;
+        event.startTime < dayRange.endTime &&
+        event.codeId != 0;
     });
   }
 
@@ -329,12 +330,10 @@ export class DowntimeData {
     const events = this.gatherDowntimeEvents(machineIds, dayRange);
     let reasons: { [id: number] : number; } = {}
     events.forEach((event: any) => {
-      if( event.codeId ) {
-        if( reasons[event.codeId] === undefined ) {
-          reasons[event.codeId] = 1;
-        } else {
-          reasons[event.codeId]++;
-        }
+      if( reasons[event.codeId] === undefined ) {
+        reasons[event.codeId] = 1;
+      } else {
+        reasons[event.codeId]++;
       }
     });
     let downtimeCodes = Object.keys(reasons).map(function(key:any) {

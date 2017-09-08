@@ -265,7 +265,6 @@ export class DowntimeData {
     return event.codeId == 15864 /* scheduled downtime */  || event.codeId == 16024 /*end of shift*/;
   }
 
-
   getDayRange(criteria:CriteriaEnum): DayRangeType {
     let endTime = this.currentDate.getTime();
     let endMoment = moment(endTime);
@@ -315,13 +314,17 @@ export class DowntimeData {
     };
   }
 
-  gatherDowntimeReasons(machineIds:any[], criteria:CriteriaEnum) : DowntimeReasonsType {
-    const dayRange:DayRangeType = this.getDayRange(criteria);
-    const events = this.data.downtimeEvents.filter(function(event:any){
+  gatherDowntimeEvents(machineIds:any[], dayRange:DayRangeType) : any[] {
+    return this.data.downtimeEvents.filter(function(event:any){
       return (machineIds.length==0 || machineIds.includes(event.machineId)) && 
         event.startTime >= dayRange.startTime && 
         event.startTime < dayRange.endTime;
     });
+  }
+
+  gatherDowntimeReasons(machineIds:any[], criteria:CriteriaEnum) : DowntimeReasonsType {
+    const dayRange:DayRangeType = this.getDayRange(criteria);
+    const events = this.gatherDowntimeEvents(machineIds, dayRange);
     let reasons: { [id: number] : number; } = {}
     events.forEach((event: any) => {
       if( event.codeId ) {
@@ -351,13 +354,8 @@ export class DowntimeData {
   }
 
   gatherDowntimeTrends(machineIds:any[], criteria:CriteriaEnum) : DowntimeTrendsType {
-    const dayRange:DayRangeType = this.getDayRange(criteria); 
-    const events = this.data.downtimeEvents.filter(function(event:any){
-      return (machineIds.length==0 || machineIds.includes(event.machineId)) && 
-        event.startTime >= dayRange.startTime && 
-        event.startTime < dayRange.endTime;
-    });
-  
+    const dayRange:DayRangeType = this.getDayRange(criteria);
+    const events = this.gatherDowntimeEvents(machineIds, dayRange);
     let scheduled:number[] = Array(dayRange.days>1?dayRange.days:24).fill(0);
     let unplanned:number[] = Array(dayRange.days>1?dayRange.days:24).fill(0);
 

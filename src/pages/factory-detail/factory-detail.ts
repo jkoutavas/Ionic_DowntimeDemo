@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { DowntimeDetailPage } from '../../pages/downtime-detail/downtime-detail';
+
 import { DowntimeData, DowntimeReasonsType, DowntimeTrendsType } from '../../providers/downtime-data';
 
 @IonicPage({
@@ -57,5 +59,9 @@ export class FactoryDetailPage {
 
   goToMachineDetail(machine: any) {
     this.navCtrl.push('MachineDetailPage', { machineId: machine.id });
+  }
+
+  clickCallback() {
+    this.navCtrl.push(DowntimeDetailPage, { title:this.factory.name, machineIds:this.machineIds });
   }
 }

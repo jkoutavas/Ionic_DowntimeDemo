@@ -51,6 +51,6 @@ export class CompanyDetailPage {
   }
 
   clickCallback() {
-    this.navCtrl.push(DowntimeDetailPage);
+    this.navCtrl.push(DowntimeDetailPage, { title:this.title, machineIds:[] });
   }
 }

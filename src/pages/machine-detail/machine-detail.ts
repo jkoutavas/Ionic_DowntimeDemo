@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { DowntimeDetailPage } from '../../pages/downtime-detail/downtime-detail';
+
 import { DowntimeData, DowntimeReasonsType, DowntimeTrendsType } from '../../providers/downtime-data';
 
 @IonicPage({
@@ -59,6 +61,10 @@ export class MachineDetailPage {
   get downtime(): any {
     const e = this.downtimeData.getDowntimeEvents().find((e: any) => e.id == this.machine.downtimeEventId);
     return this.downtimeData.getDowntimeCodes().find((d: any) => d.codeId == e.codeId);
+  }
+
+  clickCallback() {
+    this.navCtrl.push(DowntimeDetailPage, { title:this.machine.name, machineIds:[this.machine.id] });
   }
 }
 

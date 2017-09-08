@@ -1,3 +1,15 @@
 page-downtime-detail {
+    :host td, tr,th {
+        text-align:left;
+        font-size: 16px !important;
+    }
 
+    .ng2-smart-pagination {
+
+        font-size: 24px !important;
+    }
+    
+    .ng2-smart-pagination-nav {
+        justify-content: center;
+    }
 }

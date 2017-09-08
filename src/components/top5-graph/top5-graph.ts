@@ -54,11 +54,19 @@ export class Top5GraphComponent {
       tooltip: {
         valueSuffix: ' events'
       },
-       credits: {
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+      credits: {
         enabled: false
       },
       series: [{
         cursor: 'pointer',
+//        colorByPoint: true,
         name: "Downtime",
         data: []
       }]

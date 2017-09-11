@@ -70,9 +70,11 @@ export class TrendGraphComponent {
         data: []
       }, {
         name: "Unplanned",
+        color: "red",
         data: []
       }, {
         name: "Uptime",
+        color: "green",
         data: []
       }]
     }

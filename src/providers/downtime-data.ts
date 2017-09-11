@@ -133,10 +133,14 @@ export class DowntimeData {
       const s = moment(events[i].startTime);
       const diff = e.diff(s,'minutes');
       if( diff > 23*60 ) {
-        console.log("!!!!event "+i+" durtion is "+Math.round(diff/60)+" hours!!!!");
+        console.log("!!!!event "+i+" duration is "+Math.round(diff/60)+" hours!!!!");
         continue;
-      } else if( events[i].endTime < events[i].startTime ) {
+      } else if( diff < 0 ) {
         console.log("!!!!event "+i+" duration is negative!!!!");
+        continue;
+      } else if( diff == 0 ) {
+        console.log("!!!!event "+i+" duration is zero!!!!");
+        continue;
       }
       this.data.downtimeEvents.push(thisEvent);
       const nextEvent = events[i+1];
@@ -322,7 +326,7 @@ export class DowntimeData {
       return (machineIds.length==0 || machineIds.includes(event.machineId)) && 
         event.startTime >= dayRange.startTime && 
         event.startTime < dayRange.endTime &&
-        uptime || event.codeId != 0;
+        (uptime==true || event.codeId != 0);
     });
   }
 
@@ -362,6 +366,7 @@ export class DowntimeData {
     let unplanned:number[] = Array(dayRange.days>1?dayRange.days:24).fill(0);
     let uptime:number[] = Array(dayRange.days>1?dayRange.days:24).fill(0);
 
+    // first accumulate the minutes
     let current = moment(dayRange.startTime).endOf('day');
     let i = 0;
     let j = 0;
@@ -381,17 +386,27 @@ export class DowntimeData {
       const e = moment(event.endTime);
       const s = moment(event.startTime);
       const minutes = e.diff(s,'minutes');
-      const hours = Math.round(minutes/60);
       if( this.isScheduledDowntimeEvent(event) == true ) {
-        scheduled[i] = scheduled[i] + hours;
+        scheduled[i] = scheduled[i] + minutes;
       } else if ( event.codeId != 0 ) {
-        unplanned[i] = unplanned[i] + hours;
+        unplanned[i] = unplanned[i] + minutes;
       } else {
-        uptime[i] = uptime[i] + hours;
+        uptime[i] = uptime[i] + minutes;
       }
       j++;
     } 
     
+    // now turn minutes to hours
+    for( let i=0; i<scheduled.length; ++i ) {
+      scheduled[i] = Math.round(scheduled[i]/60);
+    }
+    for( let i=0; i<unplanned.length; ++i ) {
+      unplanned[i] = Math.round(unplanned[i]/60);
+    }
+    for( let i=0; i<uptime.length; ++i ) {
+      uptime[i] = Math.round(uptime[i]/60);
+    }
+
     const start = moment(dayRange.startTime);
     return {
       scheduled:scheduled, 

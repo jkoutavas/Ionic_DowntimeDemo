@@ -26,6 +26,11 @@ export class TrendGraphComponent {
         data: stats.unplanned,
         pointInterval: stats.interval
       }, true);
+      this.chart.series[2].update({
+        pointStart: stats.startDateUTC,
+        data: stats.uptime,
+        pointInterval: stats.interval
+      }, true);
     }
   }
 
@@ -65,6 +70,9 @@ export class TrendGraphComponent {
         data: []
       }, {
         name: "Unplanned",
+        data: []
+      }, {
+        name: "Uptime",
         data: []
       }]
     }

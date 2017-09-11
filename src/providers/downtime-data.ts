@@ -19,6 +19,7 @@ export type DowntimeReasonsType = {
 export type DowntimeTrendsType = {
   scheduled:number[],
   unplanned:number[],
+  uptime:number[],
   startDateUTC:number,
   interval:number
 }
@@ -316,18 +317,18 @@ export class DowntimeData {
     };
   }
 
-  gatherDowntimeEvents(machineIds:any[], dayRange:DayRangeType) : any[] {
+  gatherEvents(machineIds:any[], dayRange:DayRangeType, uptime:boolean) : any[] {
     return this.data.downtimeEvents.filter(function(event:any){
       return (machineIds.length==0 || machineIds.includes(event.machineId)) && 
         event.startTime >= dayRange.startTime && 
         event.startTime < dayRange.endTime &&
-        event.codeId != 0;
+        uptime || event.codeId != 0;
     });
   }
 
   gatherDowntimeReasons(machineIds:any[], criteria:CriteriaEnum) : DowntimeReasonsType {
     const dayRange:DayRangeType = this.getDayRange(criteria);
-    const events = this.gatherDowntimeEvents(machineIds, dayRange);
+    const events = this.gatherEvents(machineIds, dayRange, false);
     let reasons: { [id: number] : number; } = {}
     events.forEach((event: any) => {
       if( reasons[event.codeId] === undefined ) {
@@ -356,19 +357,16 @@ export class DowntimeData {
 
   gatherDowntimeTrends(machineIds:any[], criteria:CriteriaEnum) : DowntimeTrendsType {
     const dayRange:DayRangeType = this.getDayRange(criteria);
-    const events = this.gatherDowntimeEvents(machineIds, dayRange);
+    const events = this.gatherEvents(machineIds, dayRange, true);
     let scheduled:number[] = Array(dayRange.days>1?dayRange.days:24).fill(0);
     let unplanned:number[] = Array(dayRange.days>1?dayRange.days:24).fill(0);
+    let uptime:number[] = Array(dayRange.days>1?dayRange.days:24).fill(0);
 
     let current = moment(dayRange.startTime).endOf('day');
     let i = 0;
     let j = 0;
     while( j < events.length ) {
       const event = events[j];
-      if( event.codeId == 0 ) {
-        j++;
-        continue;
-      }
       if( event.startTime > current.valueOf() ) {
         i++;
         if( i == dayRange.days ) {
@@ -386,8 +384,10 @@ export class DowntimeData {
       const hours = Math.round(minutes/60);
       if( this.isScheduledDowntimeEvent(event) == true ) {
         scheduled[i] = scheduled[i] + hours;
-      } else {
+      } else if ( event.codeId != 0 ) {
         unplanned[i] = unplanned[i] + hours;
+      } else {
+        uptime[i] = uptime[i] + hours;
       }
       j++;
     } 
@@ -396,6 +396,7 @@ export class DowntimeData {
     return {
       scheduled:scheduled, 
       unplanned:unplanned,
+      uptime:uptime,
       startDateUTC:Date.UTC(start.get('year'), start.get('month'), start.get('date')),
       interval: (dayRange.days>1?24:1) * 3600 * 1000
     };

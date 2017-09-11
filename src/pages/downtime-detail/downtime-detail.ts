@@ -85,7 +85,7 @@ export class DowntimeDetailPage {
   
   updateGraphs() {
     const dayRange:DayRangeType = this.downtimeData.getDayRange(this.downtimeData.selectedReportCriteria.getValue());
-    const events = this.downtimeData.gatherDowntimeEvents(this.navParams.data.machineIds, dayRange);
+    const events = this.downtimeData.gatherEvents(this.navParams.data.machineIds, dayRange, false);
     let dataSource = [];
     for( let event of events ) {
       const machine = this.downtimeData.getMachines().find((m: any) => m.id == event.machineId);

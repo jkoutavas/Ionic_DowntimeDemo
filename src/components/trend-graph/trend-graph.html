@@ -1,2 +1,2 @@
 <!-- Generated template for the TrendGraphComponent component -->
-<div class="c"><chart [options]="options" (load)="saveInstance($event.context)"></chart></div>
+<div class="c"><chart [options]="options" (load)="saveInstance($event.context)" (click)="clickCallback.emit($event)"></chart></div>

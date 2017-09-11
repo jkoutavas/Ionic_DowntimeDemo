@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { DowntimeTrendsType } from '../../providers/downtime-data';
 
@@ -28,6 +28,9 @@ export class TrendGraphComponent {
       }, true);
     }
   }
+
+  @Output() clickCallback = new EventEmitter<any>();
+
   private options: Object;
   private chart: any = null;
 
@@ -57,6 +60,7 @@ export class TrendGraphComponent {
         enabled: false
       },
       series: [{
+        cursor: 'pointer',
         name: "Scheduled",
         data: []
       }, {

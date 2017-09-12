@@ -20,6 +20,10 @@ export class MachineDetailPage {
   downtimeCodes: DowntimeReasonsType;
   downtimeTrends: DowntimeTrendsType;
 
+  get title() {
+     return this.machine.name + " @ " + this.machine.factory.name;
+  }
+
   constructor(public downtimeData: DowntimeData, public navCtrl: NavController, public navParams: NavParams) {
     for (const machine of this.downtimeData.getMachines()) {
       if (machine && machine.id == this.navParams.data.machineId) {

@@ -38,7 +38,7 @@ export class MachineStatusComponent {
         if( event ) {
           if( event.startTime < time &&
               event.id && 
-              !this.downtimeData.isScheduledDowntimeEvent(event)) {
+              !this.downtimeData.isScheduledDowntimeCodeId(event.codeId)) {
             downtime += event.endTime - event.startTime;
           }
           uptime += event.endTime - event.startTime;

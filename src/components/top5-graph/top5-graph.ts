@@ -19,6 +19,10 @@ export class Top5GraphComponent {
     if( this.chart ) {
       this.chart.xAxis[0].categories = stats.descriptions.slice(0,5);
       this.chart.series[0].setData(stats.totals.slice(0,5), true, true);
+      let colors = [];
+      for( let isScheduled of stats.isScheduled.slice(0,5) )
+        colors.push(isScheduled==true?'#7cb5ec':"red");
+      this.chart.series[0].update({colors:colors},true)
     }
   }
 
@@ -66,7 +70,7 @@ export class Top5GraphComponent {
       },
       series: [{
         cursor: 'pointer',
-//        colorByPoint: true,
+        colorByPoint: true,
         name: "Downtime",
         data: []
       }]

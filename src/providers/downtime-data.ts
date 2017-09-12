@@ -12,6 +12,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
 export type DowntimeReasonsType = {
+  isScheduled:boolean[],
   descriptions:string[],
   totals:number[]
 }
@@ -268,8 +269,8 @@ export class DowntimeData {
     return new Date(this.data.downtimeEvents[this.eventIdx].endTime);
   }
 
-  isScheduledDowntimeEvent(event:any) : boolean {
-    return event.codeId == 15864 /* scheduled downtime */  || event.codeId == 16024 /*end of shift*/;
+  isScheduledDowntimeCodeId(codeId:number) : boolean {
+    return (codeId === 15864) /* scheduled downtime */  || (codeId === 16024) /*end of shift*/;
   }
 
   getDayRange(criteria:CriteriaEnum): DayRangeType {
@@ -349,14 +350,17 @@ export class DowntimeData {
     });
     
     let descriptions: string[] = [];
+    let isScheduled : boolean[] = [];
     let totals: number[] = [];
+    const me = this;
     downtimeCodes.forEach((pair: any[]) => {
       const code = this.data.downtimeCodes.find((d: any) => d.codeId == pair[0]);  
+      isScheduled.push(me.isScheduledDowntimeCodeId(code.codeId));
       descriptions.push(code.description);
       totals.push(pair[1]); 
     });
 
-    return {descriptions:descriptions, totals:totals};
+    return {isScheduled:isScheduled, descriptions:descriptions, totals:totals};
   }
 
   gatherDowntimeTrends(machineIds:any[], criteria:CriteriaEnum) : DowntimeTrendsType {
@@ -386,7 +390,7 @@ export class DowntimeData {
       const e = moment(event.endTime);
       const s = moment(event.startTime);
       const minutes = e.diff(s,'minutes');
-      if( this.isScheduledDowntimeEvent(event) == true ) {
+      if( this.isScheduledDowntimeCodeId(event.codeId) == true ) {
         scheduled[i] = scheduled[i] + minutes;
       } else if ( event.codeId != 0 ) {
         unplanned[i] = unplanned[i] + minutes;

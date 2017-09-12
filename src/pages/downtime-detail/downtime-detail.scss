@@ -4,16 +4,17 @@ page-downtime-detail {
         font-size: 16px !important;
     }
 
-    .ng2-smart-pagination {
+    .rowStyle {
+        background-color:#e8eaf6;
+    }
 
+    .ng2-smart-pagination {
         font-size: 24px !important;
     }
     
     .ng2-smart-pagination-nav {
+        display:flex;
         justify-content: center;
     }
-
-    .rowStyle {
-        background-color:#e8eaf6;
-    }
+    
 }

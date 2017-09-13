@@ -3,6 +3,7 @@ import { PopoverController } from 'ionic-angular';
 
 import { PopoverPage } from '../about-popover/about-popover';
 
+declare var require: any;
 const { version: appVersion } = require('../../../package.json')
 
 @Component({

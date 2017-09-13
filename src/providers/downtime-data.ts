@@ -6,6 +6,7 @@ import { UserData } from './user-data';
 
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
 
+declare var require: any;
 const moment = require('../../node_modules/moment/moment.js');
 
 import 'rxjs/add/operator/map';
@@ -365,50 +366,46 @@ export class DowntimeData {
 
   gatherDowntimeTrends(machineIds:any[], criteria:CriteriaEnum) : DowntimeTrendsType {
     const dayRange:DayRangeType = this.getDayRange(criteria);
+    const dayScale:boolean = dayRange.days > 1;
     const events = this.gatherEvents(machineIds, dayRange, true);
-    let scheduled:number[] = Array(dayRange.days>1?dayRange.days:24).fill(0);
-    let unplanned:number[] = Array(dayRange.days>1?dayRange.days:24).fill(0);
-    let uptime:number[] = Array(dayRange.days>1?dayRange.days:24).fill(0);
+    let scheduled:number[] = Array(dayScale?dayRange.days:24).fill(0);
+    let unplanned:number[] = Array(dayScale?dayRange.days:24).fill(0);
+    let uptime:number[] = Array(dayScale?dayRange.days:24).fill(dayScale?24*60:60);
 
     // first accumulate the minutes
-    let current = moment(dayRange.startTime).endOf('day');
-    let i = 0;
-    let j = 0;
-    while( j < events.length ) {
-      const event = events[j];
-      if( event.startTime > current.valueOf() ) {
-        i++;
-        if( i == dayRange.days ) {
-          break;
-        }
-        if( dayRange.days > 1 ) {
-          current.add(1,'days');
-        } else {
-          current.add(1,'hour');
-        }
+    const startOfDay = moment(dayRange.startTime).startOf('day');
+    for( const e of events ) {
+      const start = moment(e.startTime);
+      const i = start.diff(startOfDay,dayRange.days>0?'days':'hours');
+      const end = moment(e.endTime);
+      const minutes = end.diff(start,'minutes');
+      if( !dayScale && minutes > 60 ) {
+        continue;
       }
-      const e = moment(event.endTime);
-      const s = moment(event.startTime);
-      const minutes = e.diff(s,'minutes');
-      if( this.isScheduledDowntimeCodeId(event.codeId) == true ) {
+      if( this.isScheduledDowntimeCodeId(e.codeId) == true ) {
         scheduled[i] = scheduled[i] + minutes;
-      } else if ( event.codeId != 0 ) {
+        uptime[i] = uptime[i] - minutes;
+
+      } else if ( e.codeId != 0 ) {
         unplanned[i] = unplanned[i] + minutes;
-      } else {
-        uptime[i] = uptime[i] + minutes;
+        uptime[i] = uptime[i] - minutes;
+      } 
+      if( uptime[i] < 0 ) {
+        uptime[i] = 0;
       }
-      j++;
-    } 
+    }
     
-    // now turn minutes to hours
-    for( let i=0; i<scheduled.length; ++i ) {
-      scheduled[i] = Math.round(scheduled[i]/60);
-    }
-    for( let i=0; i<unplanned.length; ++i ) {
-      unplanned[i] = Math.round(unplanned[i]/60);
-    }
-    for( let i=0; i<uptime.length; ++i ) {
-      uptime[i] = Math.round(uptime[i]/60);
+    // now round things
+    if( dayScale ) {
+      for( let i=0; i<scheduled.length; ++i ) {
+        scheduled[i] = Math.round(scheduled[i]/60);
+      }
+      for( let i=0; i<unplanned.length; ++i ) {
+        unplanned[i] = Math.round(unplanned[i]/60);
+      }
+      for( let i=0; i<uptime.length; ++i ) {
+        uptime[i] = Math.round(uptime[i]/60);
+      }
     }
 
     const start = moment(dayRange.startTime);
@@ -417,7 +414,7 @@ export class DowntimeData {
       unplanned:unplanned,
       uptime:uptime,
       startDateUTC:Date.UTC(start.get('year'), start.get('month'), start.get('date')),
-      interval: (dayRange.days>1?24:1) * 3600 * 1000
+      interval:dayScale ? 24 : 1
     };
   }
 

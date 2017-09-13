@@ -76,21 +76,27 @@ export class TrendGraphComponent {
   
   updateGraph() {
     if( this.chart != undefined && this.downtimeTrends != undefined ) {
+      const label = this.downtimeTrends.interval==24?"hours":"minutes";
+      const miliseconds = this.downtimeTrends.interval * 3600 * 1000;
+      this.chart.yAxis[0].setTitle({text:label});
       this.chart.series[0].update({
         pointStart: this.downtimeTrends.startDateUTC,
         data: this.downtimeTrends.scheduled,
-        pointInterval: this.downtimeTrends.interval
-      }, true);
+        pointInterval: miliseconds
+      });
       this.chart.series[1].update({
         pointStart: this.downtimeTrends.startDateUTC,
         data: this.downtimeTrends.unplanned,
-        pointInterval: this.downtimeTrends.interval
-      }, true);
+        pointInterval: miliseconds
+      });
       this.chart.series[2].update({
         pointStart: this.downtimeTrends.startDateUTC,
         data: this.downtimeTrends.uptime,
-        pointInterval: this.downtimeTrends.interval
-      }, true);
+        pointInterval: miliseconds
+      });
+      this.chart.update({ tooltip: {
+        valueSuffix: ' '+label
+      }}, true);
     }
   }
 

@@ -20,7 +20,6 @@ export class DowntimeDetailPage {
 
   tableSettings = {
     noDataMessage: 'Loading data...',
-    hideSubHeader: true,
     actions: {
       add: false,
       edit: false,
@@ -33,30 +32,27 @@ export class DowntimeDetailPage {
     columns: {
       startTime: {
         title: 'Start Time',
-        filter: false,
         editable: false,
+        width: '16%',
         sortDirection: 'asc',
         type: 'custom', // it's custom because we sort by numeric value but display a string
         renderComponent: DateRendererComponent
       },
       duration: {
         title: 'Duration',
-        filter: false,
-        editable: false
+        editable: false,
+        width: '8%'
       },
       reason: {
         title: 'Reason',
-        filter: false,
         editable: false
       },
       machine: {
         title: 'Machine',
-        filter: false,
         editable: false
       },
       factory: {
         title: 'Factory',
-        filter: false,
         editable: false
       }
     }

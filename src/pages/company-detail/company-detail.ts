@@ -50,7 +50,7 @@ export class CompanyDetailPage {
     this.sub2.unsubscribe();
   }
 
-  clickCallback() {
+  gotoDowntimeDetails() {
     this.navCtrl.push(DowntimeDetailPage, { title:this.title, machineIds:[] });
   }
 }

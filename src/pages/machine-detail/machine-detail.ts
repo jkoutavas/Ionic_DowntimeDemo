@@ -67,7 +67,7 @@ export class MachineDetailPage {
     return this.downtimeData.getDowntimeCodes().find((d: any) => d.codeId == e.codeId);
   }
 
-  clickCallback() {
+  gotoDowntimeDetails() {
     this.navCtrl.push(DowntimeDetailPage, { title:this.machine.name, machineIds:[this.machine.id] });
   }
 }

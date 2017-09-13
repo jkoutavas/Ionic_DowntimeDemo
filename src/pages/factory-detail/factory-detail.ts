@@ -96,12 +96,12 @@ export class FactoryDetailPage {
     this.sub2.unsubscribe();
   }
 
-  selectMachineTableRow(event:any) {
+  gotoMachineDetails(event:any) {
     const machine = this.factory.machines.find((m:any) => m.name = event.data.machineName);
     this.navCtrl.push(MachineDetailPage, { machineId: machine.id });
   }
 
-  clickCallback() {
+  gotoDowntimeDetails() {
     this.navCtrl.push(DowntimeDetailPage, { title:this.factory.name, machineIds:this.machineIds });
   }
 }

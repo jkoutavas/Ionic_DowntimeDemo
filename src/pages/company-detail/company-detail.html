@@ -22,7 +22,7 @@
     <ion-card>
       <ion-card-content>
         <div class = "row" class="col-md-7" style="height:420px">
-          <top5-graph [downtimeCodes]="downtimeReasons" (clickCallback)="clickCallback($event)"></top5-graph>
+          <top5-graph [downtimeCodes]="downtimeReasons" (clickCallback)="gotoDowntimeDetails($event)"></top5-graph>
         </div>
       </ion-card-content>
     </ion-card>
@@ -30,7 +30,7 @@
     <ion-card>
       <ion-card-content class="card padding">
         <div class = "row" class="col-md-7" style="height:420px">
-          <trend-graph [downtimeTrends]="downtimeTrends" (clickCallback)="clickCallback($event)"></trend-graph>
+          <trend-graph [downtimeTrends]="downtimeTrends" (clickCallback)="gotoDowntimeDetails($event)"></trend-graph>
         </div>
       </ion-card-content>
     </ion-card>

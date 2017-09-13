@@ -13,22 +13,19 @@
     <img [src]="factory.profilePic" [alt]="factory.name"><br>
   </div>
 
-  <ion-card>
-  <ion-card-content>
-    <ng2-smart-table [settings]="tableSettings" [source]="dataSource" (userRowSelect)="gotoMachineDetails($event)"></ng2-smart-table>
-  </ion-card-content>
-</ion-card>
+  <h3>Schedules for {{factory.name}}:</h3>
+  <ol>
+    <li *ngFor="let sched of factory.schedules">
+      <div>shifts: {{sched.shiftHours.length}} / hours: 8 / days: {{sched.shiftDays.length}}</div>
+    </li>
+  </ol>
 
-<ion-card>
-  <ion-card-content>
-    <h3>Schedules:</h3>
-    <ol>
-      <li *ngFor="let sched of factory.schedules">
-        <div>shifts: {{sched.shiftHours.length}} / hours: 8 / days: {{sched.shiftDays.length}}</div>
-      </li>
-    </ol>
-  </ion-card-content>
-</ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ng2-smart-table [settings]="tableSettings" [source]="dataSource" (userRowSelect)="gotoMachineDetails($event)"></ng2-smart-table>
+      <p style="font-style: italic">Tap a row for machine's details</p>
+    </ion-card-content>
+  </ion-card>
 
   <ion-card>
     <ion-card-content>

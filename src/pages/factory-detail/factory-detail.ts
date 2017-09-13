@@ -32,7 +32,7 @@ export class FactoryDetailPage {
     rowClassFunction: (row:any) => { return row.index%2==0 ? 'rowStyle' : ''; },
     columns: {
       machineName: {
-        title: 'Machine Name',
+        title: 'Machine',
         filter: false,
         editable: false,
         sortDirection: 'asc',

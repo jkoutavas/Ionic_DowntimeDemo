@@ -13,15 +13,13 @@
     <img [src]="factory.profilePic" [alt]="factory.name"><br>
   </div>
 
+  <ion-card>
   <ion-card-content>
-    <h3>Machines:</h3>
-    <ol>
-      <li *ngFor="let machine of factory.machines">
-        <div>{{machine.name}}</div>
-      </li>
-    </ol>
+    <ng2-smart-table [settings]="tableSettings" [source]="dataSource" (userRowSelect)="selectMachineTableRow($event)"></ng2-smart-table>
   </ion-card-content>
+</ion-card>
 
+<ion-card>
   <ion-card-content>
     <h3>Schedules:</h3>
     <ol>
@@ -30,6 +28,7 @@
       </li>
     </ol>
   </ion-card-content>
+</ion-card>
 
   <ion-card>
     <ion-card-content>

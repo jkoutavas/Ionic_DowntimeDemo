@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { DowntimeDetailPage } from '../../pages/downtime-detail/downtime-detail';
+import { MachineDetailPage } from '../../pages/machine-detail/machine-detail';
 
 import { DowntimeData, DowntimeReasonsType, DowntimeTrendsType } from '../../providers/downtime-data';
 
@@ -20,6 +21,34 @@ export class FactoryDetailPage {
 
   downtimeReasons: DowntimeReasonsType;
   downtimeTrends: DowntimeTrendsType;
+
+  tableSettings = {
+    hideSubHeader: true,
+    actions: {
+      add: false,
+      edit: false,
+      delete: false
+    },
+    rowClassFunction: (row:any) => { return row.index%2==0 ? 'rowStyle' : ''; },
+    columns: {
+      machineName: {
+        title: 'Machine Name',
+        filter: false,
+        editable: false,
+        sortDirection: 'asc',
+        width: '20%'
+      },
+      status: {
+        title: 'Current Status',
+        filter: false,
+        editable: false,
+        type: 'html',
+        valuePrepareFunction: (value:any) => { return "<img 'width=32' height=32' src='assets/img/md-thumbs-"+value+".svg'>" }
+      }
+    }
+  };
+
+  dataSource: any[] = [];
 
   constructor(
     private dataProvider: DowntimeData, 
@@ -48,6 +77,16 @@ export class FactoryDetailPage {
   }
 
   updateGraphs() {
+    let dataSource:any[] = [];
+    this.factory.machines.forEach((machine: any) => {
+      dataSource.push(
+        {
+          machineName: machine.name,
+          status: machine.downtimeEventId==0 ? "up" : "down"
+        });
+    });
+    this.dataSource = dataSource;
+
     this.downtimeReasons = this.dataProvider.gatherDowntimeReasons(this.machineIds, this.dataProvider.selectedReportCriteria.getValue());
     this.downtimeTrends = this.dataProvider.gatherDowntimeTrends(this.machineIds, this.dataProvider.selectedReportCriteria.getValue());
   }
@@ -57,8 +96,9 @@ export class FactoryDetailPage {
     this.sub2.unsubscribe();
   }
 
-  goToMachineDetail(machine: any) {
-    this.navCtrl.push('MachineDetailPage', { machineId: machine.id });
+  selectMachineTableRow(event:any) {
+    const machine = this.factory.machines.find((m:any) => m.name = event.data.machineName);
+    this.navCtrl.push(MachineDetailPage, { machineId: machine.id });
   }
 
   clickCallback() {

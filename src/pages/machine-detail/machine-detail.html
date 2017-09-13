@@ -33,11 +33,11 @@
     </ng-template>
   </div>
   
-  <div text-center>
-    <machine-status [machine]="machine"></machine-status>
+  <div *ngIf="show" text-center>
+    <machine-status [status]="machineStatus"></machine-status>
   </div>
 
-  <ion-card>
+  <ion-card *ngIf="show">
     <ion-card-content>
       <div class = "row" class="col-md-7" style="height:420px">
         <top5-graph [downtimeCodes]="downtimeCodes"  (clickCallback)="gotoDowntimeDetails($event)"></top5-graph>
@@ -45,7 +45,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
+  <ion-card *ngIf="show">
     <ion-card-content class="card padding">
       <div class = "row" class="col-md-7" style="height:420px">
         <trend-graph [downtimeTrends]="downtimeTrends" (clickCallback)="gotoDowntimeDetails($event)"></trend-graph>

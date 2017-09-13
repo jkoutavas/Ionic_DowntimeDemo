@@ -1,15 +1,17 @@
 machine-status {
 
     ion-card {
-        max-width: 200px;
+        max-width: 350px;
         display: inline-block;
       }
 
     ion-card-content {
-        background-color: lightgray;
+        background-color: #67B98C;
     }
 
     .no-padding {
         padding: 3px !important;
+        font-size: 20px;
+        color: white;
     }
 }

@@ -19,6 +19,11 @@ export class MachineDetailPage {
 
   downtimeCodes: DowntimeReasonsType;
   downtimeTrends: DowntimeTrendsType;
+  machineStatus: any;
+
+  get show() {
+    return this.machineStatus != undefined && this.machineStatus.events.length > 0;
+  }
 
   get title() {
      return this.machine.name + " @ " + this.machine.factory.name;
@@ -44,8 +49,13 @@ export class MachineDetailPage {
   }
 
   updateGraphs() {
-    this.downtimeCodes = this.downtimeData.gatherDowntimeReasons([this.machine.id], this.downtimeData.selectedReportCriteria.getValue());
-    this.downtimeTrends = this.downtimeData.gatherDowntimeTrends([this.machine.id], this.downtimeData.selectedReportCriteria.getValue());
+    const criteria = this.downtimeData.selectedReportCriteria.getValue();
+
+    this.downtimeCodes = this.downtimeData.gatherDowntimeReasons([this.machine.id], criteria);
+    this.downtimeTrends = this.downtimeData.gatherDowntimeTrends([this.machine.id], criteria);
+
+    const events = this.downtimeData.gatherEvents([this.machine.id], this.downtimeData.getDayRange(criteria), true);
+    this.machineStatus = {machine:this.machine, events:events};
   }
 
   ngOnDestroy() {

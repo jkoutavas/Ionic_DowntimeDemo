@@ -14,45 +14,39 @@ import { DowntimeData } from '../../providers/downtime-data';
 })
 export class MachineStatusComponent {
 
-  @Input() machine:any;
-  
+  @Input()
+  set status(status:any) {
+    if( status === undefined ) {
+      return;
+    }
+
+    // compute maxiumum expected uptime (in seconds)
+    //const time = this.downtimeData.getClock();
+    let uptime : number = 0;
+    let downtime : number = 0;
+    for( const event of status.events ) {
+      if( event.id && 
+          !this.downtimeData.isScheduledDowntimeCodeId(event.codeId)) {
+        downtime += event.endTime - event.startTime;
+      }
+      uptime += event.endTime - event.startTime;
+    }
+
+    const ratio = (uptime / (downtime + uptime));
+    this.target = ""+status.machine.targetWeight;
+    const actual = status.machine.targetWeight * ratio;
+    this.actual = actual.toFixed(0);
+    const percent = ratio * 100;
+    this.efficiency = percent.toFixed(0);
+    this.downtime = this.dhms(downtime/1000,'d:hh:mm:ss');
+  }
+
   target: string;
   actual: string;
   efficiency: string;
   downtime: string;
- 
+
   constructor(private downtimeData: DowntimeData) {
-  }
-
-  ngOnInit() {
-    let me = this;
-    this.downtimeData.getClock().subscribe(time => {
-
-      // compute maxiumum expected uptime (in seconds)
-      let uptime : number = 0;
-      let downtime : number = 0;
-      const events = this.downtimeData.getDowntimeEvents().filter(function(event:any){
-        return event.machineId == me.machine.id;
-      });
-      for( const event of events ) {
-        if( event ) {
-          if( event.startTime < time &&
-              event.id && 
-              !this.downtimeData.isScheduledDowntimeCodeId(event.codeId)) {
-            downtime += event.endTime - event.startTime;
-          }
-          uptime += event.endTime - event.startTime;
-        }
-      }
-  
-      const ratio = (uptime / (downtime + uptime));
-      me.target = ""+me.machine.targetWeight;
-      const actual = me.machine.targetWeight * ratio;
-      me.actual = actual.toFixed(0);
-      const percent = ratio * 100;
-      me.efficiency = percent.toFixed(0);
-      me.downtime = this.dhms(downtime/1000,'d:hh:mm:ss');     
-    });
   }
 
   dhms(s:number, f:string) {

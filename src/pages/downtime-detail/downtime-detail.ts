@@ -29,7 +29,7 @@ export class DowntimeDetailPage {
     pager: {
       perPage: 100
     },
-    rowClassFunction: this.rowClassFunction,
+    rowClassFunction: (row:any) => { return row.index%2==0 ? 'rowStyle' : ''; },
     columns: {
       startTime: {
         title: 'Start Time',
@@ -103,10 +103,6 @@ export class DowntimeDetailPage {
       this.dataSource = dataSource;
   }
 
-  rowClassFunction(row:any) {
-    return row.index%2==0 ? 'rowStyle' : '';
-  }
-  
   formatTime(integer:number): any {
     if(integer < 10) {
         return "0" + integer; 

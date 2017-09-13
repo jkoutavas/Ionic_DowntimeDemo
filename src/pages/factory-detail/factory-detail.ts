@@ -31,19 +31,29 @@ export class FactoryDetailPage {
     },
     rowClassFunction: (row:any) => { return row.index%2==0 ? 'rowStyle' : ''; },
     columns: {
-      machineName: {
+      machine: {
         title: 'Machine',
         filter: false,
         editable: false,
-        sortDirection: 'asc',
+        sort:false,
         width: '20%'
       },
       status: {
+        title: '',
+        filter: false,
+        editable: false,
+        sort: false,
+        width: '5%',
+        type: 'html',
+        valuePrepareFunction: (value:any) => {
+          return "<img 'width=32' height=32' src='assets/img/md-thumbs-"+value+".svg'>"; 
+        }
+      },
+      reason: {
         title: 'Current Status',
         filter: false,
         editable: false,
-        type: 'html',
-        valuePrepareFunction: (value:any) => { return "<img 'width=32' height=32' src='assets/img/md-thumbs-"+value+".svg'>" }
+        sort: false
       }
     }
   };
@@ -79,10 +89,17 @@ export class FactoryDetailPage {
   updateGraphs() {
     let dataSource:any[] = [];
     this.factory.machines.forEach((machine: any) => {
+      let code = "Normal Operation";
+      if( machine.downtimeEventId != 0 ) {
+        const e = this.dataProvider.getDowntimeEvents().find((e: any) => e.id == machine.downtimeEventId);
+        const c = this.dataProvider.getDowntimeCodes().find((d: any) => d.codeId == e.codeId);
+        code = c.description;
+      }
       dataSource.push(
         {
-          machineName: machine.name,
-          status: machine.downtimeEventId==0 ? "up" : "down"
+          machine: machine.name,
+          status: machine.downtimeEventId==0 ? "up" : "down",
+          reason: code
         });
     });
     this.dataSource = dataSource;
@@ -97,7 +114,7 @@ export class FactoryDetailPage {
   }
 
   gotoMachineDetails(event:any) {
-    const machine = this.factory.machines.find((m:any) => m.name = event.data.machineName);
+    const machine = this.factory.machines.find((m:any) => m.name = event.data.machine);
     this.navCtrl.push(MachineDetailPage, { machineId: machine.id });
   }
 

@@ -29,11 +29,12 @@ page-factory-list {
     padding-left: 0;
     padding-right: 0;
   }
+
+  ion-thumbnail img  {
+    width:80% !important;
+    height : 80% !important;
+    max-width: 80px !important;  //any size
+    max-height: 80px !important; //any size
+  }
 }
 
-ion-thumbnail img  {
-  width:80% !important;
-  height : 80% !important;
-  max-width: 80px !important;  //any size
-  max-height: 80px !important; //any size
-}

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { DowntimeTrendsType } from '../../providers/downtime-data';
 
@@ -13,21 +13,19 @@ import { DowntimeTrendsType } from '../../providers/downtime-data';
   templateUrl: 'trend-graph.html'
 })
 export class TrendGraphComponent {
-  @Input()
-  set downtimeTrends(stats:DowntimeTrendsType) {
-    if( this.chart ) {
-      this.chart.series[0].update({
-        pointStart: stats.startDateUTC,
-        data: stats.scheduled,
-        pointInterval: stats.interval
-      }, true);
-      this.chart.series[1].update({
-        pointStart: stats.startDateUTC,
-        data: stats.unplanned,
-        pointInterval: stats.interval
-      }, true);
-    }
+
+  private _downtimeTrends: DowntimeTrendsType; 
+  @Input() 
+    set downtimeTrends(downtimeTrends: DowntimeTrendsType) {
+      this._downtimeTrends = downtimeTrends;
+      this.updateGraph();
   }
+  get downtimeTrends() {
+    return this._downtimeTrends;
+  }
+
+  @Output() clickCallback = new EventEmitter<any>();
+
   private options: Object;
   private chart: any = null;
 
@@ -57,17 +55,53 @@ export class TrendGraphComponent {
         enabled: false
       },
       series: [{
+        cursor: 'pointer',
         name: "Scheduled",
         data: []
       }, {
         name: "Unplanned",
+        color: "red",
+        data: []
+      }, {
+        name: "Uptime",
+        color: "green",
         data: []
       }]
     }
   }
 
+  ngAfterViewInit(): void {
+    this.updateGraph();
+  }
+  
+  updateGraph() {
+    if( this.chart != undefined && this.downtimeTrends != undefined ) {
+      const label = this.downtimeTrends.interval==24?"hours":"minutes";
+      const miliseconds = this.downtimeTrends.interval * 3600 * 1000;
+      this.chart.yAxis[0].setTitle({text:label});
+      this.chart.series[0].update({
+        pointStart: this.downtimeTrends.startDateUTC,
+        data: this.downtimeTrends.scheduled,
+        pointInterval: miliseconds
+      });
+      this.chart.series[1].update({
+        pointStart: this.downtimeTrends.startDateUTC,
+        data: this.downtimeTrends.unplanned,
+        pointInterval: miliseconds
+      });
+      this.chart.series[2].update({
+        pointStart: this.downtimeTrends.startDateUTC,
+        data: this.downtimeTrends.uptime,
+        pointInterval: miliseconds
+      });
+      this.chart.update({ tooltip: {
+        valueSuffix: ' '+label
+      }}, true);
+    }
+  }
+
   saveInstance(chartInstance: any) {
-    if( this.chart == null ) {
+    if( chartInstance != null ) {
       this.chart = chartInstance;
     }
   }

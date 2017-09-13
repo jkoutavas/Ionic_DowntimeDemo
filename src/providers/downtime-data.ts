@@ -6,12 +6,14 @@ import { UserData } from './user-data';
 
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
 
+declare var require: any;
 const moment = require('../../node_modules/moment/moment.js');
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
 export type DowntimeReasonsType = {
+  isScheduled:boolean[],
   descriptions:string[],
   totals:number[]
 }
@@ -19,6 +21,7 @@ export type DowntimeReasonsType = {
 export type DowntimeTrendsType = {
   scheduled:number[],
   unplanned:number[],
+  uptime:number[],
   startDateUTC:number,
   interval:number
 }
@@ -32,7 +35,7 @@ export enum CriteriaEnum {
   PrevMonth
 }
 
-type DayRangeType = {
+export type DayRangeType = {
   startTime:number,
   endTime:number, 
   days:number, 
@@ -132,7 +135,13 @@ export class DowntimeData {
       const s = moment(events[i].startTime);
       const diff = e.diff(s,'minutes');
       if( diff > 23*60 ) {
-        console.log("!!!!event "+i+" is "+diff+" hours!!!!!");
+        console.log("!!!!event "+i+" duration is "+Math.round(diff/60)+" hours!!!!");
+        continue;
+      } else if( diff < 0 ) {
+        console.log("!!!!event "+i+" duration is negative!!!!");
+        continue;
+      } else if( diff == 0 ) {
+        console.log("!!!!event "+i+" duration is zero!!!!");
         continue;
       }
       this.data.downtimeEvents.push(thisEvent);
@@ -261,10 +270,9 @@ export class DowntimeData {
     return new Date(this.data.downtimeEvents[this.eventIdx].endTime);
   }
 
-  isScheduledDowntimeEvent(event:any) : boolean {
-    return event.codeId == 15864 /* scheduled downtime */  || event.codeId == 16024 /*end of shift*/;
+  isScheduledDowntimeCodeId(codeId:number) : boolean {
+    return (codeId === 15864) /* scheduled downtime */  || (codeId === 16024) /*end of shift*/;
   }
-
 
   getDayRange(criteria:CriteriaEnum): DayRangeType {
     let endTime = this.currentDate.getTime();
@@ -315,21 +323,24 @@ export class DowntimeData {
     };
   }
 
-  gatherDowntimeReasons(machineIds:any[], criteria:CriteriaEnum) : DowntimeReasonsType {
-    const dayRange:DayRangeType = this.getDayRange(criteria);
-    const events = this.data.downtimeEvents.filter(function(event:any){
+  gatherEvents(machineIds:any[], dayRange:DayRangeType, uptime:boolean) : any[] {
+    return this.data.downtimeEvents.filter(function(event:any){
       return (machineIds.length==0 || machineIds.includes(event.machineId)) && 
         event.startTime >= dayRange.startTime && 
-        event.startTime < dayRange.endTime;
+        event.startTime < dayRange.endTime &&
+        (uptime==true || event.codeId != 0);
     });
+  }
+
+  gatherDowntimeReasons(machineIds:any[], criteria:CriteriaEnum) : DowntimeReasonsType {
+    const dayRange:DayRangeType = this.getDayRange(criteria);
+    const events = this.gatherEvents(machineIds, dayRange, false);
     let reasons: { [id: number] : number; } = {}
     events.forEach((event: any) => {
-      if( event.codeId ) {
-        if( reasons[event.codeId] === undefined ) {
-          reasons[event.codeId] = 1;
-        } else {
-          reasons[event.codeId]++;
-        }
+      if( reasons[event.codeId] === undefined ) {
+        reasons[event.codeId] = 1;
+      } else {
+        reasons[event.codeId]++;
       }
     });
     let downtimeCodes = Object.keys(reasons).map(function(key:any) {
@@ -340,65 +351,70 @@ export class DowntimeData {
     });
     
     let descriptions: string[] = [];
+    let isScheduled : boolean[] = [];
     let totals: number[] = [];
+    const me = this;
     downtimeCodes.forEach((pair: any[]) => {
       const code = this.data.downtimeCodes.find((d: any) => d.codeId == pair[0]);  
+      isScheduled.push(me.isScheduledDowntimeCodeId(code.codeId));
       descriptions.push(code.description);
       totals.push(pair[1]); 
     });
 
-    return {descriptions:descriptions, totals:totals};
+    return {isScheduled:isScheduled, descriptions:descriptions, totals:totals};
   }
 
   gatherDowntimeTrends(machineIds:any[], criteria:CriteriaEnum) : DowntimeTrendsType {
-    const dayRange:DayRangeType = this.getDayRange(criteria); 
-    const events = this.data.downtimeEvents.filter(function(event:any){
-      return (machineIds.length==0 || machineIds.includes(event.machineId)) && 
-        event.startTime >= dayRange.startTime && 
-        event.startTime < dayRange.endTime;
-    });
-  
-    let scheduled:number[] = Array(dayRange.days>1?dayRange.days:24).fill(0);
-    let unplanned:number[] = Array(dayRange.days>1?dayRange.days:24).fill(0);
+    const dayRange:DayRangeType = this.getDayRange(criteria);
+    const dayScale:boolean = dayRange.days > 1;
+    const events = this.gatherEvents(machineIds, dayRange, true);
+    let scheduled:number[] = Array(dayScale?dayRange.days:24).fill(0);
+    let unplanned:number[] = Array(dayScale?dayRange.days:24).fill(0);
+    let uptime:number[] = Array(dayScale?dayRange.days:24).fill(dayScale?24*60:60);
 
-    let current = moment(dayRange.startTime).endOf('day');
-    let i = 0;
-    let j = 0;
-    while( j < events.length ) {
-      const event = events[j];
-      if( event.codeId == 0 ) {
-        j++;
+    // first accumulate the minutes
+    const startOfDay = moment(dayRange.startTime).startOf('day');
+    for( const e of events ) {
+      const start = moment(e.startTime);
+      const i = start.diff(startOfDay,dayRange.days>0?'days':'hours');
+      const end = moment(e.endTime);
+      const minutes = end.diff(start,'minutes');
+      if( !dayScale && minutes > 60 ) {
         continue;
       }
-      if( event.startTime > current.valueOf() ) {
-        i++;
-        if( i == dayRange.days ) {
-          break;
-        }
-        if( dayRange.days > 1 ) {
-          current.add(1,'days');
-        } else {
-          current.add(1,'hour');
-        }
+      if( this.isScheduledDowntimeCodeId(e.codeId) == true ) {
+        scheduled[i] = scheduled[i] + minutes;
+        uptime[i] = uptime[i] - minutes;
+
+      } else if ( e.codeId != 0 ) {
+        unplanned[i] = unplanned[i] + minutes;
+        uptime[i] = uptime[i] - minutes;
+      } 
+      if( uptime[i] < 0 ) {
+        uptime[i] = 0;
       }
-      const e = moment(event.endTime);
-      const s = moment(event.startTime);
-      const minutes = e.diff(s,'minutes');
-      const hours = Math.round(minutes/60);
-      if( this.isScheduledDowntimeEvent(event) == true ) {
-        scheduled[i] = scheduled[i] + hours;
-      } else {
-        unplanned[i] = unplanned[i] + hours;
-      }
-      j++;
-    } 
+    }
     
+    // now round things
+    if( dayScale ) {
+      for( let i=0; i<scheduled.length; ++i ) {
+        scheduled[i] = Math.round(scheduled[i]/60);
+      }
+      for( let i=0; i<unplanned.length; ++i ) {
+        unplanned[i] = Math.round(unplanned[i]/60);
+      }
+      for( let i=0; i<uptime.length; ++i ) {
+        uptime[i] = Math.round(uptime[i]/60);
+      }
+    }
+
     const start = moment(dayRange.startTime);
     return {
       scheduled:scheduled, 
       unplanned:unplanned,
+      uptime:uptime,
       startDateUTC:Date.UTC(start.get('year'), start.get('month'), start.get('date')),
-      interval: (dayRange.days>1?24:1) * 3600 * 1000
+      interval:dayScale ? 24 : 1
     };
   }
 

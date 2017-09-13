@@ -1,6 +1,9 @@
 <ion-header>
   <ion-navbar>
     <ion-title>{{factory.name}}</ion-title>
+    <ion-buttons right>
+      <img src="assets/img/logo.png" width="40px" style="display:inline-block" height="40px"/>
+    </ion-buttons>
   </ion-navbar>
   <report-criteria></report-criteria>
 </ion-header>
@@ -10,28 +13,24 @@
     <img [src]="factory.profilePic" [alt]="factory.name"><br>
   </div>
 
-  <ion-card-content>
-    <h3>Machines:</h3>
-    <ol>
-      <li *ngFor="let machine of factory.machines">
-        <div>{{machine.name}}</div>
-      </li>
-    </ol>
-  </ion-card-content>
+  <h3>Schedules for {{factory.name}}:</h3>
+  <ol>
+    <li *ngFor="let sched of factory.schedules">
+      <div>shifts: {{sched.shiftHours.length}} / hours: 8 / days: {{sched.shiftDays.length}}</div>
+    </li>
+  </ol>
 
-  <ion-card-content>
-    <h3>Schedules:</h3>
-    <ol>
-      <li *ngFor="let sched of factory.schedules">
-        <div>shifts: {{sched.shiftHours.length}} / hours: 8 / days: {{sched.shiftDays.length}}</div>
-      </li>
-    </ol>
-  </ion-card-content>
+  <ion-card>
+    <ion-card-content>
+      <ng2-smart-table [settings]="tableSettings" [source]="dataSource" (userRowSelect)="gotoMachineDetails($event)"></ng2-smart-table>
+      <p style="font-style: italic">Tap a row for machine's details</p>
+    </ion-card-content>
+  </ion-card>
 
   <ion-card>
     <ion-card-content>
       <div class = "row" class="col-md-7" style="height:420px">
-        <top5-graph [downtimeCodes]="downtimeReasons"></top5-graph>
+        <top5-graph [downtimeCodes]="downtimeReasons" (clickCallback)="gotoDowntimeDetails($event)"></top5-graph>
       </div>
     </ion-card-content>
   </ion-card>
@@ -39,7 +38,7 @@
   <ion-card>
     <ion-card-content class="card padding">
       <div class = "row" class="col-md-7" style="height:420px">
-        <trend-graph [downtimeTrends]="downtimeTrends"></trend-graph>
+        <trend-graph [downtimeTrends]="downtimeTrends" (clickCallback)="gotoDowntimeDetails($event)"></trend-graph>
       </div>
     </ion-card-content>
   </ion-card>

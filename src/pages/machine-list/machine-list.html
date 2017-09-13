@@ -4,6 +4,9 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>{{title}}</ion-title>
+    <ion-buttons right>
+      <img src="assets/img/logo.png" width="40px" style="display:inline-block" height="40px"/>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -20,7 +23,7 @@
                   <img [src]="machine.profilePic" alt="machine profile pic">
                 </ion-thumbnail>
                 <ion-item>
-                  {{machine.name}}
+                  <div style="font-weight:bold;font-size:32px">{{machine.name}}</div>
                   <ion-icon *ngIf="machine.downtimeEventId==0; else downTemplate" class="thumbs-up" name="thumbs-up"></ion-icon>
                   <ng-template #downTemplate>
                     <ion-icon class="thumbs-down" name="thumbs-down"></ion-icon>
@@ -32,7 +35,7 @@
                   <img src="https://apps.ei3.com{{downtime(machine).imageURL}}">
                 </ion-avatar>
                 <div class="downtime-code">
-                  {{downtime(machine).code}}
+                  {{downtime(machine).description}}
                 </div>
               </ion-item>
             </ion-card-header>

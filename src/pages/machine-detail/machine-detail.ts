@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { DowntimeDetailPage } from '../../pages/downtime-detail/downtime-detail';
+
 import { DowntimeData, DowntimeReasonsType, DowntimeTrendsType } from '../../providers/downtime-data';
 
 @IonicPage({
@@ -17,6 +19,15 @@ export class MachineDetailPage {
 
   downtimeCodes: DowntimeReasonsType;
   downtimeTrends: DowntimeTrendsType;
+  machineStatus: any;
+
+  get show() {
+    return this.machineStatus != undefined && this.machineStatus.events.length > 0;
+  }
+
+  get title() {
+     return this.machine.name + " @ " + this.machine.factory.name;
+  }
 
   constructor(public downtimeData: DowntimeData, public navCtrl: NavController, public navParams: NavParams) {
     for (const machine of this.downtimeData.getMachines()) {
@@ -38,8 +49,13 @@ export class MachineDetailPage {
   }
 
   updateGraphs() {
-    this.downtimeCodes = this.downtimeData.gatherDowntimeReasons([this.machine.id], this.downtimeData.selectedReportCriteria.getValue());
-    this.downtimeTrends = this.downtimeData.gatherDowntimeTrends([this.machine.id], this.downtimeData.selectedReportCriteria.getValue());
+    const criteria = this.downtimeData.selectedReportCriteria.getValue();
+
+    this.downtimeCodes = this.downtimeData.gatherDowntimeReasons([this.machine.id], criteria);
+    this.downtimeTrends = this.downtimeData.gatherDowntimeTrends([this.machine.id], criteria);
+
+    const events = this.downtimeData.gatherEvents([this.machine.id], this.downtimeData.getDayRange(criteria), true);
+    this.machineStatus = {machine:this.machine, events:events};
   }
 
   ngOnDestroy() {
@@ -59,6 +75,10 @@ export class MachineDetailPage {
   get downtime(): any {
     const e = this.downtimeData.getDowntimeEvents().find((e: any) => e.id == this.machine.downtimeEventId);
     return this.downtimeData.getDowntimeCodes().find((d: any) => d.codeId == e.codeId);
+  }
+
+  gotoDowntimeDetails() {
+    this.navCtrl.push(DowntimeDetailPage, { title:this.machine.name, machineIds:[this.machine.id] });
   }
 }
 

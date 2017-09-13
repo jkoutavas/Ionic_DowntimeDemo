@@ -1,6 +1,6 @@
 {
   "company": {
-    "name": "Pacesetter Steel"
+    "name": "Spacely Sprockets"
   },
   "machines": [{
     "name": "Red Bud 1",
@@ -53,7 +53,7 @@
    }],
 
   "factories": [{
-    "name": "Marietta Service Center",
+    "name": "Chicago Gear Notching Site",
     "profilePic": "assets/img/factories/marietta.png",
     "id": 1,
     "schedules": [{
@@ -61,7 +61,7 @@
       "shiftDays": [1,2,3,4,5]
     }]
   }, {
-    "name": "Chicago Service Center",
+    "name": "Faribault Whirl Tilting Site",
     "profilePic": "assets/img/factories/chicago.png",
     "id": 2,
     "schedules": [{
@@ -69,7 +69,7 @@
       "shiftDays": [0,1,2,3,4,5,6]
     }]  
   }, {
-    "name": "Houston Service Center",
+    "name": "Fitchbury Sprocket Turning Site",
     "profilePic": "assets/img/factories/houston.png",
     "id": 3,
     "schedules": [{
@@ -80,17 +80,17 @@
 
   "map": [{
     "factoryId": 1,
-    "lat": 34.063524,
-    "lng": -84.517483,
+    "lat": 41.490338,
+    "lng": -87.578401,
     "center": true
   }, {
     "factoryId": 2,
-    "lat": 41.490338,
-    "lng": -87.578401
+    "lat": 44.3037725,
+    "lng": -93.2755481
   }, {
     "factoryId": 3,
-    "lat": 29.878499,
-    "lng": -95.594125
+    "lat": 42.5812005,
+    "lng": -71.8134511
   }],
 
   "downtimeCodes":[{

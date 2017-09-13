@@ -9,11 +9,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { IonicStorageModule } from '@ionic/storage';
 
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+
 import { DemoApp } from './app.component';
 
 import { AboutPage } from '../pages/about/about';
 import { PopoverPage } from '../pages/about-popover/about-popover';
 import { AccountPage } from '../pages/account/account';
+import { DowntimeDetailPage } from '../pages/downtime-detail/downtime-detail';
 import { LoginPage } from '../pages/login/login';
 import { MapPage } from '../pages/map/map';
 import { MachineDetailPage } from '../pages/machine-detail/machine-detail';
@@ -31,6 +34,7 @@ import { UserData } from '../providers/user-data';
 import { ChartModule } from 'angular2-highcharts';
 
 import { ClockComponent } from '../components/clock/clock';
+import { DateRendererComponent } from '../components/date-renderer/date-renderer';
 import { EventsShuttleComponent } from '../components/events-shuttle/events-shuttle';
 import { HealthGaugeComponent } from '../components/health-gauge/health-gauge';
 import { Top5GraphComponent } from '../components/top5-graph/top5-graph';
@@ -58,10 +62,12 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
     FactoryDetailPage,
     FactoryListPage,
     CompanyDetailPage,
+    DowntimeDetailPage,
     TabsPage,
     TutorialPage,
     HealthGaugeComponent,
     ClockComponent,
+    DateRendererComponent,
     EventsShuttleComponent,
     Top5GraphComponent,
     TrendGraphComponent,
@@ -91,6 +97,7 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
       ]
     }),
     IonicStorageModule.forRoot(),
+    Ng2SmartTableModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -106,8 +113,10 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
     FactoryDetailPage,
     FactoryListPage,
     CompanyDetailPage,
+    DowntimeDetailPage,
     TabsPage,
-    TutorialPage
+    TutorialPage,
+    DateRendererComponent
    ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { DowntimeDetailPage } from '../../pages/downtime-detail/downtime-detail';
+import { MachineDetailPage } from '../../pages/machine-detail/machine-detail';
+
 import { DowntimeData, DowntimeReasonsType, DowntimeTrendsType } from '../../providers/downtime-data';
 
 @IonicPage({
@@ -18,6 +21,44 @@ export class FactoryDetailPage {
 
   downtimeReasons: DowntimeReasonsType;
   downtimeTrends: DowntimeTrendsType;
+
+  tableSettings = {
+    hideSubHeader: true,
+    actions: {
+      add: false,
+      edit: false,
+      delete: false
+    },
+    rowClassFunction: (row:any) => { return row.index%2==0 ? 'rowStyle' : ''; },
+    columns: {
+      machine: {
+        title: 'Machine',
+        filter: false,
+        editable: false,
+        sort:false,
+        width: '20%'
+      },
+      status: {
+        title: '',
+        filter: false,
+        editable: false,
+        sort: false,
+        width: '5%',
+        type: 'html',
+        valuePrepareFunction: (value:any) => {
+          return "<img 'width=32' height=32' src='assets/img/md-thumbs-"+value+".svg'>"; 
+        }
+      },
+      reason: {
+        title: 'Current Status',
+        filter: false,
+        editable: false,
+        sort: false
+      }
+    }
+  };
+
+  dataSource: any[] = [];
 
   constructor(
     private dataProvider: DowntimeData, 
@@ -46,6 +87,23 @@ export class FactoryDetailPage {
   }
 
   updateGraphs() {
+    let dataSource:any[] = [];
+    this.factory.machines.forEach((machine: any) => {
+      let code = "Normal Operation";
+      if( machine.downtimeEventId != 0 ) {
+        const e = this.dataProvider.getDowntimeEvents().find((e: any) => e.id == machine.downtimeEventId);
+        const c = this.dataProvider.getDowntimeCodes().find((d: any) => d.codeId == e.codeId);
+        code = c.description;
+      }
+      dataSource.push(
+        {
+          machine: machine.name,
+          status: machine.downtimeEventId==0 ? "up" : "down",
+          reason: code
+        });
+    });
+    this.dataSource = dataSource;
+
     this.downtimeReasons = this.dataProvider.gatherDowntimeReasons(this.machineIds, this.dataProvider.selectedReportCriteria.getValue());
     this.downtimeTrends = this.dataProvider.gatherDowntimeTrends(this.machineIds, this.dataProvider.selectedReportCriteria.getValue());
   }
@@ -55,7 +113,12 @@ export class FactoryDetailPage {
     this.sub2.unsubscribe();
   }
 
-  goToMachineDetail(machine: any) {
-    this.navCtrl.push('MachineDetailPage', { machineId: machine.id });
+  gotoMachineDetails(event:any) {
+    const machine = this.factory.machines.find((m:any) => m.name = event.data.machine);
+    this.navCtrl.push(MachineDetailPage, { machineId: machine.id });
+  }
+
+  gotoDowntimeDetails() {
+    this.navCtrl.push(DowntimeDetailPage, { title:this.factory.name, machineIds:this.machineIds });
   }
 }

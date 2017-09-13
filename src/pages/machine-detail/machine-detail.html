@@ -1,6 +1,9 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{machine?.name}}</ion-title>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons right>
+      <img src="assets/img/logo.png" width="40px" style="display:inline-block" height="40px"/>
+    </ion-buttons>
   </ion-navbar>
   <report-criteria></report-criteria>
 </ion-header>
@@ -23,29 +26,29 @@
             <img src="https://apps.ei3.com{{downtime.imageURL}}">
           </ion-avatar>
           <div class = "downtime-code">
-            {{downtime.code}}
+            {{downtime.description}}
           </div>
         </ion-item>
       </ion-icon>
     </ng-template>
   </div>
   
-  <div text-center>
-    <machine-status [machine]="machine"></machine-status>
+  <div *ngIf="show" text-center>
+    <machine-status [status]="machineStatus"></machine-status>
   </div>
 
-  <ion-card>
+  <ion-card *ngIf="show">
     <ion-card-content>
       <div class = "row" class="col-md-7" style="height:420px">
-        <top5-graph [downtimeCodes]="downtimeCodes"></top5-graph>
+        <top5-graph [downtimeCodes]="downtimeCodes"  (clickCallback)="gotoDowntimeDetails($event)"></top5-graph>
       </div>
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
+  <ion-card *ngIf="show">
     <ion-card-content class="card padding">
       <div class = "row" class="col-md-7" style="height:420px">
-        <trend-graph [downtimeTrends]="downtimeTrends"></trend-graph>
+        <trend-graph [downtimeTrends]="downtimeTrends" (clickCallback)="gotoDowntimeDetails($event)"></trend-graph>
       </div>
     </ion-card-content>
   </ion-card>

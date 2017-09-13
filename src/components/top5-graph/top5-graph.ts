@@ -14,16 +14,14 @@ import { DowntimeReasonsType } from '../../providers/downtime-data';
 })
 export class Top5GraphComponent {
   
-  @Input()
-  set downtimeCodes(stats:DowntimeReasonsType) {
-    if( this.chart ) {
-      this.chart.xAxis[0].categories = stats.descriptions.slice(0,5);
-      this.chart.series[0].setData(stats.totals.slice(0,5), true, true);
-      let colors = [];
-      for( let isScheduled of stats.isScheduled.slice(0,5) )
-        colors.push(isScheduled==true?'#7cb5ec':"red");
-      this.chart.series[0].update({colors:colors},true)
-    }
+  private _downtimeCodes: DowntimeReasonsType; 
+  @Input() 
+    set downtimeCodes(downtimeCodes: DowntimeReasonsType) {
+      this._downtimeCodes = downtimeCodes;
+      this.updateGraph();
+  }
+  get downtimeCodes() {
+    return this._downtimeCodes;
   }
 
   @Output() clickCallback = new EventEmitter<any>();
@@ -77,8 +75,23 @@ export class Top5GraphComponent {
     }
   }
 
+  ngAfterViewInit(): void {
+    this.updateGraph();
+  }
+  
+  updateGraph() {
+    if( this.chart != undefined && this.downtimeCodes != undefined ) {
+      this.chart.xAxis[0].categories = this.downtimeCodes.descriptions.slice(0,5);
+      this.chart.series[0].setData(this.downtimeCodes.totals.slice(0,5), true, true);
+      let colors = [];
+      for( let isScheduled of this.downtimeCodes.isScheduled.slice(0,5) )
+        colors.push(isScheduled==true?'#7cb5ec':"red");
+      this.chart.series[0].update({colors:colors},true)
+    }
+  }
+
   saveInstance(chartInstance: any) {
-    if( this.chart == null ) {
+    if( chartInstance != null ) {
       this.chart = chartInstance;
     }
   }

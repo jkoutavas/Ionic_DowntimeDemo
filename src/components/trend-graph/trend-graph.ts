@@ -13,25 +13,15 @@ import { DowntimeTrendsType } from '../../providers/downtime-data';
   templateUrl: 'trend-graph.html'
 })
 export class TrendGraphComponent {
-  @Input()
-  set downtimeTrends(stats:DowntimeTrendsType) {
-    if( this.chart ) {
-      this.chart.series[0].update({
-        pointStart: stats.startDateUTC,
-        data: stats.scheduled,
-        pointInterval: stats.interval
-      }, true);
-      this.chart.series[1].update({
-        pointStart: stats.startDateUTC,
-        data: stats.unplanned,
-        pointInterval: stats.interval
-      }, true);
-      this.chart.series[2].update({
-        pointStart: stats.startDateUTC,
-        data: stats.uptime,
-        pointInterval: stats.interval
-      }, true);
-    }
+
+  private _downtimeTrends: DowntimeTrendsType; 
+  @Input() 
+    set downtimeTrends(downtimeTrends: DowntimeTrendsType) {
+      this._downtimeTrends = downtimeTrends;
+      this.updateGraph();
+  }
+  get downtimeTrends() {
+    return this._downtimeTrends;
   }
 
   @Output() clickCallback = new EventEmitter<any>();
@@ -80,8 +70,32 @@ export class TrendGraphComponent {
     }
   }
 
+  ngAfterViewInit(): void {
+    this.updateGraph();
+  }
+  
+  updateGraph() {
+    if( this.chart != undefined && this.downtimeTrends != undefined ) {
+      this.chart.series[0].update({
+        pointStart: this.downtimeTrends.startDateUTC,
+        data: this.downtimeTrends.scheduled,
+        pointInterval: this.downtimeTrends.interval
+      }, true);
+      this.chart.series[1].update({
+        pointStart: this.downtimeTrends.startDateUTC,
+        data: this.downtimeTrends.unplanned,
+        pointInterval: this.downtimeTrends.interval
+      }, true);
+      this.chart.series[2].update({
+        pointStart: this.downtimeTrends.startDateUTC,
+        data: this.downtimeTrends.uptime,
+        pointInterval: this.downtimeTrends.interval
+      }, true);
+    }
+  }
+
   saveInstance(chartInstance: any) {
-    if( this.chart == null ) {
+    if( chartInstance != null ) {
       this.chart = chartInstance;
     }
   }

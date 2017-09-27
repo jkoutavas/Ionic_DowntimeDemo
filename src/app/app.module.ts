@@ -31,8 +31,6 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 import { DowntimeData } from '../providers/downtime-data';
 import { UserData } from '../providers/user-data';
 
-import { ChartModule } from 'angular2-highcharts';
-
 import { ClockComponent } from '../components/clock/clock';
 import { DateRendererComponent } from '../components/date-renderer/date-renderer';
 import { EventsShuttleComponent } from '../components/events-shuttle/events-shuttle';
@@ -42,7 +40,17 @@ import { TrendGraphComponent } from '../components/trend-graph/trend-graph';
 import { MachineStatusComponent } from '../components/machine-status/machine-status';
 import { ReportCriteriaComponent } from '../components/report-criteria/report-criteria';
 
-declare var require : any; // need for the ChartModule import
+import { ChartModule } from 'angular2-highcharts';
+import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
+declare var require: any;
+export function highchartsFactory() {
+  let hc = require('highcharts');
+  let hcm = require('highcharts/highcharts-more');
+  let sg = require('highcharts/modules/solid-gauge');
+  hcm(hc);
+  sg(hc);
+  return hc;
+}
 
 export function startupServiceFactory(startupService: DowntimeData): Function {
     return () => startupService.load();
@@ -76,9 +84,7 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
   ],
   imports: [
     BrowserModule,
-    ChartModule.forRoot(require('highcharts'),
-      require('highcharts/highcharts-more'),
-      require('highcharts/modules/solid-gauge')),
+    ChartModule,
     HttpModule,
     IonicModule.forRoot(DemoApp, {}, {
       links: [
@@ -130,6 +136,11 @@ export function startupServiceFactory(startupService: DowntimeData): Function {
       useFactory: startupServiceFactory,
       deps: [DowntimeData],
       multi: true
+    },
+
+    {
+      provide: HighchartsStatic,
+      useFactory: highchartsFactory
     }
   ]
 })

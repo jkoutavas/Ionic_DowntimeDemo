@@ -1,6 +1,6 @@
 {
   "name": "DowntimeDemo",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Industrial Intelligence Demo App",
   "scripts": {
     "build": "ionic-app-scripts build",

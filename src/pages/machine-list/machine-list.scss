@@ -14,10 +14,10 @@ page-machine-list {
   }
 
   // Todo: remove when this issue https://github.com/ionic-team/ionic/issues/11212 is fixed
-  @media(min-width: 769px) {
+  @media(min-width: 350x) {
     .machine-card {
-      height: 370px;
-      width: 470px;
+      height: 500px;
+      width: 350px;
     }
   }
 
@@ -46,6 +46,10 @@ page-machine-list {
   
   .downtime-code {
     color: color($colors, healthRed, base);
+  }
+
+  .uptime-code {
+    color: color($colors, healthGreen, base);
   }
 
   .underline {
